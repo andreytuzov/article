@@ -4,7 +4,6 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -126,19 +125,35 @@ public class ConnectionPool implements Closeable {
 	}
 	
 	/**
-	 * Closing of connection, statements and resultSet
+	 * Closing of connection, statementы and resultSet
 	 * 
 	 * @param connection object for closing 
 	 * @param statement object for closing 
 	 * @param preparedStatement object for closing 
 	 * @param resultSet object for closing 
 	 */
-	public void closeConnection(Connection connection, Statement statement, PreparedStatement preparedStatement, ResultSet resultSet) {
+	public void closeConnection(Connection connection, Statement statement, ResultSet resultSet) {
 		if (connection != null) {
 			try {
 				free(connection);
 			} catch (ConnectionPoolException e) {
-				e.printStackTrace();
+				logger.error("Error closing connection", e);
+			}
+		}
+		
+		if (statement != null) {
+			try {
+				statement.close();
+			} catch (SQLException e) {
+				logger.error("Error closing statement", e);
+			}
+		}
+		
+		if (resultSet != null) {
+			try {
+				resultSet.close();
+			} catch (SQLException e) {
+				logger.error("Error closing resultSet", e);
 			}
 		}
 	}

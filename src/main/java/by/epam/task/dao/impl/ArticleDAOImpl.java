@@ -1,9 +1,9 @@
 package by.epam.task.dao.impl;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,14 +26,15 @@ public class ArticleDAOImpl implements ArticleDAO {
 	@Override
 	public List<Article> findAll() throws DaoException {
 		ConnectionPool pool = ConnectionPool.getInstance();
-		PreparedStatement preparedStatement = null;
 		Connection connection = null;
+		Statement statement = null;
 		ResultSet resultSet = null;
 		List<Article> articleList = null;
 		try {
 			connection = pool.take();
-			preparedStatement = connection.prepareStatement(CommandSQL.SELECT_BOOK);
-			resultSet = preparedStatement.getResultSet();
+
+			statement = connection.createStatement();
+			resultSet = statement.executeQuery(CommandSQL.SELECT_BOOK);
 			
 			articleList = new ArrayList<>();
 			Article article = null;
@@ -44,13 +45,14 @@ public class ArticleDAOImpl implements ArticleDAO {
 				article.setTitle(resultSet.getString(ColumnLabel.ARTICLE_TITLE));
 				article.setContent(resultSet.getString(ColumnLabel.ARTICLE_CONTENT));
 				article.setChangeTime(resultSet.getDate(ColumnLabel.ARTICLE_CHANGE_TIME));
+				articleList.add(article);
 			}
 		} catch (ConnectionPoolException e) {
 			throw new DaoException("Error completing method findAll", e);
 		} catch (SQLException e) {
 			throw new DaoException("Error completing sql code", e);
 		} finally {
-			pool.closeConnection(connection, null, preparedStatement, resultSet);
+			pool.closeConnection(connection, statement, resultSet);
 		}
 		return articleList;
 	}
