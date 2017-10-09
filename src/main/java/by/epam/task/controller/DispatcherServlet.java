@@ -1,6 +1,7 @@
 package by.epam.task.controller;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -41,14 +42,9 @@ public class DispatcherServlet extends HttpServlet {
 		
 		String action = request.getParameter("action");
 		CommandProvider commandProvider = CommandProvider.getInstance();
-		ICommand command = commandProvider.getCommand(action);
-		
-		logger.debug("command = " + command);
-		
+		ICommand command = commandProvider.getCommand(action);		
 		String page = command.execute(request);
-	 
-		logger.debug("page = " + page);
-		
+	
 		request.getRequestDispatcher(page).forward(request, response);
 	}
 	

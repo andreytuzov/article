@@ -22,7 +22,6 @@ public class CommandProvider {
 	}
 	
 	public ICommand getCommand(String key) {
-		logger.debug("key = " + key);
 		ICommand command = null;
 		try {
 			CommandName commandName = CommandName.valueOf(key.toUpperCase());

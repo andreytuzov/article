@@ -23,7 +23,7 @@ public class GetArticleList implements ICommand {
 		ArticleService articleService = serviceFactory.getArticleService();
 		try {
 			List<Article> listArticle = articleService.findAll();
-			request.setAttribute("listArticle", listArticle);
+			request.setAttribute("articles", listArticle);
 		} catch (ServiceException e) {
 			logger.error("error completing getArticleList ", e);
 		}
