@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import by.epam.task.controller.command.impl.GetArticleList;
+import by.epam.task.controller.command.impl.ViewArticleList;
 import by.epam.task.controller.command.impl.WrongRequest;
 
 public class CommandProvider {
@@ -14,21 +14,21 @@ public class CommandProvider {
 	
 	private static final CommandProvider instance = new CommandProvider(); 
 	
-	private final Map<CommandName, ICommand> repository = new HashMap<>();
+	private final Map<CommandName, ICommand> commands = new HashMap<>();
 	
 	private CommandProvider() {
-		repository.put(CommandName.WRONG_REQUEST, new WrongRequest());
-		repository.put(CommandName.GET_ARTICLE_LIST, new GetArticleList());
+		commands.put(CommandName.WRONG_REQUEST, new WrongRequest());
+		commands.put(CommandName.VIEW_ARTICLE_LIST, new ViewArticleList());
 	}
 	
 	public ICommand getCommand(String key) {
 		ICommand command = null;
 		try {
 			CommandName commandName = CommandName.valueOf(key.toUpperCase());
-			command = repository.get(commandName);
+			command = commands.get(commandName);
 		} catch (IllegalArgumentException | NullPointerException e) {
 			logger.error("Error getting command", e);
-			command = repository.get(CommandName.WRONG_REQUEST);
+			command = commands.get(CommandName.WRONG_REQUEST);
 		}
 		return command;
 	}

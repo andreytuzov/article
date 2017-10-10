@@ -15,8 +15,16 @@ public class ArticleServiceImpl implements ArticleService {
 	
 	@Override
 	public Article findOne(int id) throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
+		Article article = null;
+		try {
+			article = articleDAO.findOne(id);
+		} catch (DaoException e) {
+			throw new ServiceException("Error completing findOne", e);
+		}
+		if (article == null) {
+			throw new ServiceException("Article was not found");
+		}
+		return article;
 	}
 
 	@Override
@@ -28,7 +36,7 @@ public class ArticleServiceImpl implements ArticleService {
 			throw new ServiceException("Error completing findAll", e);
 		}
 		if (listArticle == null) {
-			throw new ServiceException("Articles was not found");
+			throw new ServiceException("Articles were not found");
 		}
 		return listArticle;
 	}

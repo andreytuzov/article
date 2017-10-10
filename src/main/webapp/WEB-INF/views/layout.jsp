@@ -14,7 +14,7 @@
    
 <body> 	
 	<header id="header">
-		<jsp:include page="/WEB-INF/views/template/header.jsp" flush="true"/> 
+		<jsp:include page="/WEB-INF/views/template/header.jsp"/> 
 	</header>
 
 	<section id="sidemenu">

@@ -1,6 +1,7 @@
 package by.epam.task.dao.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,8 +20,29 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 	@Override
 	public Article findOne(int id) throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		Article article = null;
+		try {
+			statement = connection.prepareStatement(CommandSQL.SELECT_BOOK_BY_ID);
+			resultSet = statement.executeQuery();
+			
+			if (resultSet.next()) {
+				article = new Article();
+				article.setId(resultSet.getInt(ColumnLabel.ARTICLE_ID));
+				article.setTitle(resultSet.getString(ColumnLabel.ARTICLE_TITLE));
+				article.setContent(resultSet.getString(ColumnLabel.ARTICLE_CONTENT));
+				article.setChangeTime(resultSet.getDate(ColumnLabel.ARTICLE_CHANGE_TIME));
+			}
+			
+		} catch (SQLException e) {
+			throw new DaoException("Error completing method findOne", e);
+		} finally {
+			pool.closeConnection(connection, statement, resultSet);
+		}
+		return article;
 	}
 
 	@Override

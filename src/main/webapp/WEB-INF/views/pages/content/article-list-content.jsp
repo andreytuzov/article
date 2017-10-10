@@ -15,7 +15,7 @@
 				</div>
 				<div class="article__brief">${article.content}</div>
 				<div class="article__management">
-					<a href="/article/view/${article.id}"><fmt:message key="prop.form.button.view"/></a>
+					<a href="/article?action=view_article&id=${article.id}"><fmt:message key="prop.form.button.view"/></a>
 					<a href="/article/modify/${article.id}"><fmt:message key="prop.form.button.edit"/></a>
 					<input class="article__checkbox" type="checkbox"/>
 				</div>
