@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `articledb` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `articledb`;
+CREATE DATABASE  IF NOT EXISTS `motordeport` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `motordeport`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: articledb
+-- Host: localhost    Database: motordeport
 -- ------------------------------------------------------
 -- Server version	5.5.23
 
@@ -18,29 +18,28 @@ USE `articledb`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `articles`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `articles`;
+DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `articles` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) NOT NULL,
-  `content` varchar(500) NOT NULL,
-  `change_time` datetime NOT NULL,
+  `username` varchar(25) NOT NULL,
+  `password` varchar(25) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `articles`
+-- Dumping data for table `users`
 --
 
-LOCK TABLES `articles` WRITE;
-/*!40000 ALTER TABLE `articles` DISABLE KEYS */;
-INSERT INTO `articles` VALUES (1,'Title news','Text news','2017-10-09 11:02:00'),(2,'Title news','Text news','2017-10-09 11:02:00'),(3,'Title news','Text news','2017-10-09 11:02:00'),(4,'Title news','Text news','2017-10-09 11:02:00'),(5,'Title news','Text news','2017-10-09 11:02:00'),(6,'Title news','Text news','2017-10-09 11:02:00'),(7,'Title news','Text news','2017-10-09 11:02:00'),(8,'Title news','Text news','2017-10-09 11:02:00');
-/*!40000 ALTER TABLE `articles` ENABLE KEYS */;
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'admin','admin'),(2,'andrey','customer'),(3,'ivan','customer'),(4,'eugene','customer');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-09 20:23:27
+-- Dump completed on 2017-10-13 17:11:47
