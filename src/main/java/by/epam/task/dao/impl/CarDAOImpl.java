@@ -8,33 +8,34 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import by.epam.task.dao.ArticleDAO;
+import by.epam.task.dao.CarDAO;
 import by.epam.task.dao.ColumnLabel;
-import by.epam.task.dao.CommandSQL;
 import by.epam.task.dao.connection.ConnectionPool;
 import by.epam.task.dao.exception.ConnectionPoolException;
 import by.epam.task.dao.exception.DaoException;
+import by.epam.task.dao.scheme.CarSQL;
 import by.epam.task.domain.Article;
+import by.epam.task.domain.Car;
 
-public class ArticleDAOImpl implements ArticleDAO {
+public class CarDAOImpl implements CarDAO {
 
 	@Override
-	public Article findOne(int id) throws DaoException {
+	public Car findOne(int id) throws DaoException {
 		ConnectionPool pool = ConnectionPool.getInstance();
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
-		Article article = null;
+		Car car = null;
 		try {
-			statement = connection.prepareStatement(CommandSQL.SELECT_BOOK_BY_ID);
+			statement = connection.prepareStatement(CarSQL.SELECT_BOOK_BY_ID);
 			resultSet = statement.executeQuery();
 			
 			if (resultSet.next()) {
-				article = new Article();
-				article.setId(resultSet.getInt(ColumnLabel.ARTICLE_ID));
-				article.setTitle(resultSet.getString(ColumnLabel.ARTICLE_TITLE));
-				article.setContent(resultSet.getString(ColumnLabel.ARTICLE_CONTENT));
-				article.setChangeTime(resultSet.getDate(ColumnLabel.ARTICLE_CHANGE_TIME));
+				car = new Article();
+				car.setId(resultSet.getInt(ColumnLabel.ARTICLE_ID));
+				car.setTitle(resultSet.getString(ColumnLabel.ARTICLE_TITLE));
+				car.setContent(resultSet.getString(ColumnLabel.ARTICLE_CONTENT));
+				car.setChangeTime(resultSet.getDate(ColumnLabel.ARTICLE_CHANGE_TIME));
 			}
 			
 		} catch (SQLException e) {
@@ -42,7 +43,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 		} finally {
 			pool.closeConnection(connection, statement, resultSet);
 		}
-		return article;
+		return car;
 	}
 
 	@Override
@@ -56,7 +57,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 			connection = pool.take();
 
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery(CommandSQL.SELECT_BOOK);
+			resultSet = statement.executeQuery(CarSQL.SELECT_BOOK);
 			
 			articleList = new ArrayList<>();
 			Article article = null;

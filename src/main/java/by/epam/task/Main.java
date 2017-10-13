@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
-import by.epam.task.dao.ArticleDAO;
+import by.epam.task.dao.CarDAO;
 import by.epam.task.dao.InitializingDAO;
 import by.epam.task.dao.exception.DaoException;
 import by.epam.task.dao.factory.DAOFactory;
@@ -20,7 +20,7 @@ public class Main {
 		DAOFactory daoFactory = new DAOFactory();
 		InitializingDAO initializingDAO = daoFactory.getInitializingDAO();
 		initializingDAO.init();
-		ArticleDAO articleDAO = daoFactory.getArticleDAO();
+		CarDAO articleDAO = daoFactory.getArticleDAO();
 		print(articleDAO.findAll());		
 	}
 	

@@ -2,7 +2,7 @@ package by.epam.task.service.impl;
 
 import java.util.List;
 
-import by.epam.task.dao.ArticleDAO;
+import by.epam.task.dao.CarDAO;
 import by.epam.task.dao.exception.DaoException;
 import by.epam.task.dao.factory.DAOFactory;
 import by.epam.task.domain.Article;
@@ -11,7 +11,7 @@ import by.epam.task.service.exception.ServiceException;
 
 public class ArticleServiceImpl implements ArticleService {
 
-	private final ArticleDAO articleDAO = DAOFactory.getInstance().getArticleDAO();
+	private final CarDAO articleDAO = DAOFactory.getInstance().getArticleDAO();
 	
 	@Override
 	public Article findOne(int id) throws ServiceException {
