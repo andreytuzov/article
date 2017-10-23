@@ -11,6 +11,9 @@ import org.apache.log4j.Logger;
 
 import by.epam.task.controller.command.CommandProvider;
 import by.epam.task.controller.command.ICommand;
+import by.epam.task.controller.command.exception.AccessCommandException;
+import by.epam.task.controller.manager.PageResourceManager;
+import by.epam.task.domain.Role;
 import by.epam.task.service.InitializingService;
 import by.epam.task.service.exception.ServiceException;
 import by.epam.task.service.factory.ServiceFactory;
@@ -38,12 +41,26 @@ public class DispatcherServlet extends HttpServlet {
 	
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getParameter("action");
-		CommandProvider commandProvider = CommandProvider.getInstance();
-		ICommand command = commandProvider.getCommand(action);		
-		String page = command.execute(request);
-		
-		request.getRequestDispatcher(page).forward(request, response);
+		try {
+			String action = request.getParameter("action");
+			Role role = (Role) request.getSession().getAttribute("role");
+			if (role == null) {
+				role = Role.ANONYMOUS;
+			}
+			
+			ICommand command = CommandProvider.getInstance().getCommand(action, role);
+			String page = command.execute(request, response);
+			if (page != null) {
+				if (page.indexOf("/WEB-INF/") == -1) {
+					response.sendRedirect(page);
+				} else {
+					request.getRequestDispatcher(page).forward(request, response);
+				}
+			}
+		} catch (AccessCommandException e) {
+			logger.error("Access error execution command", e);
+			response.sendRedirect(PageResourceManager.getUrlPath("page.url.user.login"));
+		}
 	}
 	
 	@Override

@@ -5,14 +5,15 @@ import java.util.Date;
 public class Deal {
 	
 	private int id;
-	private User user;
-	private Car car;
-	private Damage damage;
-	private DealState state;
 	private int bill;
 	private Date dateFrom;
 	private Date dateTo;
 	private String description;
+	
+	private User user;
+	private Car car;
+	private Damage damage;
+	private DealState state;
 	
 	public int getId() {
 		return id;

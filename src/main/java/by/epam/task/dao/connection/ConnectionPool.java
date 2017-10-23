@@ -157,4 +157,8 @@ public class ConnectionPool implements Closeable {
 			}
 		}
 	}
+	
+	public void closeConnection(Connection connection, Statement statement) {
+		closeConnection(connection, statement, null);
+	}
 }

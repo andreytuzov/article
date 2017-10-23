@@ -23,7 +23,6 @@ public class EncodingFilter implements Filter {
 		if (encoding != null) {
 			this.encoding = encoding;
 		}
-		logger.debug("encoding = " + encoding);
 	}
 	
 	@Override

@@ -2,15 +2,39 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<div>   
-	<c:url value="" var="link">
-		<c:param name="action" value="${param.action}"/>
-	</c:url> 
-	<h2 class="header__title">
-		<fmt:message key="prop.header.title"/>
-	</h2> 
-	<div class="header__language">  
-		<a href="${link}&lang=en"><fmt:message key="prop.header.language.english"/></a>
-		<a href="${link}&lang=ru"><fmt:message key="prop.header.language.russian"/></a>
+
+<nav class="navbar navbar-inverse navbar-static-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#"><fmt:message key="prop.header.title"/></a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li><a href="/motordepot/page?action=view_car_list"><fmt:message key="prop.header.button.carlist"/></a></li>
+			<li><a href="/motordepot/page?action=view_deal_list"><fmt:message key="prop.header.button.deallist"/></a></li>
+		</ul>
+		<c:if test="${admin}">
+			<a class="btn btn-danger navbar-btn" href="/motordepot/page?action=view_modify_car"><fmt:message key="prop.header.button.addcar"/></a>
+		</c:if>
+		<ul class="nav navbar-nav navbar-right">
+			<c:choose>
+				<c:when test="${empty user}">
+					<li><a href="/motordepot/page?action=view_sign_up"><span class="glyphicon glyphicon-user"></span> <fmt:message key="prop.header.authentication.signup"/></a></li>
+					<li><a href="/motordepot/page?action=view_log_in"><span class="glyphicon glyphicon-log-in"></span> <fmt:message key="prop.header.authentication.login"/></a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="#"><span class="glyphicon glyphicon-home"></span> ${user}</a></li>
+					<li><a href="/motordepot/page?action=log_out"><span class="glyphicon glyphicon-log-out"></span> <fmt:message key="prop.header.authentication.logout"/></a></li>
+				</c:otherwise>
+			</c:choose>
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"><fmt:message key="prop.header.language"/>
+				<span class="caret"></span></a>
+				
+				<ul class="dropdown-menu">
+					<li><a href="page/changelanguage?lang=en"><fmt:message key="prop.header.language.english"/></a></li>
+					<li><a href="page/changelanguage?lang=ru"><fmt:message key="prop.header.language.russian"/></a></li>
+				</ul>
+			</li>
+		</ul>
 	</div>
-</div>
+</nav>

@@ -4,12 +4,13 @@ public class Car {
 
 	private int id;
 	private String model;
+	private int year;
 	private float volume;
 	private int power;
-	private Discount discount;
-	private int prise;
+	private float prise;
 	private String description;
-	private int year;
+
+	private Discount discount;
 
 	public int getId() {
 		return id;
@@ -51,11 +52,11 @@ public class Car {
 		this.discount = discount;
 	}
 
-	public int getPrise() {
+	public float getPrise() {
 		return prise;
 	}
 
-	public void setPrise(int prise) {
+	public void setPrise(float prise) {
 		this.prise = prise;
 	}
 
