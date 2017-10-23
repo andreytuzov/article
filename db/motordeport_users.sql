@@ -25,11 +25,19 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(25) NOT NULL,
-  `password` varchar(25) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `u_id` int(11) NOT NULL AUTO_INCREMENT,
+  `u_nickname` varchar(25) NOT NULL,
+  `u_password` varchar(25) NOT NULL,
+  `u_role_id` int(11) NOT NULL,
+  `u_driven_experience` int(11) NOT NULL,
+  `u_phone` varchar(25) NOT NULL,
+  `u_email` varchar(50) NOT NULL,
+  `u_name` varchar(45) NOT NULL,
+  `u_lastname` varchar(45) NOT NULL,
+  PRIMARY KEY (`u_id`),
+  KEY `fk_users_roles_idx` (`u_role_id`),
+  CONSTRAINT `fk_users_roles` FOREIGN KEY (`u_role_id`) REFERENCES `roles` (`r_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +46,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','admin'),(2,'andrey','customer'),(3,'ivan','customer'),(4,'eugene','customer');
+INSERT INTO `users` VALUES (7,'misoft','724633',2,3,'+375 (29) 831-48-13','andrei.tuzau@gmail.com','Андрей','Тузов'),(8,'admin','admin',1,3,'+375 (29) 831-48-13','andrei.tuzau@gmail.com','Андрей','Тузов'),(9,'Sergey','12345678',2,3,'+375 (29) 123-12-12','tropicano@gmail.com','Sergey','Kovalev');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-13 17:11:47
+-- Dump completed on 2017-10-23 16:58:14

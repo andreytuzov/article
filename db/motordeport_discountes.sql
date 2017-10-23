@@ -25,14 +25,14 @@ DROP TABLE IF EXISTS `discountes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `discountes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  `only1day` int(11) NOT NULL,
-  `between2and7days` int(11) NOT NULL,
-  `between8and15days` int(11) NOT NULL,
-  `between16and30days` int(11) NOT NULL,
-  `from31days` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  `dn_id` int(11) NOT NULL AUTO_INCREMENT,
+  `dn_name` varchar(45) DEFAULT NULL,
+  `dn_only1day` int(11) NOT NULL,
+  `dn_between2and7days` int(11) NOT NULL,
+  `dn_between8and15days` int(11) NOT NULL,
+  `dn_between16and30days` int(11) NOT NULL,
+  `dn_from31days` int(11) NOT NULL,
+  PRIMARY KEY (`dn_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-13 17:11:47
+-- Dump completed on 2017-10-23 16:58:13

@@ -25,21 +25,21 @@ DROP TABLE IF EXISTS `deals`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `deals` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `car_id` int(11) NOT NULL,
-  `deal_state_id` int(11) NOT NULL,
-  `bill` decimal(10,0) NOT NULL,
-  `date_from` date NOT NULL,
-  `date_to` date NOT NULL,
-  `description` varchar(200) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_deals_cars_idx` (`car_id`),
-  KEY `fk_deals_users_idx` (`user_id`),
-  KEY `fk_deals_deal_states_idx` (`deal_state_id`),
-  CONSTRAINT `fk_deals_cars` FOREIGN KEY (`car_id`) REFERENCES `cars` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_deals_deal_states` FOREIGN KEY (`deal_state_id`) REFERENCES `deal_states` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_deals_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `d_id` int(11) NOT NULL AUTO_INCREMENT,
+  `d_user_id` int(11) NOT NULL,
+  `d_car_id` int(11) NOT NULL,
+  `d_deal_state_id` int(11) NOT NULL,
+  `d_bill` decimal(10,0) NOT NULL,
+  `d_date_from` date NOT NULL,
+  `d_date_to` date NOT NULL,
+  `d_description` varchar(200) NOT NULL,
+  PRIMARY KEY (`d_id`),
+  KEY `fk_deals_users_idx` (`d_user_id`),
+  KEY `fk_deals_cars_idx` (`d_car_id`),
+  KEY `fk_deals_deal_states_idx` (`d_deal_state_id`),
+  CONSTRAINT `fk_deals_cars` FOREIGN KEY (`d_car_id`) REFERENCES `cars` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_deals_deal_states` FOREIGN KEY (`d_deal_state_id`) REFERENCES `deal_states` (`ds_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_deals_users` FOREIGN KEY (`d_user_id`) REFERENCES `users` (`u_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -61,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-13 17:11:47
+-- Dump completed on 2017-10-23 16:58:13

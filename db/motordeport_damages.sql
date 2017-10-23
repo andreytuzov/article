@@ -25,11 +25,11 @@ DROP TABLE IF EXISTS `damages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `damages` (
-  `deal_id` int(11) NOT NULL,
-  `bill` decimal(10,0) NOT NULL,
-  `description` varchar(200) NOT NULL,
-  PRIMARY KEY (`deal_id`),
-  CONSTRAINT `dk_damages_deals` FOREIGN KEY (`deal_id`) REFERENCES `deals` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `dmg_deal_id` int(11) NOT NULL,
+  `dmg_bill` decimal(10,0) NOT NULL,
+  `dmg_description` varchar(200) NOT NULL,
+  PRIMARY KEY (`dmg_deal_id`),
+  CONSTRAINT `fk_damages_deals` FOREIGN KEY (`dmg_deal_id`) REFERENCES `deals` (`d_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-13 17:11:47
+-- Dump completed on 2017-10-23 16:58:14
