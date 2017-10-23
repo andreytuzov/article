@@ -13,10 +13,6 @@
 				<th><fmt:message key="prop.table.car.column.year"/></th>
 				<th><fmt:message key="prop.table.car.column.volume"/></th>
 				<th>Цена за час</th>
-				<th>Больше 1 дня</th>
-				<th>От 2 до 7 дней</th>
-				<th>От 8 до 15 дней</th>
-				<th>От 16 до 30 дней</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -43,10 +39,6 @@
 					<td>${car.year}</td>
 					<td>${car.volume} $</td>
 					<td>${car.prise} $</td>
-					<td>${(100 - car.discount.only1day) * car.prise / 100} $</td>
-					<td>${(100 - car.discount.between2and7days) * car.prise / 100} $</td>
-					<td>${(100 - car.discount.between8and15days) * car.prise / 100} $</td>
-					<td>${(100 - car.discount.between16and30days) * car.prise / 100} $</td>
 					<td><a href="/motordepot/page?action=view_modify_deal&carId=${car.id}">Арендовать</a></td>
 				</tr>
 			</c:forEach>	

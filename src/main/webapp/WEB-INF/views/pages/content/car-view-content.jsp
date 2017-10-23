@@ -39,12 +39,6 @@
 			</div>  
 		</div>
 		<div class="form-group">
-			<label class="control-label col-sm-2" for="discount"><fmt:message key="prop.table.car.column.discount"/></label>
-			<div class="col-sm-10">
-				<input type="text" readonly class="form-control" name="model" value="${car.discount.name}">
-			</div>  
-		</div>
-		<div class="form-group">
 			<label class="control-label col-sm-2" for="description"><fmt:message key="prop.table.car.column.description"/></label>
 			<div class="col-sm-10">
 				<textarea rows="10" readonly name="description" class="form-control">${car.description}</textarea>				

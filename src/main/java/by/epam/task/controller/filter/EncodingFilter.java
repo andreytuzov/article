@@ -9,11 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import org.apache.log4j.Logger;
-
 public class EncodingFilter implements Filter {
-	
-	private static final Logger logger = Logger.getLogger(EncodingFilter.class);
 	
 	private String encoding;
 	

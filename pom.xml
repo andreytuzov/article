@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>by.epam.task</groupId>
-	<artifactId>article</artifactId>
+	<artifactId>motordepot</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 

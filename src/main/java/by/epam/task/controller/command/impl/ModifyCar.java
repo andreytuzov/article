@@ -1,5 +1,7 @@
 package by.epam.task.controller.command.impl;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,7 +12,6 @@ import com.mysql.cj.core.util.StringUtils;
 import by.epam.task.controller.command.ICommand;
 import by.epam.task.controller.manager.PageResourceManager;
 import by.epam.task.domain.Car;
-import by.epam.task.domain.Discount;
 import by.epam.task.service.CarService;
 import by.epam.task.service.exception.ServiceException;
 import by.epam.task.service.factory.ServiceFactory;
@@ -35,7 +36,6 @@ public class ModifyCar implements ICommand {
 			int power = Integer.valueOf(request.getParameter("power"));
 			float prise = Float.valueOf(request.getParameter("prise"));
 			String description = request.getParameter("description");
-			int discountId = Integer.valueOf(request.getParameter("discount"));
 			
 			Car car = new Car();
 			car.setId(id);
@@ -46,17 +46,23 @@ public class ModifyCar implements ICommand {
 			car.setPrise(prise);
 			car.setDescription(description);
 			
-			Discount discount = new Discount();
-			discount.setId(discountId);
-			car.setDiscount(discount);
-			
 			id = carService.saveOrUpdate(car);
+			
+			response.getWriter().write("" + id); 
+			return null;
 		} catch (ServiceException e) {
 			logger.error("Error executing the ModifyCar command", e);
 		} catch (NumberFormatException e) {
 			logger.error("Incorrect data type", e);
+		} catch (IOException e) {
+			logger.error("Error execution response function", e);
 		}
-		return PageResourceManager.getUrlPath("page.url.car.view", "id=" + id);
+		try {
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		} catch (IOException e) {
+			logger.error("Error execution response function", e);
+		}
+		return null;
 	}
 	
 }

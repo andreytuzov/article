@@ -16,7 +16,6 @@ import by.epam.task.dao.exception.ConnectionPoolException;
 import by.epam.task.dao.exception.DAOException;
 import by.epam.task.dao.sql.CarSQL;
 import by.epam.task.domain.Car;
-import by.epam.task.domain.Discount;
 
 import static by.epam.task.dao.ColumnLabel.*;
 
@@ -47,15 +46,6 @@ public class CarDAOImpl implements CarDAO {
 				car.setPrise(resultSet.getInt(CAR_PRISE));
 				car.setVolume(resultSet.getFloat(CAR_VOLUME));
 				car.setYear(resultSet.getInt(CAR_YEAR));
-
-				Discount discount = new Discount();
-				discount.setId(resultSet.getInt(DISCOUNT_ID));
-				discount.setName(resultSet.getString(DISCOUNT_NAME));
-				discount.setOnly1day(resultSet.getInt(DISCOUNT_ONLY_1_DAY));
-				discount.setBetween2and7days(resultSet.getInt(DISCOUNT_BETWEEN_2_AND_7_DAYS));
-				discount.setBetween8and15days(resultSet.getInt(DISCOUNT_BETWEEN_8_AND_15_DAYS));
-				discount.setBetween16and30days(resultSet.getInt(DISCOUNT_BETWEEN_16_AND_30_DAYS));
-				car.setDiscount(discount);
 			}
 
 		} catch (SQLException e) {
@@ -81,7 +71,6 @@ public class CarDAOImpl implements CarDAO {
 
 			list = new ArrayList<>();
 			Car car = null;
-			Discount discount = null;
 			while (resultSet.next()) {
 				car = new Car();
 				car.setId(resultSet.getInt(CAR_ID));
@@ -92,14 +81,6 @@ public class CarDAOImpl implements CarDAO {
 				car.setVolume(resultSet.getFloat(CAR_VOLUME));
 				car.setYear(resultSet.getInt(CAR_YEAR));
 
-				discount = new Discount();
-				discount.setId(resultSet.getInt(DISCOUNT_ID));
-				discount.setName(resultSet.getString(DISCOUNT_NAME));
-				discount.setOnly1day(resultSet.getInt(DISCOUNT_ONLY_1_DAY));
-				discount.setBetween2and7days(resultSet.getInt(DISCOUNT_BETWEEN_2_AND_7_DAYS));
-				discount.setBetween8and15days(resultSet.getInt(DISCOUNT_BETWEEN_8_AND_15_DAYS));
-				discount.setBetween16and30days(resultSet.getInt(DISCOUNT_BETWEEN_16_AND_30_DAYS));
-				car.setDiscount(discount);
 				list.add(car);
 			}
 		} catch (ConnectionPoolException e) {
@@ -163,7 +144,6 @@ public class CarDAOImpl implements CarDAO {
 
 			statement.setString(CarSQL.INDEX_CAR_DESCRIPTION, car.getDescription());
 			statement.setString(CarSQL.INDEX_CAR_MODEL, car.getModel());
-			statement.setInt(CarSQL.INDEX_CAR_DISCOUNT_ID, car.getDiscount().getId());
 			statement.setInt(CarSQL.INDEX_CAR_POWER, car.getPower());
 			statement.setFloat(CarSQL.INDEX_CAR_PRISE, car.getPrise());
 			statement.setFloat(CarSQL.INDEX_CAR_VOLUME, car.getVolume());
@@ -195,7 +175,6 @@ public class CarDAOImpl implements CarDAO {
 			
 			statement.setString(CarSQL.INDEX_CAR_DESCRIPTION, car.getDescription());
 			statement.setString(CarSQL.INDEX_CAR_MODEL, car.getModel());
-			statement.setInt(CarSQL.INDEX_CAR_DISCOUNT_ID, car.getDiscount().getId());
 			statement.setInt(CarSQL.INDEX_CAR_POWER, car.getPower());
 			statement.setFloat(CarSQL.INDEX_CAR_PRISE, car.getPrise());
 			statement.setFloat(CarSQL.INDEX_CAR_VOLUME, car.getVolume());

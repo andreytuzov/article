@@ -21,94 +21,31 @@ $(document).ready(function() {
 		});
 	
 	
-	$("#carForm")
-		.bootstrapValidator({
-			feedbackIcons: {
-				valid: "glyphicon glyphicon-ok",
-				invalid: "glyphicon glyphicon-error",
-				validating: "glyphicon glyphicon-refresh"
-			},
-			fields: {
-				model: {
-					validators: {
-						stringLength: {
-							min: 10,
-							max: 70,
-							message: "The model must be more than 10 and less than 70 characters long"
-						},
-						notEmpty: {
-							message: "Please supply a model of the car"
-						}
-					}
-				},
-				year: {
-					validators: {
-						notEmpty: {
-							message: "The year is requeired and can't be empty"
-						},
-						regexp: {
-							regexp: /^(19|20)\d\d$/,
-							message: "The year must match 19xx or 20xx"
-						}
-					}
-				},
-				volume: {
-					validators: {
-						notEmpty: {
-							message: "Please supply a volume of the car"
-						},
-						regexp: {
-							regexp: /^\d\.\d$/,
-							message: "The volume must match: x.x"
-						}
-					}
-				},
-				power: {
-					validators: {
-						notEmpty: {
-							message: "Please supply a power of the car"
-						},
-						regexp: {
-							regexp: /^\d*$/,
-							message: "The power must be integer"
-						}
-					}
-				},
-				prise: {
-					validators: {
-						notEmpty: {
-							message: "Please supply a prise of the car"
-						},
-						regexp: {
-							regexp: /^\d+(\.\d)?$/,
-							message: "The prise must match (X).X"
-						}
-					}
-				},
-				discount: {
-					validators: {
-						notEmpty: {
-							message: "Please supply a discount of the car"
-						}
-					}
-				},
-				description: {
-					validators: {
-						stringLength: {
-							min: 10,
-							message: "Please enter at least 10 characters"
-						},
-						notEmpty: {
-							message: "Please supply a description of the car"
-						}
-					}
-				}
-			}
+	$("#carForm") 
+		.bootstrapValidator()
+		.on("success.form.bv", function(e) {
+			// Prevent form submission
+			e.preventDefault();
+			
+			// Get the form instance
+			var $form = $(e.target); 
+			
+			// Get the bootstrapValidator instance
+			var bv = $form.data("bootstrapValidator");
+			
+			// Use ajax to submit form data
+			$.post($form.attr("action"), $form.serialize())
+				.success(function(data) { 
+					$form.find(".alert").attr("class", "alert alert-success").show();
+					$form.find(".alert > span").html(messages["script.car.add.success"] 
+						+ " <a href='/motordepot/page?action=view_car&id=" + data + "'>" 
+						+ messages["script.car.add.view"] + "</a>");
+				}, "json")
+				.error(function() {
+					$form.find(".alert").attr("class", "alert alert-danger").show();
+					$form.find(".alert > span").html(messages["script.car.add.error"]);
+				});
 		});
-		
-	
-	
-	
 });
 
 function deleteCar(carId) {	
@@ -129,6 +66,10 @@ function deleteCar(carId) {
 	}
 }
 
+
+function hidden_message() {
+	$("#alert-message").css("display", "none");
+}
 
 function goback() {
 	location.href = document.referrer;

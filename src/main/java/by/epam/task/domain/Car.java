@@ -1,5 +1,9 @@
 package by.epam.task.domain;
 
+/**
+ * @author User
+ *
+ */
 public class Car {
 
 	private int id;
@@ -9,8 +13,6 @@ public class Car {
 	private int power;
 	private float prise;
 	private String description;
-
-	private Discount discount;
 
 	public int getId() {
 		return id;
@@ -44,14 +46,6 @@ public class Car {
 		this.power = power;
 	}
 
-	public Discount getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(Discount discount) {
-		this.discount = discount;
-	}
-
 	public float getPrise() {
 		return prise;
 	}
@@ -78,8 +72,7 @@ public class Car {
 
 	@Override
 	public String toString() {
-		return "Car [id=" + id + ", model=" + model + ", volume=" + volume + ", power=" + power + ", discount="
-				+ discount + ", prise=" + prise + ", description=" + description + ", year=" + year + "]";
+		return "Car [id=" + id + ", model=" + model + ", year=" + year + ", volume=" + volume + ", power=" + power
+				+ ", prise=" + prise + ", description=" + description + "]";
 	}
-
 }

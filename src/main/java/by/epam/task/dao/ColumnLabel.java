@@ -13,14 +13,6 @@ public class ColumnLabel {
 	public static final String CAR_PRISE = "c_prise";
 	public static final String CAR_DESCRIPTION = "c_description";
 	
-	public static final String DISCOUNT_ID = "dn_id";
-	public static final String DISCOUNT_NAME = "dn_name";
-	public static final String DISCOUNT_ONLY_1_DAY = "dn_only1day";
-	public static final String DISCOUNT_BETWEEN_2_AND_7_DAYS = "dn_between2and7days";
-	public static final String DISCOUNT_BETWEEN_8_AND_15_DAYS = "dn_between8and15days";
-	public static final String DISCOUNT_BETWEEN_16_AND_30_DAYS = "dn_between16and30days";
-	public static final String DISCOUNT_FROM_31_DAYS = "dn_from31days";
-	
 	public static final String USER_ID = "u_id";
 	public static final String USER_NICKNAME = "u_nickname";
 	public static final String USER_PASSWORD = "u_password";

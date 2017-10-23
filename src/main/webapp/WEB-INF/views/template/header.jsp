@@ -18,8 +18,8 @@
 		<ul class="nav navbar-nav navbar-right">
 			<c:choose>
 				<c:when test="${empty user}">
-					<li><a href="/motordepot/page?action=view_sign_up"><span class="glyphicon glyphicon-user"></span> <fmt:message key="prop.header.authentication.signup"/></a></li>
-					<li><a href="/motordepot/page?action=view_log_in"><span class="glyphicon glyphicon-log-in"></span> <fmt:message key="prop.header.authentication.login"/></a></li>
+					<li><a href="#" data-toggle="modal" data-target="#signupModal"><span class="glyphicon glyphicon-user"></span> <fmt:message key="prop.header.authentication.signup"/></a></li>
+					<li><a href="#" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> <fmt:message key="prop.header.authentication.login"/></a></li>
 				</c:when>
 				<c:otherwise>
 					<li><a href="#"><span class="glyphicon glyphicon-home"></span> ${user}</a></li>

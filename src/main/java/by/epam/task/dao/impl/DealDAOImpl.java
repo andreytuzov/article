@@ -49,7 +49,6 @@ public class DealDAOImpl implements DealDAO {
 				Car car = new Car();
 				car.setId(resultSet.getInt(CAR_ID));
 				car.setDescription(resultSet.getString(CAR_DESCRIPTION));
-				car.setDiscount(null);
 				car.setModel(resultSet.getString(CAR_MODEL));
 				car.setPower(resultSet.getInt(CAR_POWER));
 				car.setPrise(resultSet.getFloat(CAR_PRISE));
@@ -111,7 +110,6 @@ public class DealDAOImpl implements DealDAO {
 				Car car = new Car();
 				car.setId(resultSet.getInt(CAR_ID));
 				car.setDescription(resultSet.getString(CAR_DESCRIPTION));
-				car.setDiscount(null);
 				car.setModel(resultSet.getString(CAR_MODEL));
 				car.setPower(resultSet.getInt(CAR_POWER));
 				car.setPrise(resultSet.getFloat(CAR_PRISE));

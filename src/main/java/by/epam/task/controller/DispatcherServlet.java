@@ -1,6 +1,7 @@
 package by.epam.task.controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -41,6 +42,13 @@ public class DispatcherServlet extends HttpServlet {
 	
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Enumeration<String> keys = request.getParameterNames();
+		while (keys.hasMoreElements()) {
+			String key = keys.nextElement();
+			String value = request.getParameter(key); 
+			logger.debug(key + " : " + value);
+		}
+			
 		try {
 			String action = request.getParameter("action");
 			Role role = (Role) request.getSession().getAttribute("role");

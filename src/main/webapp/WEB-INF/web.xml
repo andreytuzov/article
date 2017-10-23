@@ -22,6 +22,11 @@
 		</init-param>
 	</filter>
 	
+	<filter>
+		<filter-name>languageScriptFilter</filter-name>
+		<filter-class>by.epam.task.controller.filter.LanguageScriptFilter</filter-class>
+	</filter>
+	
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
@@ -30,6 +35,11 @@
 	<filter-mapping>
 		<filter-name>languageFilter</filter-name>
 		<url-pattern>/page/changelanguage</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>languageScriptFilter</filter-name>
+		<url-pattern>/static/js/langscript.js</url-pattern>
 	</filter-mapping>
 	
 	<servlet>
