@@ -5,19 +5,24 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import by.epam.task.controller.command.exception.AccessCommandException;
+import by.epam.task.controller.command.exception.CommandException;
+import by.epam.task.controller.command.impl.CancelDeal;
+import by.epam.task.controller.command.impl.ConfirmDeal;
+import by.epam.task.controller.command.impl.DamageCar;
 import by.epam.task.controller.command.impl.DeleteCar;
 import by.epam.task.controller.command.impl.LogIn;
 import by.epam.task.controller.command.impl.LogOut;
 import by.epam.task.controller.command.impl.ModifyCar;
+import by.epam.task.controller.command.impl.ModifyDeal;
+import by.epam.task.controller.command.impl.PayDeal;
 import by.epam.task.controller.command.impl.SignUp;
-import by.epam.task.controller.command.impl.ViewCar;
-import by.epam.task.controller.command.impl.ViewCarList;
-import by.epam.task.controller.command.impl.ViewLogIn;
-import by.epam.task.controller.command.impl.ViewModifyCar;
-import by.epam.task.controller.command.impl.ViewModifyDeal;
-import by.epam.task.controller.command.impl.ViewSignUp;
 import by.epam.task.controller.command.impl.WrongRequest;
+import by.epam.task.controller.command.impl.view.ViewCar;
+import by.epam.task.controller.command.impl.view.ViewCarList;
+import by.epam.task.controller.command.impl.view.ViewLogIn;
+import by.epam.task.controller.command.impl.view.ViewModifyCar;
+import by.epam.task.controller.command.impl.view.ViewModifyDeal;
+import by.epam.task.controller.command.impl.view.ViewSignUp;
 import by.epam.task.domain.Role;
 
 public class CommandProvider {
@@ -44,16 +49,22 @@ public class CommandProvider {
 		commands.put(CommandName.LOG_OUT, new LogOut());
 		
 		commands.put(CommandName.VIEW_MODIFY_DEAL, new ViewModifyDeal());
+		commands.put(CommandName.MODIFY_DEAL, new ModifyDeal());
+		commands.put(CommandName.CONFIRM_DEAL, new ConfirmDeal());
+		commands.put(CommandName.CANCEL_DEAL, new CancelDeal());
+		commands.put(CommandName.PAY_DEAL, new PayDeal());
+		commands.put(CommandName.DAMAGE_CAR, new DamageCar());
+		
 	}
 	
-	public ICommand getCommand(String key, Role role) throws AccessCommandException{
+	public ICommand getCommand(String key, Role role) throws CommandException{
 		ICommand command = null;
 		try {
 			CommandName commandName = CommandName.valueOf(key.toUpperCase());
 			if (commandName.isAccessed(role)) {
 				command = commands.get(commandName);
 			} else {
-				throw new AccessCommandException("User don't have permission to access on this page");
+				throw new CommandException("User don't have permission to access on this page");
 			}
 		} catch (IllegalArgumentException | NullPointerException e) {
 			logger.error("Error getting command", e);

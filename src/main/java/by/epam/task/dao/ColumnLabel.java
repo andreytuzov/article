@@ -34,6 +34,7 @@ public class ColumnLabel {
 	public static final String DEAL_DATE_FROM = "d_date_from";
 	public static final String DEAL_DATE_TO = "d_date_to";
 	public static final String DEAL_DESCRIPTION = "d_description";
+	public static final String DEAL_CANCEL_REASON = "d_cancel_reason";
 	
 	public static final String DAMAGE_ID = "dmg_deal_id";
 	public static final String DAMAGE_BILL = "dmg_bill";

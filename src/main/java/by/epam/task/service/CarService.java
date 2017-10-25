@@ -14,5 +14,5 @@ public interface CarService {
 
 	void delete(List<Integer> listID) throws ServiceException;
 		
-	int saveOrUpdate(Car car) throws ServiceException;
+	int modify(Car car) throws ServiceException;
 }

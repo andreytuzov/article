@@ -27,6 +27,31 @@ public class DealDAOImpl implements DealDAO {
 	private final ConnectionPool pool = ConnectionPool.getInstance();
 	
 	@Override
+	public Deal findOne(int id) throws DAOException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		Deal deal = null;
+		try {
+			connection = pool.take();
+			statement = connection.prepareStatement(DealSQL.SELECT_DEAL_BY_ID);
+			statement.setInt(DealSQL.INDEX_DEAL_ID, id);
+			
+			resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				deal = readFromResultSet(resultSet);
+			}
+		} catch (ConnectionPoolException e) {
+			throw new DAOException("Error execution findOne method", e);
+		} catch (SQLException e) {
+			throw new DAOException("Error execution sql script", e);
+		} finally {
+			pool.closeConnection(connection, statement, resultSet);
+		}
+		return deal;
+	}
+	
+	@Override
 	public Deal findOneByNickname(String nickname) throws DAOException {
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -39,43 +64,8 @@ public class DealDAOImpl implements DealDAO {
 			
 			resultSet = statement.executeQuery();
 			if (resultSet.next()) {
-				deal = new Deal();
-				deal.setId(resultSet.getInt(DEAL_ID));
-				deal.setBill(resultSet.getInt(DEAL_BILL));
-				deal.setDateFrom(resultSet.getDate(DEAL_DATE_FROM));
-				deal.setDateTo(resultSet.getDate(DEAL_DATE_TO));
-				deal.setDescription(resultSet.getString(DEAL_DESCRIPTION));
-				
-				Car car = new Car();
-				car.setId(resultSet.getInt(CAR_ID));
-				car.setDescription(resultSet.getString(CAR_DESCRIPTION));
-				car.setModel(resultSet.getString(CAR_MODEL));
-				car.setPower(resultSet.getInt(CAR_POWER));
-				car.setPrise(resultSet.getFloat(CAR_PRISE));
-				car.setVolume(resultSet.getFloat(CAR_VOLUME));
-				car.setYear(resultSet.getInt(CAR_YEAR));
-				deal.setCar(car);
-				
-				User user = new User();
-				user.setId(resultSet.getInt(USER_ID));
-				user.setDrivenExperience(resultSet.getInt(USER_DRIVEN_EXPERIENCE));
-				user.setEmail(resultSet.getString(USER_EMAIL));
-				user.setLastname(resultSet.getString(USER_LASTNAME));
-				user.setName(resultSet.getString(USER_NAME));
-				user.setNickname(resultSet.getString(USER_NICKNAME));
-				user.setPhone(resultSet.getString(USER_PHONE));
-				deal.setUser(user);
-				
-				Damage damage = new Damage();
-				damage.setId(resultSet.getInt(DAMAGE_ID));
-				damage.setDescription(resultSet.getString(DAMAGE_DESCRIPTION));
-				damage.setBill(resultSet.getInt(DAMAGE_BILL));
-				deal.setDamage(damage);
-				
-				deal.setState(DealState.valueOf(resultSet.getString(DEAL_STATE_NAME)));
+				deal = readFromResultSet(resultSet);
 			}
-			
-			
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Error execution findOneByNickname method", e);
 		} catch (SQLException e) {
@@ -100,41 +90,7 @@ public class DealDAOImpl implements DealDAO {
 			list = new ArrayList<>();
 			Deal deal = null;
 			if (resultSet.next()) {
-				deal = new Deal();
-				deal.setId(resultSet.getInt(DEAL_ID));
-				deal.setBill(resultSet.getInt(DEAL_BILL));
-				deal.setDateFrom(resultSet.getDate(DEAL_DATE_FROM));
-				deal.setDateTo(resultSet.getDate(DEAL_DATE_TO));
-				deal.setDescription(resultSet.getString(DEAL_DESCRIPTION));
-				
-				Car car = new Car();
-				car.setId(resultSet.getInt(CAR_ID));
-				car.setDescription(resultSet.getString(CAR_DESCRIPTION));
-				car.setModel(resultSet.getString(CAR_MODEL));
-				car.setPower(resultSet.getInt(CAR_POWER));
-				car.setPrise(resultSet.getFloat(CAR_PRISE));
-				car.setVolume(resultSet.getFloat(CAR_VOLUME));
-				car.setYear(resultSet.getInt(CAR_YEAR));
-				deal.setCar(car);
-				
-				User user = new User();
-				user.setId(resultSet.getInt(USER_ID));
-				user.setDrivenExperience(resultSet.getInt(USER_DRIVEN_EXPERIENCE));
-				user.setEmail(resultSet.getString(USER_EMAIL));
-				user.setLastname(resultSet.getString(USER_LASTNAME));
-				user.setName(resultSet.getString(USER_NAME));
-				user.setNickname(resultSet.getString(USER_NICKNAME));
-				user.setPhone(resultSet.getString(USER_PHONE));
-				deal.setUser(user);
-				
-				Damage damage = new Damage();
-				damage.setId(resultSet.getInt(DAMAGE_ID));
-				damage.setDescription(resultSet.getString(DAMAGE_DESCRIPTION));
-				damage.setBill(resultSet.getInt(DAMAGE_BILL));
-				deal.setDamage(damage);
-				
-				deal.setState(DealState.valueOf(resultSet.getString(DEAL_STATE_NAME)));
-				
+				deal = readFromResultSet(resultSet);
 				list.add(deal);
 			}			
 		} catch (ConnectionPoolException e) {
@@ -177,7 +133,7 @@ public class DealDAOImpl implements DealDAO {
 			connection = pool.take();
 			statement = connection.prepareStatement(DealSQL.INSERT_DEAL, Statement.RETURN_GENERATED_KEYS);
 
-			statement.setInt(DealSQL.INDEX_DEAL_BILL, deal.getBill());
+			statement.setFloat(DealSQL.INDEX_DEAL_BILL, deal.getBill());
 			statement.setInt(DealSQL.INDEX_DEAL_CAR_ID, deal.getCar().getId());
 			statement.setString(DealSQL.INDEX_DEAL_DESCRIPTION, deal.getDescription());
 			statement.setInt(DealSQL.INDEX_DEAL_DEAL_STATE_ID, deal.getState().getIndex());
@@ -211,7 +167,8 @@ public class DealDAOImpl implements DealDAO {
 			connection = pool.take();
 			statement = connection.prepareStatement(DealSQL.UPDATE_DEAL);
 			
-			statement.setInt(DealSQL.INDEX_DEAL_BILL, deal.getBill());
+			statement.setInt(DealSQL.INDEX_DEAL_ID_UPDATE, deal.getId());
+			statement.setFloat(DealSQL.INDEX_DEAL_BILL, deal.getBill());
 			statement.setInt(DealSQL.INDEX_DEAL_CAR_ID, deal.getCar().getId());
 			statement.setString(DealSQL.INDEX_DEAL_DESCRIPTION, deal.getDescription());
 			statement.setInt(DealSQL.INDEX_DEAL_DEAL_STATE_ID, deal.getState().getIndex());
@@ -232,5 +189,41 @@ public class DealDAOImpl implements DealDAO {
 		return deal.getId();
 	}
 	
-	
+	private Deal readFromResultSet(ResultSet resultSet) throws SQLException {
+		Deal deal = new Deal();
+		deal.setId(resultSet.getInt(DEAL_ID));
+		deal.setBill(resultSet.getInt(DEAL_BILL));
+		deal.setDateFrom(resultSet.getDate(DEAL_DATE_FROM));
+		deal.setDateTo(resultSet.getDate(DEAL_DATE_TO));
+		deal.setDescription(resultSet.getString(DEAL_DESCRIPTION));
+		
+		Car car = new Car();
+		car.setId(resultSet.getInt(CAR_ID));
+		car.setDescription(resultSet.getString(CAR_DESCRIPTION));
+		car.setModel(resultSet.getString(CAR_MODEL));
+		car.setPower(resultSet.getInt(CAR_POWER));
+		car.setPrise(resultSet.getFloat(CAR_PRISE));
+		car.setVolume(resultSet.getFloat(CAR_VOLUME));
+		car.setYear(resultSet.getInt(CAR_YEAR));
+		deal.setCar(car);
+		
+		User user = new User();
+		user.setId(resultSet.getInt(USER_ID));
+		user.setDrivenExperience(resultSet.getInt(USER_DRIVEN_EXPERIENCE));
+		user.setEmail(resultSet.getString(USER_EMAIL));
+		user.setLastname(resultSet.getString(USER_LASTNAME));
+		user.setName(resultSet.getString(USER_NAME));
+		user.setNickname(resultSet.getString(USER_NICKNAME));
+		user.setPhone(resultSet.getString(USER_PHONE));
+		deal.setUser(user);
+		
+		Damage damage = new Damage();
+		damage.setId(resultSet.getInt(DAMAGE_ID));
+		damage.setDescription(resultSet.getString(DAMAGE_DESCRIPTION));
+		damage.setBill(resultSet.getInt(DAMAGE_BILL));
+		deal.setDamage(damage);
+		
+		deal.setState(DealState.valueOf(resultSet.getString(DEAL_STATE_NAME)));
+		return deal;
+	}
 }

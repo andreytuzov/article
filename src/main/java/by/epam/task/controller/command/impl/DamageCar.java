@@ -5,28 +5,31 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.epam.task.controller.command.ICommand;
 import by.epam.task.controller.command.exception.CommandException;
-import by.epam.task.service.CarService;
+import by.epam.task.service.DealService;
 import by.epam.task.service.exception.ServiceException;
 import by.epam.task.service.factory.ServiceFactory;
 
 import static by.epam.task.controller.validator.Validator.*;
 
-public class DeleteCar implements ICommand {
-	
+public class DamageCar implements ICommand {
+
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-		CarService carService = ServiceFactory.getInstance().getCarService();
-		// Getting info
+		DealService dealService = ServiceFactory.getInstance().getDealService();
+		// Getting user entered info
 		String id = request.getParameter("id");
+		String bill = request.getParameter("damage_bill");
+		String description = request.getParameter("damage_description");
 		// Data validation
-		if (!isValidInt(id)) {
+		if (!isValidInt(id) || !isValidFloat(bill) || !isValidString(description, 10, 200)) {
 			throw new CommandException("Incorrect request data");
 		}
 		try {
-			carService.delete(Integer.valueOf(id));
+			dealService.addDamage(Integer.valueOf(id), Float.valueOf(bill), description);
 		} catch (ServiceException e) {
-			throw new CommandException("Error execution the deleteCar command", e);
+			throw new CommandException("Error execution the damageCar command", e); 
 		}
 		return null;
 	}
+
 }

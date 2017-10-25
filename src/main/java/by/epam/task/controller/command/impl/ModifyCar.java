@@ -5,63 +5,43 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-
-import com.mysql.cj.core.util.StringUtils;
-
 import by.epam.task.controller.command.ICommand;
-import by.epam.task.controller.manager.PageResourceManager;
+import by.epam.task.controller.command.exception.CommandException;
 import by.epam.task.domain.Car;
 import by.epam.task.service.CarService;
 import by.epam.task.service.exception.ServiceException;
 import by.epam.task.service.factory.ServiceFactory;
 
+import static by.epam.task.controller.validator.Validator.*;
+
 public class ModifyCar implements ICommand {
 
-	private static final Logger logger = Logger.getLogger(ModifyCar.class);
-	
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		ServiceFactory serviceFactory = ServiceFactory.getInstance();
-		CarService carService = serviceFactory.getCarService();
-		Integer id = 0;
-		try {
-			String strId = request.getParameter("id");
-			if (!StringUtils.isNullOrEmpty(strId)) {
-				id = Integer.valueOf(request.getParameter("id"));
-			}
-			String model = request.getParameter("model");
-			int year = Integer.valueOf(request.getParameter("year"));
-			float volume = Float.valueOf(request.getParameter("volume"));
-			int power = Integer.valueOf(request.getParameter("power"));
-			float prise = Float.valueOf(request.getParameter("prise"));
-			logger.debug("prise = " + prise);
-			String description = request.getParameter("description");
-			
-			Car car = new Car();
-			car.setId(id);
-			car.setModel(model);
-			car.setYear(year);
-			car.setVolume(volume);
-			car.setPower(power);
-			car.setPrise(prise);
-			car.setDescription(description);
-			
-			id = carService.saveOrUpdate(car);
-			
-			response.getWriter().write("" + id); 
-			return null;
-		} catch (ServiceException e) {
-			logger.error("Error executing the ModifyCar command", e);
-		} catch (NumberFormatException e) {
-			logger.error("Incorrect data type", e);
-		} catch (IOException e) {
-			logger.error("Error execution response function", e);
+	public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+		CarService carService = ServiceFactory.getInstance().getCarService();
+		// Getting user entered info
+		String id = request.getParameter("id");
+		String model = request.getParameter("model");
+		String year = request.getParameter("year");
+		String volume = request.getParameter("volume");
+		String power = request.getParameter("power");
+		String prise = request.getParameter("prise");
+		String description = request.getParameter("description");
+		// Data validation
+		if ((isValidString(id) && !isValidInt(id)) || !isValidString(model, 5, 70) || !isValidYear(year) || !isValidFloat(volume) 
+				|| !isValidInt(power) || !isValidFloat(prise) || !isValidString(description)) {
+			throw new CommandException("Incorrect request data");
 		}
+		// Creating car object
+		Car car = new Car(isValidString(id) ? Integer.valueOf(id) : 0, 
+				model, Integer.valueOf(year), Float.valueOf(volume), Integer.valueOf(power), Float.valueOf(prise), description);
 		try {
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			int carId = carService.modify(car);
+			response.getWriter().write("" + carId); 
+		} catch (ServiceException e) {
+			throw new CommandException("Error executing the ModifyCar command", e);
 		} catch (IOException e) {
-			logger.error("Error execution response function", e);
+			throw new CommandException("Error execution response function", e);
 		}
 		return null;
 	}

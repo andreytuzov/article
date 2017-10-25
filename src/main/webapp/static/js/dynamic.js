@@ -55,12 +55,23 @@ $(document).ready(function() {
 	
 	$("#dealForm")
 		.bootstrapValidator()
-		on("status.field.bv", function(e, data) {
+		.on('status.field.bv', function(e, data) {
 			var $form = $(e.target),
-				
-			
-			
-		});
+				$tabPane = data.element.parents('.tab-pane'),
+				validator = data.bv,
+				tabId = $tabPane.attr("id");
+			if (tabId) {
+				var $icon = $("a[href='#" + tabId + "'][data-toggle='tab']").parent().find("i");
+				 
+				if (data.status == validator.STATUS_INVALID) {
+					$icon.removeClass("glyphicon-ok").addClass("glyphicon-remove");
+				} else if (data.status == validator.STATUS_VALID) {
+					var isValidTab = validator.isValidContainer($tabPane);
+					$icon.removeClass("glyphicon-remove glyphicon-ok")
+						.addClass(isValidTab ? "glyphicon-ok" : "glyphicon-remove");
+				}
+			}
+        });
 });
 
 

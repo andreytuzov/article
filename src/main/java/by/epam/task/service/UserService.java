@@ -10,5 +10,7 @@ public interface UserService {
 
 	List<User> findAll() throws ServiceException;
 	
-	int insert(User user, String password) throws ServiceException;	
+	int add(User user, String password) throws ServiceException;
+	
+	User findOne(int id) throws ServiceException;
 }

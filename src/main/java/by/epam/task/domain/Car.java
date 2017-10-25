@@ -14,6 +14,23 @@ public class Car {
 	private float prise;
 	private String description;
 
+	public Car() {
+	}
+
+	public Car(int id, String model, int year, float volume, int power, float prise, String description) {
+		this.id = id;
+		this.model = model;
+		this.year = year;
+		this.volume = volume;
+		this.power = power;
+		this.prise = prise;
+		this.description = description;
+	}
+
+	public Car(int id) {
+		this.id = id;
+	}
+
 	public int getId() {
 		return id;
 	}

@@ -60,7 +60,7 @@ public class CarServiceImpl implements CarService {
 	}
 
 	@Override
-	public int saveOrUpdate(Car car) throws ServiceException {
+	public int modify(Car car) throws ServiceException {
 		int id = car.getId();
 		try {
 			if (id == 0 || null == carDAO.findOne(id)) {
@@ -72,7 +72,7 @@ public class CarServiceImpl implements CarService {
 				throw new ServiceException("Save or update error");
 			}
 		} catch (DAOException e) {
-			throw new ServiceException("Error executing the saveOrUpdate method", e);
+			throw new ServiceException("Error executing the modify method", e);
 		}
 		return id;
 	}

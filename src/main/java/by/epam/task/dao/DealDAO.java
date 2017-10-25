@@ -6,6 +6,9 @@ import by.epam.task.dao.exception.DAOException;
 import by.epam.task.domain.Deal;
 
 public interface DealDAO {
+	
+	Deal findOne(int id) throws DAOException;
+	
 	Deal findOneByNickname(String nickname) throws DAOException;
 
 	List<Deal> findAll() throws DAOException;

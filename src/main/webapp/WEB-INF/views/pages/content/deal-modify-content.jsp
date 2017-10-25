@@ -3,14 +3,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="page-header">
-	<h3>Добавление заказа аренды</h3>
+	<h3>Форма заказа аренды</h3>
 </div>
 
-<div class="col-sm-10">
+<div class="col-sm-10"> 
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="#main-tab" data-toggle="tab">Main <i class="fa"></i></a>
-		<li><a href="#cancel-tab" data-toggle="tab">Cancel <i class="fa"></i></a></li>
-		<li><a href="#damage-tab" data-toggle="tab">Damage <i class="fa"></i></a></li>
+		<li class="active"><a href="#main-tab" data-toggle="tab">Main <i class="glyphicon"></i></a>
+		<li><a href="#cancel-tab" data-toggle="tab">Cancel <i class="glyphicon"></i></a></li>
+		<li><a href="#damage-tab" data-toggle="tab">Damage <i class="glyphicon"></i></a></li>
 	</ul>
  
 	<form id="dealForm" class="form-horizontal" action="/motordepot/page?action=modify_deal" method="post" style="margin-top: 20px;"
@@ -25,7 +25,7 @@
 			<div class="tab-pane active" id="main-tab">
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="dateFrom">DATE FROM</label>
-					<div class="col-sm-3">
+					<div class="col-sm-10">
 						<div class="input-group date" id="dateFromPicker">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 							<input type="datetime" required class="form-control" name="dateFrom" value="${deal.dateFrom}"
@@ -35,7 +35,7 @@
 				</div>
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="dateTo">DATE TO</label>
-					<div class="col-sm-3">
+					<div class="col-sm-10">
 						<div class="input-group date" id="dateToPicker">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 							<input type="datetime" required class="form-control" name="dateTo" value="${deal.dateTo}"
@@ -45,7 +45,7 @@
 				</div>
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="bill">BILL</label>
-					<div class="col-sm-3">
+					<div class="col-sm-10">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
 							<input id="totalBill" type="text" id="bill" readonly class="form-control" name="bill" 

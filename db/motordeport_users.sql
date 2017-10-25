@@ -32,12 +32,12 @@ CREATE TABLE `users` (
   `u_driven_experience` int(11) NOT NULL,
   `u_phone` varchar(25) NOT NULL,
   `u_email` varchar(50) NOT NULL,
-  `u_name` varchar(45) NOT NULL,
-  `u_lastname` varchar(45) NOT NULL,
+  `u_name` varchar(30) NOT NULL,
+  `u_lastname` varchar(30) NOT NULL,
   PRIMARY KEY (`u_id`),
   KEY `fk_users_roles_idx` (`u_role_id`),
   CONSTRAINT `fk_users_roles` FOREIGN KEY (`u_role_id`) REFERENCES `roles` (`r_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (7,'misoft','724633',2,3,'+375 (29) 831-48-13','andrei.tuzau@gmail.com','Андрей','Тузов'),(8,'admin','admin',1,3,'+375 (29) 831-48-13','andrei.tuzau@gmail.com','Андрей','Тузов'),(9,'Sergey','12345678',2,3,'+375 (29) 123-12-12','tropicano@gmail.com','Sergey','Kovalev');
+INSERT INTO `users` VALUES (7,'misoft','724633',2,3,'+375 (29) 831-48-13','andrei.tuzau@gmail.com','Андрей','Тузов'),(8,'admin','admin',1,3,'+375 (29) 831-48-13','andrei.tuzau@gmail.com','Андрей','Тузов'),(9,'Sergey','12345678',2,3,'+375 (29) 123-12-12','tropicano@gmail.com','Sergey','Kovalev'),(10,'hello','hello',2,5,'298314813','misoft10@mail.ru','Andrey','Ivanovich');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-24  0:04:50
+-- Dump completed on 2017-10-26  0:37:23

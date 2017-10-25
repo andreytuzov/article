@@ -3,8 +3,17 @@ package by.epam.task.domain;
 public class Damage {
 
 	private int id;
-	private int bill;
+	private float bill;
 	private String description;
+
+	public Damage() {
+	}
+
+	public Damage(int id, float bill, String description) {
+		this.id = id;
+		this.bill = bill;
+		this.description = description;
+	}
 
 	public int getId() {
 		return id;
@@ -14,11 +23,11 @@ public class Damage {
 		this.id = id;
 	}
 
-	public int getBill() {
+	public float getBill() {
 		return bill;
 	}
 
-	public void setBill(int bill) {
+	public void setBill(float bill) {
 		this.bill = bill;
 	}
 

@@ -12,8 +12,9 @@ import org.apache.log4j.Logger;
 
 import by.epam.task.controller.command.CommandProvider;
 import by.epam.task.controller.command.ICommand;
-import by.epam.task.controller.command.exception.AccessCommandException;
+import by.epam.task.controller.command.exception.CommandException;
 import by.epam.task.controller.manager.PageResourceManager;
+import by.epam.task.controller.validator.Validator;
 import by.epam.task.domain.Role;
 import by.epam.task.service.InitializingService;
 import by.epam.task.service.exception.ServiceException;
@@ -40,22 +41,31 @@ public class DispatcherServlet extends HttpServlet {
 		}
 	}
 	
-	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	// TODO to create a listener
+	private void requestListener(HttpServletRequest request) {
 		Enumeration<String> keys = request.getParameterNames();
 		while (keys.hasMoreElements()) {
 			String key = keys.nextElement();
 			String value = request.getParameter(key); 
 			logger.debug(key + " : " + value);
 		}
-			
+	}
+
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		requestListener(request);
+		// Getting data
+		String action = request.getParameter("action");
+		Role role = (Role) request.getSession().getAttribute("role");
+		// Data validation
+		if (!Validator.isValidString(action)) {
+			logger.error("Action must not be empty");
+			request.getRequestDispatcher(PageResourceManager.getPagePath("page.name.error")).forward(request, response);
+		}
+		if (role == null) {
+			role = Role.ANONYMOUS;
+		}
 		try {
-			String action = request.getParameter("action");
-			Role role = (Role) request.getSession().getAttribute("role");
-			if (role == null) {
-				role = Role.ANONYMOUS;
-			}
-			
 			ICommand command = CommandProvider.getInstance().getCommand(action, role);
 			String page = command.execute(request, response);
 			if (page != null) {
@@ -65,9 +75,9 @@ public class DispatcherServlet extends HttpServlet {
 					request.getRequestDispatcher(page).forward(request, response);
 				}
 			}
-		} catch (AccessCommandException e) {
-			logger.error("Access error execution command", e);
-			response.sendRedirect(PageResourceManager.getUrlPath("page.url.user.login"));
+		} catch (CommandException e) {
+			logger.error("Error execution a command", e);
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 	}
 	

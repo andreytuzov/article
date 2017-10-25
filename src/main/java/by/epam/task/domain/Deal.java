@@ -3,18 +3,36 @@ package by.epam.task.domain;
 import java.util.Date;
 
 public class Deal {
-	
+
 	private int id;
-	private int bill;
+	private float bill;
 	private Date dateFrom;
 	private Date dateTo;
 	private String description;
-	
+	private String reason;
+
 	private User user;
 	private Car car;
 	private Damage damage;
 	private DealState state;
 	
+	public Deal() {
+	}
+	
+	public Deal(int id, float bill, Date dateFrom, Date dateTo, String description, String reason, User user, Car car,
+			Damage damage, DealState state) {
+		this.id = id;
+		this.bill = bill;
+		this.dateFrom = dateFrom;
+		this.dateTo = dateTo;
+		this.description = description;
+		this.reason = reason;
+		this.user = user;
+		this.car = car;
+		this.damage = damage;
+		this.state = state;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -47,11 +65,11 @@ public class Deal {
 		this.state = state;
 	}
 
-	public int getBill() {
+	public float getBill() {
 		return bill;
 	}
 
-	public void setBill(int bill) {
+	public void setBill(float bill) {
 		this.bill = bill;
 	}
 
@@ -87,11 +105,19 @@ public class Deal {
 		this.damage = damage;
 	}
 
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
 	@Override
 	public String toString() {
-		return "Deal [id=" + id + ", user=" + user + ", car=" + car + ", state=" + state + ", bill=" + bill
-				+ ", dateFrom=" + dateFrom + ", dateTo=" + dateTo + ", description=" + description + ", damage="
-				+ damage + "]";
+		return "Deal [id=" + id + ", bill=" + bill + ", dateFrom=" + dateFrom + ", dateTo=" + dateTo + ", description="
+				+ description + ", reason=" + reason + ", user=" + user + ", car=" + car + ", damage=" + damage
+				+ ", state=" + state + "]";
 	}
 
 }

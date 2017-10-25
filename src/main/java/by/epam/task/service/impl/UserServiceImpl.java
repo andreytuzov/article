@@ -14,16 +14,21 @@ import by.epam.task.service.exception.ServiceException;
 public class UserServiceImpl implements UserService {
 
 	private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
-	
+
 	private final UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
-	
+
 	@Override
 	public User findOneByNicknameAndPassword(String nickname, String password) throws ServiceException {
+		User user = null;
 		try {
-			return userDAO.findOneByNicknameAndPassword(nickname, password);
+			user = userDAO.findOneByNicknameAndPassword(nickname, password);
+			if (user == null || user.getRole() == null) {
+				throw new ServiceException("The user was not found");
+			}
 		} catch (DAOException e) {
 			throw new ServiceException("Error executing findOneByUsername method", e);
 		}
+		return user;
 	}
 
 	@Override
@@ -34,9 +39,9 @@ public class UserServiceImpl implements UserService {
 			throw new ServiceException("Error executing findAll method", e);
 		}
 	}
-	
+
 	@Override
-	public int insert(User user, String password) throws ServiceException {
+	public int add(User user, String password) throws ServiceException {
 		int id = 0;
 		try {
 			if (null == userDAO.findOneByNicknameAndPassword(user.getNickname(), password)) {
@@ -47,8 +52,17 @@ public class UserServiceImpl implements UserService {
 			}
 		} catch (DAOException e) {
 			throw new ServiceException("Error executing signUp method", e);
-		} 
+		}
 		return id;
+	}
+
+	@Override
+	public User findOne(int id) throws ServiceException {
+		try {
+			return userDAO.findOne(id);
+		} catch (DAOException e) {
+			throw new ServiceException("Error executing findOne method", e);
+		}
 	}
 
 }

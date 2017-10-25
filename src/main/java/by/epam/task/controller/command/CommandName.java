@@ -18,7 +18,12 @@ public enum CommandName {
 	LOG_OUT(Role.CUSTOMER, Role.ADMIN),
 	
 	VIEW_MODIFY_DEAL(Role.CUSTOMER),
-	MODIFY_DEAL(Role.CUSTOMER);
+	
+	MODIFY_DEAL(Role.CUSTOMER),
+	CONFIRM_DEAL(Role.ADMIN),
+	CANCEL_DEAL(Role.ADMIN),
+	PAY_DEAL(Role.CUSTOMER),
+	DAMAGE_CAR(Role.ADMIN);
 	
 	final Role[] accessRoles;
 	

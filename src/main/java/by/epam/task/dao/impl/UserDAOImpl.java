@@ -40,19 +40,7 @@ public class UserDAOImpl implements UserDAO {
 			
 			resultSet = statement.executeQuery();
 			if (resultSet.next()) {
-				user = new User();
-				user.setId(resultSet.getInt(USER_ID));
-				user.setNickname(resultSet.getString(USER_NICKNAME));
-				user.setDrivenExperience(resultSet.getInt(USER_DRIVEN_EXPERIENCE));
-				user.setEmail(resultSet.getString(USER_EMAIL));
-				user.setName(resultSet.getString(USER_NAME));
-				user.setLastname(resultSet.getString(USER_LASTNAME));
-				user.setPhone(resultSet.getString(USER_PHONE));
-				
-				String role = resultSet.getString(ROLE_NAME);
-				user.setRole(Role.valueOf(role.toUpperCase()));
-				
-				logger.debug("userDAO = " + user);
+				user = readFromResultSet(resultSet);
 			}
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Error getting connection", e);
@@ -77,18 +65,7 @@ public class UserDAOImpl implements UserDAO {
 			list = new ArrayList<>();
 			User user = null;
 			while (resultSet.next()) {
-				user = new User();
-				user.setId(resultSet.getInt(USER_ID));
-				user.setNickname(resultSet.getString(USER_NICKNAME));
-				user.setDrivenExperience(resultSet.getInt(USER_DRIVEN_EXPERIENCE));
-				user.setEmail(resultSet.getString(USER_EMAIL));
-				user.setName(resultSet.getString(USER_NAME));
-				user.setLastname(resultSet.getString(USER_LASTNAME));
-				user.setPhone(resultSet.getString(USER_PHONE));
-
-				String role = resultSet.getString(ROLE_NAME);
-				user.setRole(Role.valueOf(role));
-
+				user = readFromResultSet(resultSet);
 				list.add(user);
 			}
 		} catch (ConnectionPoolException e) {
@@ -133,5 +110,46 @@ public class UserDAOImpl implements UserDAO {
 			pool.closeConnection(connection, statement, resultSet);
 		}
 		return id;
+	}
+
+	@Override
+	public User findOne(int id) throws DAOException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		User user = null;
+		try {
+			connection = pool.take();
+			statement = connection.prepareStatement(UserSQL.SELECT_USER_BY_ID);
+			statement.setInt(UserSQL.INDEX_USER_ID, id);
+	
+			resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				user = readFromResultSet(resultSet);
+			}
+		} catch (ConnectionPoolException e) {
+			throw new DAOException("Error getting connection", e);
+		} catch (SQLException e) {
+			throw new DAOException("Error execution sql request", e);
+		} finally {
+			pool.closeConnection(connection, statement, resultSet);
+		}
+		return user;
+	}
+	
+	private User readFromResultSet(ResultSet resultSet) throws SQLException {
+		User user = new User();
+		user.setId(resultSet.getInt(USER_ID));
+		user.setNickname(resultSet.getString(USER_NICKNAME));
+		user.setDrivenExperience(resultSet.getInt(USER_DRIVEN_EXPERIENCE));
+		user.setEmail(resultSet.getString(USER_EMAIL));
+		user.setName(resultSet.getString(USER_NAME));
+		user.setLastname(resultSet.getString(USER_LASTNAME));
+		user.setPhone(resultSet.getString(USER_PHONE));
+
+		String role = resultSet.getString(ROLE_NAME);
+		user.setRole(Role.valueOf(role.toUpperCase()));
+		
+		return user;
 	}
 }

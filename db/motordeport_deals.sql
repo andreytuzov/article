@@ -29,16 +29,17 @@ CREATE TABLE `deals` (
   `d_user_id` int(11) NOT NULL,
   `d_car_id` int(11) NOT NULL,
   `d_deal_state_id` int(11) NOT NULL,
-  `d_bill` decimal(10,0) NOT NULL,
+  `d_bill` float NOT NULL,
   `d_date_from` date NOT NULL,
   `d_date_to` date NOT NULL,
   `d_description` varchar(200) NOT NULL,
+  `d_cancel_reason` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`d_id`),
   KEY `fk_deals_users_idx` (`d_user_id`),
   KEY `fk_deals_cars_idx` (`d_car_id`),
   KEY `fk_deals_deal_states_idx` (`d_deal_state_id`),
-  CONSTRAINT `fk_deals_deal_states` FOREIGN KEY (`d_deal_state_id`) REFERENCES `deal_states` (`ds_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_deals_cars` FOREIGN KEY (`d_car_id`) REFERENCES `cars` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_deals_deal_states` FOREIGN KEY (`d_deal_state_id`) REFERENCES `deal_states` (`ds_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_deals_users` FOREIGN KEY (`d_user_id`) REFERENCES `users` (`u_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -61,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-24  0:04:50
+-- Dump completed on 2017-10-26  0:37:22

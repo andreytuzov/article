@@ -12,6 +12,25 @@ public class User {
 
 	private Role role;
 
+	public User() {
+	}
+
+	public User(int id, String nickname, String name, String lastname, String phone, String email, int drivenExperience,
+			Role role) {
+		this.id = id;
+		this.nickname = nickname;
+		this.name = name;
+		this.lastname = lastname;
+		this.phone = phone;
+		this.email = email;
+		this.drivenExperience = drivenExperience;
+		this.role = role;
+	}
+
+	public User(int id) {
+		this.id = id;
+	}
+
 	public int getId() {
 		return id;
 	}

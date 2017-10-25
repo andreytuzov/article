@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `damages`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `damages` (
   `dmg_deal_id` int(11) NOT NULL,
-  `dmg_bill` decimal(10,0) NOT NULL,
+  `dmg_bill` float NOT NULL,
   `dmg_description` varchar(200) NOT NULL,
   PRIMARY KEY (`dmg_deal_id`),
   CONSTRAINT `fk_damages_deals` FOREIGN KEY (`dmg_deal_id`) REFERENCES `deals` (`d_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-24  0:04:50
+-- Dump completed on 2017-10-26  0:37:23
