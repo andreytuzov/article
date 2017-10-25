@@ -46,6 +46,9 @@ $(document).ready(function() {
 					$form.find(".alert > span").html(messages["script.car.add.error"]);
 				});
 		});
+	
+	$("#dealForm")
+		.bootstrapValidator();
 });
 
 function deleteCar(carId) {	

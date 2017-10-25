@@ -14,8 +14,8 @@
 	<link href="${pageContext.request.contextPath}/static/css/datepicker.min.css" rel="stylesheet"></link>
 	<link href="${pageContext.request.contextPath}/static/css/datepicker3.min.css" rel="stylesheet"></link>
 	<link href="${pageContext.request.contextPath}/static/css/bootstrapValidator.min.css" rel="stylesheet"></link>
-	<link href="${pageContext.request.contextPath}/static/css/style.css" rel="stylesheet"></link>
 	<link href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" rel="stylesheet"></link>
+	<link href="${pageContext.request.contextPath}/static/css/style.css" rel="stylesheet"></link> 
 </head>
    
 <body> 	
@@ -44,8 +44,8 @@
 	<script src="${pageContext.request.contextPath}/static/js/dataTables.bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/bootstrap-datepicker.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/bootstrapValidator.min.js"></script>
-		<script src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
-		<script src="${pageContext.request.contextPath}/static/js/langscript.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/langscript.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/dynamic.js"></script>
 </body>	
 </html>

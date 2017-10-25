@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-<div class="page-header" style="margin-top: 0px;">	
+<div class="page-header">	
 	<h3><fmt:message key="prop.car.header.add"/></h3>
 </div>
 
