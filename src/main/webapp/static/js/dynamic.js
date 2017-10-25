@@ -5,21 +5,27 @@ $(document).ready(function() {
 			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 		});
 	});
-	$("#carTable").DataTable();
 	
 	$("#dateFromPicker")
-		.datepicker({
-			format: "mm/dd/yyyy"
+		.datetimepicker({
+			format: "DD/MM/YYYY HH:00",
+			locale: "ru"
 		})
-		.on("changeDate", function(e) {
-			$("#dealForm").formValidation("revalidateField", "dateFrom");
+		.on("dp.change", function(e) {
+			$("#dateToPicker").data("DateTimePicker").minDate(e.date);
+			changeCarPrise();
 		});
 	
 	$("#dateToPicker")
-		.datepicker({
-			format: "mm/dd/yyyy"
+		.datetimepicker({
+			format: "DD/MM/YYYY HH:00",
+			useCurrent: false,
+			locale: "ru"
+		})
+		.on("dp.change", function(e) {
+			$("#dateFromPicker").data("DateTimePicker").maxDate(e.date);
+			changeCarPrise();
 		});
-	
 	
 	$("#carForm") 
 		.bootstrapValidator()
@@ -48,8 +54,29 @@ $(document).ready(function() {
 		});
 	
 	$("#dealForm")
-		.bootstrapValidator();
+		.bootstrapValidator()
+		on("status.field.bv", function(e, data) {
+			var $form = $(e.target),
+				
+			
+			
+		});
 });
+
+
+function changeCarPrise() {	
+	var sDate = $("#dateFromPicker").data("DateTimePicker").date();
+	var eDate = $("#dateToPicker").data("DateTimePicker").date();
+	var countHours = (eDate - sDate) / 3600000;
+	if (countHours > 0) {
+		var carPrise = $("#carPrise").attr("value");
+		$("#totalBill").attr("value", (carPrise * countHours).toFixed(1));
+	}
+}
+
+
+
+
 
 function deleteCar(carId) {	
 	var result = confirm("Вы уверены ?");

@@ -11,7 +11,7 @@
 	<form id="carForm" class="form-horizontal" action="/motordepot/page?action=modify_car" method="post"
 			data-bv-trigger="blur"
 			data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
-			data-bv-feedbackicons-invalid="glyphicon glyphicon-error"
+			data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
 			data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
 		<input type="hidden" name="id" value="${car.id}"/>
 		<div class="alert" id="alert-message" style="display: none">

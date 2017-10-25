@@ -35,6 +35,7 @@ public class ModifyCar implements ICommand {
 			float volume = Float.valueOf(request.getParameter("volume"));
 			int power = Integer.valueOf(request.getParameter("power"));
 			float prise = Float.valueOf(request.getParameter("prise"));
+			logger.debug("prise = " + prise);
 			String description = request.getParameter("description");
 			
 			Car car = new Car();

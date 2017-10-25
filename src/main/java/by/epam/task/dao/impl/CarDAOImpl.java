@@ -43,7 +43,7 @@ public class CarDAOImpl implements CarDAO {
 				car.setModel(resultSet.getString(CAR_MODEL));
 				car.setDescription(resultSet.getString(CAR_DESCRIPTION));
 				car.setPower(resultSet.getInt(CAR_POWER));
-				car.setPrise(resultSet.getInt(CAR_PRISE));
+				car.setPrise(resultSet.getFloat(CAR_PRISE));
 				car.setVolume(resultSet.getFloat(CAR_VOLUME));
 				car.setYear(resultSet.getInt(CAR_YEAR));
 			}
@@ -77,7 +77,7 @@ public class CarDAOImpl implements CarDAO {
 				car.setModel(resultSet.getString(CAR_MODEL));
 				car.setDescription(resultSet.getString(CAR_DESCRIPTION));
 				car.setPower(resultSet.getInt(CAR_POWER));
-				car.setPrise(resultSet.getInt(CAR_PRISE));
+				car.setPrise(resultSet.getFloat(CAR_PRISE));
 				car.setVolume(resultSet.getFloat(CAR_VOLUME));
 				car.setYear(resultSet.getInt(CAR_YEAR));
 
@@ -180,7 +180,7 @@ public class CarDAOImpl implements CarDAO {
 			statement.setFloat(CarSQL.INDEX_CAR_VOLUME, car.getVolume());
 			statement.setInt(CarSQL.INDEX_CAR_YEAR, car.getYear());
 			statement.setInt(CarSQL.INDEX_CAR_ID_UPDATE, car.getId());
-
+			
 			statement.executeUpdate();
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Error gettion connection", e);
