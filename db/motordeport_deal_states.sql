@@ -1,6 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `motordeport` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `motordeport`;
--- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: motordeport
 -- ------------------------------------------------------
@@ -28,7 +26,7 @@ CREATE TABLE `deal_states` (
   `ds_id` int(11) NOT NULL AUTO_INCREMENT,
   `ds_name` varchar(45) NOT NULL,
   PRIMARY KEY (`ds_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +35,7 @@ CREATE TABLE `deal_states` (
 
 LOCK TABLES `deal_states` WRITE;
 /*!40000 ALTER TABLE `deal_states` DISABLE KEYS */;
-INSERT INTO `deal_states` VALUES (1,'created'),(2,'confirmed'),(3,'canceled'),(4,'damaged'),(5,'completed');
+INSERT INTO `deal_states` VALUES (1,'created'),(2,'confirmed'),(3,'paid'),(4,'canceled'),(5,'damaged'),(6,'completed');
 /*!40000 ALTER TABLE `deal_states` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-26  0:37:22
+-- Dump completed on 2017-10-26 17:17:48

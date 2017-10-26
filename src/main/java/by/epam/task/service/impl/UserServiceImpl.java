@@ -18,15 +18,29 @@ public class UserServiceImpl implements UserService {
 	private final UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
 
 	@Override
-	public User findOneByNicknameAndPassword(String nickname, String password) throws ServiceException {
+	public User findOneByNickname(String nickname) throws ServiceException {
 		User user = null;
 		try {
-			user = userDAO.findOneByNicknameAndPassword(nickname, password);
-			if (user == null || user.getRole() == null) {
+			user = userDAO.findOneByNickname(nickname);
+			if (user == null) {
 				throw new ServiceException("The user was not found");
 			}
 		} catch (DAOException e) {
 			throw new ServiceException("Error executing findOneByUsername method", e);
+		}
+		return user;
+	}
+	
+	@Override
+	public User findOneByNicknameAndPassword(String nickname, String password) throws ServiceException {
+		User user = null;
+		try {
+			user = userDAO.findOneByNicknameAndPassword(nickname, password);
+			if (user == null) {
+				throw new ServiceException("The user was not found");
+			}
+		} catch (DAOException e) {
+			throw new ServiceException("Error executing findOneByUsernameAndPassword method", e);
 		}
 		return user;
 	}

@@ -29,7 +29,7 @@ public class ModifyCar implements ICommand {
 		String description = request.getParameter("description");
 		// Data validation
 		if ((isValidString(id) && !isValidInt(id)) || !isValidString(model, 5, 70) || !isValidYear(year) || !isValidFloat(volume) 
-				|| !isValidInt(power) || !isValidFloat(prise) || !isValidString(description)) {
+				|| !isValidInt(power) || !isValidFloat(prise) || !isValidString(description, 10)) {
 			throw new CommandException("Incorrect request data");
 		}
 		// Creating car object

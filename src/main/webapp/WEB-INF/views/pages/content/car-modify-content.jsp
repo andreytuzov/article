@@ -16,7 +16,7 @@
 		<input type="hidden" name="id" value="${car.id}"/>
 		<div class="alert" id="alert-message" style="display: none">
 			<a href="#" onclick="hidden_message()" class="close">×</a>
-			<span>Автомобиль был успешно добавлен. Перейти в окно просмотра</span>
+			<span></span>
 		</div>
 		<fieldset>
 			<div class="form-group">
@@ -39,7 +39,7 @@
 						<input type="text" class="form-control" name="model" value="${car.model}" autocomplete="off"
 							placeholder="<fmt:message key="prop.car.column.model.placeholder"/>" 
 							required data-bv-notempty-message="<fmt:message key="prop.car.column.model.notempty"/>"
-							minlength="10" maxlength="70" data-bv-stringlength-message="<fmt:message key="prop.car.column.model.regexp"/>">				
+							minlength="5" maxlength="70" data-bv-stringlength-message="<fmt:message key="prop.car.column.model.stringlength"/>">				
 					</div>
 				</div>
 			</div>
@@ -63,7 +63,7 @@
 						<input class="form-control" autocomplete="off" name="volume" value="${car.volume}"
 							placeholder="<fmt:message key="prop.car.column.volume.placeholder"/>"
 							required data-bv-notempty-message="<fmt:message key="prop.car.column.volume.notempty"/>"
-							pattern="^\d(\.\d)?$" data-bv-regexp-message="<fmt:message key="prop.car.column.volume.regexp"/>">				
+							pattern="^\d+(\.\d)?$" data-bv-regexp-message="<fmt:message key="prop.car.column.volume.regexp"/>">				
 					</div>
 				</div>  
 			</div>

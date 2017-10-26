@@ -26,38 +26,38 @@ import by.epam.task.controller.command.impl.view.ViewSignUp;
 import by.epam.task.domain.Role;
 
 public class CommandProvider {
-	
+
 	private static final Logger logger = Logger.getLogger(CommandProvider.class);
-	
-	private static final CommandProvider instance = new CommandProvider(); 
-	
+
+	private static final CommandProvider instance = new CommandProvider();
+
 	private final Map<CommandName, ICommand> commands = new HashMap<>();
-	
+
 	private CommandProvider() {
 		commands.put(CommandName.WRONG_REQUEST, new WrongRequest());
 		commands.put(CommandName.VIEW_CAR_LIST, new ViewCarList());
 		commands.put(CommandName.VIEW_CAR, new ViewCar());
-		
+
 		commands.put(CommandName.VIEW_MODIFY_CAR, new ViewModifyCar());
 		commands.put(CommandName.MODIFY_CAR, new ModifyCar());
 		commands.put(CommandName.DELETE_CAR, new DeleteCar());
-		
+
 		commands.put(CommandName.SIGN_UP, new SignUp());
 		commands.put(CommandName.VIEW_SIGN_UP, new ViewSignUp());
 		commands.put(CommandName.LOG_IN, new LogIn());
 		commands.put(CommandName.VIEW_LOG_IN, new ViewLogIn());
 		commands.put(CommandName.LOG_OUT, new LogOut());
-		
+
 		commands.put(CommandName.VIEW_MODIFY_DEAL, new ViewModifyDeal());
 		commands.put(CommandName.MODIFY_DEAL, new ModifyDeal());
 		commands.put(CommandName.CONFIRM_DEAL, new ConfirmDeal());
 		commands.put(CommandName.CANCEL_DEAL, new CancelDeal());
 		commands.put(CommandName.PAY_DEAL, new PayDeal());
 		commands.put(CommandName.DAMAGE_CAR, new DamageCar());
-		
+
 	}
-	
-	public ICommand getCommand(String key, Role role) throws CommandException{
+
+	public ICommand getCommand(String key, Role role) throws CommandException {
 		ICommand command = null;
 		try {
 			CommandName commandName = CommandName.valueOf(key.toUpperCase());
@@ -72,9 +72,9 @@ public class CommandProvider {
 		}
 		return command;
 	}
-	
+
 	public static CommandProvider getInstance() {
 		return instance;
 	}
-	
+
 }

@@ -18,11 +18,12 @@ public class CancelDeal implements ICommand {
 		DealService dealService = ServiceFactory.getInstance().getDealService();
 		// Get user entered info
 		String id = request.getParameter("id");
-		String reason = request.getParameter("reason");
+		String reason = request.getParameter("cancelReason");
 		// Data validation
-		if (!isValidInt(id) || !isValidString(reason, 0, 200)) {
+		if (!isValidInt(id) || !isValidString(reason, 10, 200)) {
 			throw new CommandException("Incorrect request data");
 		}
+		
 		try {
 			dealService.cancel(Integer.valueOf(id), reason);
 		} catch (ServiceException e) {

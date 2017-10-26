@@ -3,6 +3,8 @@ package by.epam.task.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import by.epam.task.dao.CarDAO;
 import by.epam.task.dao.DamageDAO;
 import by.epam.task.dao.DealDAO;
@@ -18,6 +20,8 @@ import by.epam.task.service.DealService;
 import by.epam.task.service.exception.ServiceException;
 
 public class DealServiceImpl implements DealService {
+	
+	private static final Logger logger = Logger.getLogger(DealServiceImpl.class);
 	
 	private final DealDAO dealDAO = DAOFactory.getInstance().getDealDAO();
 	
@@ -67,20 +71,28 @@ public class DealServiceImpl implements DealService {
 	}
 
 	@Override
-	public int modify(int id, int userId, int carId, Date dateFrom, Date dateTo, String description) throws ServiceException {
-		CarDAO carDAO = DAOFactory.getInstance().getCarDAO();
-		UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
+	public int modify(int id, String nickname, int carId, Date dateFrom, Date dateTo, String comment) throws ServiceException {
 		try {
+			CarDAO carDAO = DAOFactory.getInstance().getCarDAO();
+			UserDAO userDAO = DAOFactory.getInstance().getUserDAO();			
 			// Data validation
 			Car car = carDAO.findOne(carId);
-			User user = userDAO.findOne(userId);
+			User user = userDAO.findOneByNickname(nickname);
 			if (car == null || user == null) {
 				throw new ServiceException("Incorrect identificators");
 			}
+			// Check user access
+			if (id != 0) {
+				Deal deal = dealDAO.findOne(id);
+				String accessNickname = deal.getUser().getNickname();
+				if (!accessNickname.equals(nickname) || deal.getState() != DealState.CREATED) {
+					throw new ServiceException("The user does not have rights to edit deal");
+				}
+			}
 			// Creating deal
-			float bill = (dateTo.getTime() - dateFrom.getTime()) / 3600000 * car.getPrise();
-			Deal deal = new Deal(id, bill, dateFrom, dateTo, description, null, 
-					new User(userId), new Car(carId), null, DealState.CREATED);	
+			float cost =  car.getPrise() * (dateTo.getTime() - dateFrom.getTime()) / 3600000;
+			Deal deal = new Deal(id, cost, dateFrom, dateTo, comment, null, 
+					new User(user.getId()), new Car(carId), null, DealState.CREATED);
 			if (id == 0) {
 				id = dealDAO.insert(deal);
 			} else {
@@ -90,7 +102,7 @@ public class DealServiceImpl implements DealService {
 				throw new ServiceException("insert or update error");
 			}
 		} catch (DAOException e) {
-			throw new ServiceException("Error executing the saveOrUpdate method", e);
+			throw new ServiceException("Error executing the modify method", e);
 		}
 		return id;
 	}
@@ -111,7 +123,7 @@ public class DealServiceImpl implements DealService {
 	}
 	
 	@Override
-	public void cancel(int id, String reason) throws ServiceException {
+	public void cancel(int id, String cancelReason) throws ServiceException {
 		try {
 			Deal deal = dealDAO.findOne(id);
 			// Data validation
@@ -119,7 +131,7 @@ public class DealServiceImpl implements DealService {
 				throw new ServiceException("Incorrect state of deal");
 			}
 			deal.setState(DealState.CANCELED);
-			deal.setReason(reason);
+			deal.setCancelReason(cancelReason);
 			dealDAO.update(deal);
 		} catch (DAOException e) {
 			throw new ServiceException("Error execution confirmDeal method", e);

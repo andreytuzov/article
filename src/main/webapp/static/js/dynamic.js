@@ -6,6 +6,8 @@ $(document).ready(function() {
 		});
 	});
 	
+	$("#main-tab").find("input").attr("readonly");
+	
 	$("#dateFromPicker")
 		.datetimepicker({
 			format: "DD/MM/YYYY HH:00",
@@ -31,48 +33,111 @@ $(document).ready(function() {
 		.bootstrapValidator()
 		.on("success.form.bv", function(e) {
 			// Prevent form submission
-			e.preventDefault();
-			
+			e.preventDefault();			
 			// Get the form instance
 			var $form = $(e.target); 
-			
-			// Get the bootstrapValidator instance
-			var bv = $form.data("bootstrapValidator");
-			
 			// Use ajax to submit form data
 			$.post($form.attr("action"), $form.serialize())
 				.success(function(data) { 
-					$form.find(".alert").attr("class", "alert alert-success").show();
-					$form.find(".alert > span").html(messages["script.car.add.success"] 
+					$(".alert").attr("class", "alert alert-success").show();
+					$(".alert > span").html(messages["script.car.add.success"] 
 						+ " <a href='/motordepot/page?action=view_car&id=" + data + "'>" 
 						+ messages["script.car.add.view"] + "</a>");
 				}, "json")
 				.error(function() {
-					$form.find(".alert").attr("class", "alert alert-danger").show();
-					$form.find(".alert > span").html(messages["script.car.add.error"]);
+					$(".alert").attr("class", "alert alert-danger").show();
+					$(".alert > span").html(messages["script.car.add.error"]);
 				});
 		});
-	
-	$("#dealForm")
+	$("#modifyDealForm")
 		.bootstrapValidator()
-		.on('status.field.bv', function(e, data) {
-			var $form = $(e.target),
-				$tabPane = data.element.parents('.tab-pane'),
-				validator = data.bv,
-				tabId = $tabPane.attr("id");
-			if (tabId) {
-				var $icon = $("a[href='#" + tabId + "'][data-toggle='tab']").parent().find("i");
-				 
-				if (data.status == validator.STATUS_INVALID) {
-					$icon.removeClass("glyphicon-ok").addClass("glyphicon-remove");
-				} else if (data.status == validator.STATUS_VALID) {
-					var isValidTab = validator.isValidContainer($tabPane);
-					$icon.removeClass("glyphicon-remove glyphicon-ok")
-						.addClass(isValidTab ? "glyphicon-ok" : "glyphicon-remove");
-				}
-			}
-        });
+		.on("success.form.bv", function(e) {
+			// Prevent form submission
+			e.preventDefault();
+			// Get the form instance
+			var $form = $(e.target)
+			// Use ajax to submit form data
+			$.post($form.attr("action"), $form.serialize())
+				.success(function(data) {
+					$(".alert").attr("class", "alert alert-success").show();
+					$(".alert > span").html(messages["script.car.add.success"]);
+				})
+				.error(function() {
+					$(".alert").attr("class", "alert alert-danger").show();
+					$(".alert > span").html(messages["script.car.add.error"]);
+				})
+		});
+	$("#cancelDealForm")
+		.bootstrapValidator()
+		.on("success.form.bv", function(e) {
+			// Prevent form submission
+			e.preventDefault();
+			// Get the form instance
+			var $form = $(e.target)
+			// Use ajax to submit form data
+			$.post($form.attr("action"), $form.serialize())
+				.success(function(data) {
+					$(".alert").attr("class", "alert alert-success").show();
+					$(".alert > span").html(messages["script.car.add.success"]);
+				})
+				.error(function() {
+					$(".alert").attr("class", "alert alert-danger").show();
+					$(".alert > span").html(messages["script.car.add.error"]);
+				})
+		});
+	$("#damageDealForm")
+		.bootstrapValidator()
+		.on("success.form.bv", function(e) {
+			// Prevent form submission
+			e.preventDefault();
+			// Get the form instance
+			var $form = $(e.target)
+			// Use ajax to submit form data
+			$.post($form.attr("action"), $form.serialize())
+				.success(function(data) {
+					$form.find(".alert").attr("class", "alert alert-success").show();
+					$form.find(".alert > span").html(messages["script.car.add.success"]);
+				})
+				.error(function() {
+					$form.find(".alert").attr("class", "alert alert-danger").show();
+					$form.find(".alert > span").html(messages["script.car.add.error"]);
+				})
+		});
 });
+
+
+
+function confirmDeal(dealID) {
+	$.ajax({
+		type: "post",
+		url: "/motordepot/page?action=confirm_deal",
+		data: {id : dealID},
+		success: function() {
+			$(".alert").attr("class", "alert alert-success").show();
+			$(".alert > span").html(messages["script.car.add.success"]);
+		},
+		error: function() {
+			$(".alert").attr("class", "alert alert-danger").show();
+			$(".alert > span").html(messages["script.car.add.error"]);
+		}
+	})
+}
+
+function payDeal(dealID) {	
+	$.ajax({
+		type: "post",
+		url: "/motordepot/page?action=pay_deal",
+		data: {id : dealID},
+		success: function() {
+			$(".alert").attr("class", "alert alert-success").show();
+			$(".alert > span").html(messages["script.car.add.success"]);
+		},
+		error: function() {
+			$(".alert").attr("class", "alert alert-danger").show();
+			$(".alert > span").html(messages["script.car.add.error"]);
+		}
+	})
+}
 
 
 function changeCarPrise() {	
@@ -81,7 +146,7 @@ function changeCarPrise() {
 	var countHours = (eDate - sDate) / 3600000;
 	if (countHours > 0) {
 		var carPrise = $("#carPrise").attr("value");
-		$("#totalBill").attr("value", (carPrise * countHours).toFixed(1));
+		$("#totalCost").attr("value", (carPrise * countHours).toFixed(1));
 	}
 }
 

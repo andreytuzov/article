@@ -20,6 +20,7 @@ public class UserSQL {
 	
 	public static final String SELECT_USERS = "SELECT * FROM users";
 	public static final String SELECT_USER_BY_ID = "SELECT * FROM users u, roles r WHERE u.u_role_id = r.r_id AND u_id = ?";
+	public static final String SELECT_USER_BY_NICKNAME = "SELECT * FROM users u, roles r WHERE u.u_role_id = r.r_id AND u_nickname = ?";
 	public static final String SELECT_USER_BY_NICKNAME_AND_PASSWORD = "SELECT * FROM users u, roles r WHERE u.u_role_id = r.r_id AND u_nickname = ? AND u_password = ?";
 	public static final String INSERT_USER = "INSERT INTO users(u_nickname, u_password, u_role_id, u_name, u_lastname, u_phone, u_email, u_driven_experience) "
 			+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?)";

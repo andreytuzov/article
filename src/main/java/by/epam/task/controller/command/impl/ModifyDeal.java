@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 
 public class ModifyDeal implements ICommand {
 
-	private static final String DATETIME_FORMAT = "DD/MM/YYYY HH:mm";
+	private static final String DATETIME_FORMAT = "dd/MM/yyyy HH:mm";
 	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
@@ -24,17 +24,19 @@ public class ModifyDeal implements ICommand {
 		// Get user entered info
 		String id = request.getParameter("id");
 		String carId = request.getParameter("carId");
-		String userId = request.getParameter("userId");
-		String dateFrom = request.getParameter("dateFrom");
+		String nickname = (String) request.getSession().getAttribute("user");
+		String dateFrom = request.getParameter("dateFrom");	
 		String dateTo = request.getParameter("dateTo");
-		String description = request.getParameter("description");
+		String comment = request.getParameter("comment");
 		// Data validation
-		if (!isValidInt(id) || !isValidInt(carId) || !isValidInt(userId) || !isValidDate(dateFrom) || !isValidDate(dateTo) || !isValidString(description, 10, 200)) {
+		if (isValidString(id) && !isValidInt(id) || !isValidInt(carId) || !isValidString(nickname) || !isValidDate(dateFrom) 
+				|| !isValidDate(dateTo) || !isValidLengthMax(comment, 200)) {
 			throw new CommandException("Incorrect request data");
 		}
 		SimpleDateFormat format = new SimpleDateFormat(DATETIME_FORMAT);
 		try {
-			dealService.modify(Integer.valueOf(id), Integer.valueOf(userId), Integer.valueOf(carId), format.parse(dateFrom), format.parse(dateTo), description);
+			dealService.modify(isValidString(id) ? Integer.valueOf(id) : 0, nickname, Integer.valueOf(carId), 
+					format.parse(dateFrom), format.parse(dateTo), comment);
 		} catch (ServiceException e) {
 			throw new CommandException("Error execution the modifyDeal command", e); 
 		} catch (ParseException e) {

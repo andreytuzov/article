@@ -30,14 +30,14 @@ public class ColumnLabel {
 	public static final String DEAL_USER_ID = "d_user_id";
 	public static final String DEAL_CAR_ID = "d_car_id";
 	public static final String DEAL_DEAL_STATE_ID = "d_deal_state_id";
-	public static final String DEAL_BILL = "d_bill";
+	public static final String DEAL_COST = "d_cost";
 	public static final String DEAL_DATE_FROM = "d_date_from";
 	public static final String DEAL_DATE_TO = "d_date_to";
-	public static final String DEAL_DESCRIPTION = "d_description";
+	public static final String DEAL_COMMENT = "d_comment";
 	public static final String DEAL_CANCEL_REASON = "d_cancel_reason";
 	
 	public static final String DAMAGE_ID = "dmg_deal_id";
-	public static final String DAMAGE_BILL = "dmg_bill";
+	public static final String DAMAGE_COST = "dmg_cost";
 	public static final String DAMAGE_DESCRIPTION = "dmg_description";
 	
 	public static final String DEAL_STATE_ID = "ds_id";

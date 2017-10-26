@@ -8,8 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import by.epam.task.dao.UserDAO;
 import by.epam.task.dao.connection.ConnectionPool;
 import by.epam.task.dao.exception.ConnectionPoolException;
@@ -21,11 +19,34 @@ import by.epam.task.domain.User;
 import static by.epam.task.dao.ColumnLabel.*;
 
 public class UserDAOImpl implements UserDAO {
-
-	private static final Logger logger = Logger.getLogger(UserDAOImpl.class);
 	
 	private ConnectionPool pool = ConnectionPool.getInstance();
 
+	@Override
+	public User findOneByNickname(String nickname) throws DAOException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		User user = null;
+		try {
+			connection = pool.take();
+			statement = connection.prepareStatement(UserSQL.SELECT_USER_BY_NICKNAME);
+			statement.setString(UserSQL.INDEX_USER_NICKNAME, nickname);
+			
+			resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				user = readFromResultSet(resultSet);
+			}
+		} catch (ConnectionPoolException e) {
+			throw new DAOException("Error getting connection", e);
+		} catch (SQLException e) {
+			throw new DAOException("Error execution sql request", e);
+		} finally {
+			pool.closeConnection(connection, statement, resultSet);
+		}
+		return user;
+	}
+	
 	@Override
 	public User findOneByNicknameAndPassword(String nickname, String password) throws DAOException {
 		Connection connection = null;

@@ -18,17 +18,17 @@ public class DealSQL {
 	public static final int INDEX_DEAL_CANCEL_REASON = 8;
 	
 	
-	public static final String SELECT_DEALS = "SELECT * FROM deals d, deal_states ds, users u, cars c, damages dmg" + 
-			" WHERE d.d_user_id = u.u_id AND d.d_car_id = c.c_id AND d.d_deal_state_id = ds.ds_id AND d.d_id = dmg.dmg_deal_id";
-	public static final String SELECT_DEAL_BY_NICKNAME = "SELECT * FROM deals d, deal_states ds, users u, cars c, damages dmg" + 
-			" WHERE d.d_user_id = u.u_id AND d.d_car_id = c.c_id AND d.d_deal_state_id = ds.ds_id AND d.d_id = dmg.dmg_deal_id and u.u_nickname = ?"; 
-	public static final String SELECT_DEAL_BY_ID = "SELECT * FROM deals d, deal_states ds, users u, cars c, damages dmg" + 
-			" WHERE d.d_user_id = u.u_id AND d.d_car_id = c.c_id AND d.d_deal_state_id = ds.ds_id AND d.d_id = dmg.dmg_deal_id and d.id = ?"; 
-	public static final String INSERT_DEAL = "INSERT INTO deals(d_user_id, d_car_id, d_deal_state_id, d_bill, d_date_from, d_date_to, d_description, d_cancel_reason)" 
+	public static final String SELECT_DEALS = "SELECT * FROM deals d LEFT JOIN damages dmg ON d.d_id = dmg.dmg_deal_id, deal_states ds, users u, cars c" 
+			+ " WHERE d.d_user_id = u.u_id AND d.d_car_id = c.c_id AND d.d_deal_state_id = ds.ds_id";
+	public static final String SELECT_DEAL_BY_NICKNAME = "SELECT * FROM deals d LEFT JOIN damages dmg ON d.d_id = dmg.dmg_deal_id, deal_states ds, users u, cars c" 
+			+ " WHERE d.d_user_id = u.u_id AND d.d_car_id = c.c_id AND d.d_deal_state_id = ds.ds_id AND u.u_nickname = ?";
+	public static final String SELECT_DEAL_BY_ID = "SELECT * FROM deals d LEFT JOIN damages dmg ON d.d_id = dmg.dmg_deal_id, deal_states ds, users u, cars c" 
+			+ " WHERE d.d_user_id = u.u_id AND d.d_car_id = c.c_id AND d.d_deal_state_id = ds.ds_id AND d.d_id = ?";
+	public static final String INSERT_DEAL = "INSERT INTO deals(d_user_id, d_car_id, d_deal_state_id, d_cost, d_date_from, d_date_to, d_comment, d_cancel_reason)" 
 			+ " VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-	public static final String DELETE_DEAL = "SELECT * FROM deals WHERE d_id = ?";
+	public static final String DELETE_DEAL = "DELETE FROM deals WHERE d_id = ?";
 	public static final String UPDATE_DEAL = "UPDATE deals "
-			+ " SET d_user_id = ?, d_car_id = ?, d_deal_state_id = ?, d_bill = ?, d_date_from = ?, d_date_to = ?, d_description = ?, d_cancel_reason = ?"
+			+ " SET d_user_id = ?, d_car_id = ?, d_deal_state_id = ?, d_cost = ?, d_date_from = ?, d_date_to = ?, d_comment = ?, d_cancel_reason = ?"
 			+ " WHERE d_id = ?";
 	
 	

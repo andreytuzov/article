@@ -8,6 +8,8 @@ import by.epam.task.domain.User;
 public interface UserDAO {
 
 	User findOneByNicknameAndPassword(String nickname, String password) throws DAOException;
+	
+	User findOneByNickname(String nickname) throws DAOException;
 
 	List<User> findAll() throws DAOException;
 

@@ -3,15 +3,15 @@ package by.epam.task.domain;
 public class Damage {
 
 	private int id;
-	private float bill;
+	private float cost;
 	private String description;
 
 	public Damage() {
 	}
 
-	public Damage(int id, float bill, String description) {
+	public Damage(int id, float cost, String description) {
 		this.id = id;
-		this.bill = bill;
+		this.cost = cost;
 		this.description = description;
 	}
 
@@ -23,12 +23,12 @@ public class Damage {
 		this.id = id;
 	}
 
-	public float getBill() {
-		return bill;
+	public float getCost() {
+		return cost;
 	}
 
-	public void setBill(float bill) {
-		this.bill = bill;
+	public void setCost(float cost) {
+		this.cost = cost;
 	}
 
 	public String getDescription() {
@@ -41,7 +41,7 @@ public class Damage {
 
 	@Override
 	public String toString() {
-		return "Damage [id=" + id + ", bill=" + bill + ", description=" + description + "]";
+		return "Damage [id=" + id + ", cost=" + cost + ", description=" + description + "]";
 	}
 
 }

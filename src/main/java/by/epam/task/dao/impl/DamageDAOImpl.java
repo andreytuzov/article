@@ -47,7 +47,7 @@ public class DamageDAOImpl implements DamageDAO {
 			connection = pool.take();
 			statement = connection.prepareStatement(DamageSQL.INSERT_DAMAGE, Statement.RETURN_GENERATED_KEYS);
 
-			statement.setFloat(DamageSQL.INDEX_DAMAGE_BILL, damage.getBill());
+			statement.setFloat(DamageSQL.INDEX_DAMAGE_BILL, damage.getCost());
 			statement.setString(DamageSQL.INDEX_DAMAGE_DESCRIPTION, damage.getDescription());
 			
 			statement.executeUpdate();
@@ -74,7 +74,7 @@ public class DamageDAOImpl implements DamageDAO {
 			connection = pool.take();
 			statement = connection.prepareStatement(DamageSQL.UPDATE_DAMAGE);
 			
-			statement.setFloat(DamageSQL.INDEX_DAMAGE_BILL, damage.getBill());
+			statement.setFloat(DamageSQL.INDEX_DAMAGE_BILL, damage.getCost());
 			statement.setString(DamageSQL.INDEX_DAMAGE_DESCRIPTION, damage.getDescription());
 
 			statement.executeUpdate();

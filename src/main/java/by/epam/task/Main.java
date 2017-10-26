@@ -15,11 +15,7 @@ public class Main {
 	private static final Logger logger = Logger.getLogger(Main.class);
 	
 	public static void main(String[] args) throws DAOException {	
-		DAOFactory daoFactory = new DAOFactory();
-		InitializingDAO initializingDAO = daoFactory.getInitializingDAO();
-		initializingDAO.init();
-		CarDAO carDAO = daoFactory.getCarDAO();
-		print(carDAO.findAll());		
+
 	}
 	
 	private static void print(List<Car> list) {

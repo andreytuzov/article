@@ -5,28 +5,28 @@ import java.util.Date;
 public class Deal {
 
 	private int id;
-	private float bill;
+	private float cost;
 	private Date dateFrom;
 	private Date dateTo;
-	private String description;
-	private String reason;
+	private String comment;
+	private String cancelReason;
 
 	private User user;
 	private Car car;
 	private Damage damage;
 	private DealState state;
-	
+
 	public Deal() {
 	}
-	
-	public Deal(int id, float bill, Date dateFrom, Date dateTo, String description, String reason, User user, Car car,
+
+	public Deal(int id, float cost, Date dateFrom, Date dateTo, String comment, String cancelReason, User user, Car car,
 			Damage damage, DealState state) {
 		this.id = id;
-		this.bill = bill;
+		this.cost = cost;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
-		this.description = description;
-		this.reason = reason;
+		this.comment = comment;
+		this.cancelReason = cancelReason;
 		this.user = user;
 		this.car = car;
 		this.damage = damage;
@@ -65,12 +65,12 @@ public class Deal {
 		this.state = state;
 	}
 
-	public float getBill() {
-		return bill;
+	public float getCost() {
+		return cost;
 	}
 
-	public void setBill(float bill) {
-		this.bill = bill;
+	public void setCost(float cost) {
+		this.cost = cost;
 	}
 
 	public Date getDateFrom() {
@@ -89,12 +89,12 @@ public class Deal {
 		this.dateTo = dateTo;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	public Damage getDamage() {
@@ -105,18 +105,18 @@ public class Deal {
 		this.damage = damage;
 	}
 
-	public String getReason() {
-		return reason;
+	public String getCancelReason() {
+		return cancelReason;
 	}
 
-	public void setReason(String reason) {
-		this.reason = reason;
+	public void setCancelReason(String cancelReason) {
+		this.cancelReason = cancelReason;
 	}
 
 	@Override
 	public String toString() {
-		return "Deal [id=" + id + ", bill=" + bill + ", dateFrom=" + dateFrom + ", dateTo=" + dateTo + ", description="
-				+ description + ", reason=" + reason + ", user=" + user + ", car=" + car + ", damage=" + damage
+		return "Deal [id=" + id + ", cost=" + cost + ", dateFrom=" + dateFrom + ", dateTo=" + dateTo + ", comment="
+				+ comment + ", cancelReason=" + cancelReason + ", user=" + user + ", car=" + car + ", damage=" + damage
 				+ ", state=" + state + "]";
 	}
 

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,8 @@ import static by.epam.task.dao.ColumnLabel.*;
 public class DealDAOImpl implements DealDAO {
 
 	private final ConnectionPool pool = ConnectionPool.getInstance();
+	
+	private static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm";
 	
 	@Override
 	public Deal findOne(int id) throws DAOException {
@@ -133,13 +136,14 @@ public class DealDAOImpl implements DealDAO {
 			connection = pool.take();
 			statement = connection.prepareStatement(DealSQL.INSERT_DEAL, Statement.RETURN_GENERATED_KEYS);
 
-			statement.setFloat(DealSQL.INDEX_DEAL_BILL, deal.getBill());
+			statement.setFloat(DealSQL.INDEX_DEAL_BILL, deal.getCost());
 			statement.setInt(DealSQL.INDEX_DEAL_CAR_ID, deal.getCar().getId());
-			statement.setString(DealSQL.INDEX_DEAL_DESCRIPTION, deal.getDescription());
+			statement.setString(DealSQL.INDEX_DEAL_DESCRIPTION, deal.getComment());
 			statement.setInt(DealSQL.INDEX_DEAL_DEAL_STATE_ID, deal.getState().getIndex());
 			statement.setInt(DealSQL.INDEX_DEAL_USER_ID, deal.getUser().getId());
-
-			SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+			statement.setString(DealSQL.INDEX_DEAL_CANCEL_REASON, deal.getCancelReason());
+			
+			SimpleDateFormat format = new SimpleDateFormat(DATETIME_FORMAT);
 			statement.setString(DealSQL.INDEX_DEAL_DATE_FROM, format.format(deal.getDateFrom().getTime()));
 			statement.setString(DealSQL.INDEX_DEAL_DATE_TO, format.format(deal.getDateTo().getTime()));
 			
@@ -168,13 +172,14 @@ public class DealDAOImpl implements DealDAO {
 			statement = connection.prepareStatement(DealSQL.UPDATE_DEAL);
 			
 			statement.setInt(DealSQL.INDEX_DEAL_ID_UPDATE, deal.getId());
-			statement.setFloat(DealSQL.INDEX_DEAL_BILL, deal.getBill());
+			statement.setFloat(DealSQL.INDEX_DEAL_BILL, deal.getCost());
 			statement.setInt(DealSQL.INDEX_DEAL_CAR_ID, deal.getCar().getId());
-			statement.setString(DealSQL.INDEX_DEAL_DESCRIPTION, deal.getDescription());
+			statement.setString(DealSQL.INDEX_DEAL_DESCRIPTION, deal.getComment());
 			statement.setInt(DealSQL.INDEX_DEAL_DEAL_STATE_ID, deal.getState().getIndex());
 			statement.setInt(DealSQL.INDEX_DEAL_USER_ID, deal.getUser().getId());
+			statement.setString(DealSQL.INDEX_DEAL_CANCEL_REASON, deal.getCancelReason());
 
-			SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+			SimpleDateFormat format = new SimpleDateFormat(DATETIME_FORMAT);
 			statement.setString(DealSQL.INDEX_DEAL_DATE_FROM, format.format(deal.getDateFrom().getTime()));
 			statement.setString(DealSQL.INDEX_DEAL_DATE_TO, format.format(deal.getDateTo().getTime()));
 
@@ -189,13 +194,20 @@ public class DealDAOImpl implements DealDAO {
 		return deal.getId();
 	}
 	
-	private Deal readFromResultSet(ResultSet resultSet) throws SQLException {
+	private Deal readFromResultSet(ResultSet resultSet) throws SQLException, DAOException {
 		Deal deal = new Deal();
 		deal.setId(resultSet.getInt(DEAL_ID));
-		deal.setBill(resultSet.getInt(DEAL_BILL));
-		deal.setDateFrom(resultSet.getDate(DEAL_DATE_FROM));
-		deal.setDateTo(resultSet.getDate(DEAL_DATE_TO));
-		deal.setDescription(resultSet.getString(DEAL_DESCRIPTION));
+		deal.setCost(resultSet.getInt(DEAL_COST));
+		// Convert date 
+		SimpleDateFormat format = new SimpleDateFormat(DATETIME_FORMAT);
+		try {
+			deal.setDateFrom(format.parse(resultSet.getString(DEAL_DATE_FROM)));
+			deal.setDateTo(format.parse(resultSet.getString(DEAL_DATE_TO)));
+		} catch (ParseException e) {
+			throw new DAOException("Incorrect data format into database", e);
+		}
+		deal.setComment(resultSet.getString(DEAL_COMMENT));
+		deal.setCancelReason(resultSet.getString(DEAL_CANCEL_REASON));
 		
 		Car car = new Car();
 		car.setId(resultSet.getInt(CAR_ID));
@@ -220,10 +232,10 @@ public class DealDAOImpl implements DealDAO {
 		Damage damage = new Damage();
 		damage.setId(resultSet.getInt(DAMAGE_ID));
 		damage.setDescription(resultSet.getString(DAMAGE_DESCRIPTION));
-		damage.setBill(resultSet.getInt(DAMAGE_BILL));
+		damage.setCost(resultSet.getInt(DAMAGE_COST));
 		deal.setDamage(damage);
 		
-		deal.setState(DealState.valueOf(resultSet.getString(DEAL_STATE_NAME)));
+		deal.setState(DealState.valueOf(resultSet.getString(DEAL_STATE_NAME).toUpperCase()));
 		return deal;
 	}
 }
