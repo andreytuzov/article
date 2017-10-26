@@ -9,7 +9,7 @@ public interface DealDAO {
 	
 	Deal findOne(int id) throws DAOException;
 	
-	Deal findOneByNickname(String nickname) throws DAOException;
+	List<Deal> findAllByNickname(String nickname) throws DAOException;
 
 	List<Deal> findAll() throws DAOException;
 

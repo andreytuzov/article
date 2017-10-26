@@ -11,6 +11,7 @@
 		<ul class="nav navbar-nav">
 			<li><a href="/motordepot/page?action=view_car_list"><fmt:message key="prop.header.button.carlist"/></a></li>
 			<li><a href="/motordepot/page?action=view_deal_list"><fmt:message key="prop.header.button.deallist"/></a></li>
+			<li><a href="/motordepot/page?action=view_user_list">Users</a></li>
 		</ul>
 		<c:if test="${admin}">
 			<a class="btn btn-danger navbar-btn" href="/motordepot/page?action=view_modify_car"><fmt:message key="prop.header.button.addcar"/></a>
@@ -22,7 +23,7 @@
 					<li><a href="#" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> <fmt:message key="prop.header.authentication.login"/></a></li>
 				</c:when>
 				<c:otherwise>
-					<li><a href="#"><span class="glyphicon glyphicon-home"></span> ${user}</a></li>
+					<li><a href="/motordepot/page?action=view_modify_user_room&nickname=${user}"><span class="glyphicon glyphicon-home"></span> ${user}</a></li>
 					<li><a href="/motordepot/page?action=log_out"><span class="glyphicon glyphicon-log-out"></span> <fmt:message key="prop.header.authentication.logout"/></a></li>
 				</c:otherwise>
 			</c:choose>

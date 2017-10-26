@@ -10,6 +10,7 @@ public class Deal {
 	private Date dateTo;
 	private String comment;
 	private String cancelReason;
+	private String passportNumber;
 
 	private User user;
 	private Car car;
@@ -20,7 +21,7 @@ public class Deal {
 	}
 
 	public Deal(int id, float cost, Date dateFrom, Date dateTo, String comment, String cancelReason, User user, Car car,
-			Damage damage, DealState state) {
+			Damage damage, DealState state, String passportNumber) {
 		this.id = id;
 		this.cost = cost;
 		this.dateFrom = dateFrom;
@@ -31,6 +32,7 @@ public class Deal {
 		this.car = car;
 		this.damage = damage;
 		this.state = state;
+		this.passportNumber = passportNumber;
 	}
 
 	public int getId() {
@@ -113,11 +115,19 @@ public class Deal {
 		this.cancelReason = cancelReason;
 	}
 
+	public String getPassportNumber() {
+		return passportNumber;
+	}
+
+	public void setPassportNumber(String passportNumber) {
+		this.passportNumber = passportNumber;
+	}
+
 	@Override
 	public String toString() {
 		return "Deal [id=" + id + ", cost=" + cost + ", dateFrom=" + dateFrom + ", dateTo=" + dateTo + ", comment="
-				+ comment + ", cancelReason=" + cancelReason + ", user=" + user + ", car=" + car + ", damage=" + damage
-				+ ", state=" + state + "]";
+				+ comment + ", cancelReason=" + cancelReason + ", passportNumber=" + passportNumber + ", user=" + user
+				+ ", car=" + car + ", damage=" + damage + ", state=" + state + "]";
 	}
 
 }

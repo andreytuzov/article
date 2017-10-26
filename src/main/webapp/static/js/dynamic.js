@@ -59,12 +59,10 @@ $(document).ready(function() {
 			// Use ajax to submit form data
 			$.post($form.attr("action"), $form.serialize())
 				.success(function(data) {
-					$(".alert").attr("class", "alert alert-success").show();
-					$(".alert > span").html(messages["script.car.add.success"]);
+					showAccessAlert();
 				})
 				.error(function() {
-					$(".alert").attr("class", "alert alert-danger").show();
-					$(".alert > span").html(messages["script.car.add.error"]);
+					showErrorAlert();
 				})
 		});
 	$("#cancelDealForm")
@@ -77,14 +75,18 @@ $(document).ready(function() {
 			// Use ajax to submit form data
 			$.post($form.attr("action"), $form.serialize())
 				.success(function(data) {
-					$(".alert").attr("class", "alert alert-success").show();
-					$(".alert > span").html(messages["script.car.add.success"]);
+					showAccessAlert();
 				})
 				.error(function() {
-					$(".alert").attr("class", "alert alert-danger").show();
-					$(".alert > span").html(messages["script.car.add.error"]);
+					showErrorAlert();
 				})
 		});
+	
+	formValidation("#damageDealForm", messages["script.car.add.success"], messages["script.car.add.error"]);
+});
+
+
+function formValidation(formId, successMsg, errorMsg) {
 	$("#damageDealForm")
 		.bootstrapValidator()
 		.on("success.form.bv", function(e) {
@@ -95,17 +97,25 @@ $(document).ready(function() {
 			// Use ajax to submit form data
 			$.post($form.attr("action"), $form.serialize())
 				.success(function(data) {
-					$form.find(".alert").attr("class", "alert alert-success").show();
-					$form.find(".alert > span").html(messages["script.car.add.success"]);
+					showAccessAlert();
 				})
 				.error(function() {
-					$form.find(".alert").attr("class", "alert alert-danger").show();
-					$form.find(".alert > span").html(messages["script.car.add.error"]);
+					showErrorAlert();
 				})
 		});
-});
+}
 
-
+function showAccessAlert() {
+	$(".alert").attr("class", "alert alert-success").show();
+	$(".alert > span").html(messages["script.car.add.success"]);
+}
+function showErrorAlert() {
+	$(".alert").attr("class", "alert alert-danger").show();
+	$(".alert > span").html(messages["script.car.add.error"]);
+}
+function hiddenAlert() {
+	$(".alert").css("display", "none");
+}
 
 function confirmDeal(dealID) {
 	$.ajax({
@@ -117,11 +127,25 @@ function confirmDeal(dealID) {
 			$(".alert > span").html(messages["script.car.add.success"]);
 		},
 		error: function() {
-			$(".alert").attr("class", "alert alert-danger").show();
-			$(".alert > span").html(messages["script.car.add.error"]);
+			showErrorAlert();
 		}
 	})
 }
+
+function completeDeal(dealID) {	
+	$.ajax({
+		type: "post",
+		url: "/motordepot/page?action=complete_deal",
+		data: {id : dealID},
+		success: function() {
+			showAccessAlert();
+		},
+		error: function() {
+			showErrorAlert();
+		}
+	})
+}
+
 
 function payDeal(dealID) {	
 	$.ajax({
@@ -129,12 +153,10 @@ function payDeal(dealID) {
 		url: "/motordepot/page?action=pay_deal",
 		data: {id : dealID},
 		success: function() {
-			$(".alert").attr("class", "alert alert-success").show();
-			$(".alert > span").html(messages["script.car.add.success"]);
+			showAccessAlert();
 		},
 		error: function() {
-			$(".alert").attr("class", "alert alert-danger").show();
-			$(".alert > span").html(messages["script.car.add.error"]);
+			showErrorAlert();
 		}
 	})
 }
@@ -150,9 +172,22 @@ function changeCarPrise() {
 	}
 }
 
-
-
-
+function deleteDeal(dealId) {	
+	var result = confirm("Вы уверены ?");
+	if (result) {
+		$.ajax({
+			type: "post",
+			url: "/motordepot/page?action=delete_deal",
+			data: {id : dealId},
+			success: function() {
+				showAccessAlert();
+			},
+			error: function() {
+				showErrorAlert();
+			}
+		});
+	}
+}
 
 function deleteCar(carId) {	
 	var result = confirm("Вы уверены ?");
@@ -170,11 +205,6 @@ function deleteCar(carId) {
 			}
 		});
 	}
-}
-
-
-function hidden_message() {
-	$("#alert-message").css("display", "none");
 }
 
 function goback() {

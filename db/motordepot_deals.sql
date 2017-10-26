@@ -1,6 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `motordepot` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `motordepot`;
+-- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: motordeport
+-- Host: localhost    Database: motordepot
 -- ------------------------------------------------------
 -- Server version	5.5.23
 
@@ -30,8 +32,9 @@ CREATE TABLE `deals` (
   `d_cost` float NOT NULL,
   `d_date_from` datetime NOT NULL,
   `d_date_to` datetime NOT NULL,
-  `d_comment` varchar(200) NOT NULL,
+  `d_comment` varchar(200) DEFAULT NULL,
   `d_cancel_reason` varchar(200) DEFAULT NULL,
+  `d_passport_number` varchar(20) NOT NULL,
   PRIMARY KEY (`d_id`),
   KEY `fk_deals_users_idx` (`d_user_id`),
   KEY `fk_deals_cars_idx` (`d_car_id`),
@@ -39,7 +42,7 @@ CREATE TABLE `deals` (
   CONSTRAINT `fk_deals_cars` FOREIGN KEY (`d_car_id`) REFERENCES `cars` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_deals_deal_states` FOREIGN KEY (`d_deal_state_id`) REFERENCES `deal_states` (`ds_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_deals_users` FOREIGN KEY (`d_user_id`) REFERENCES `users` (`u_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,7 +51,7 @@ CREATE TABLE `deals` (
 
 LOCK TABLES `deals` WRITE;
 /*!40000 ALTER TABLE `deals` DISABLE KEYS */;
-INSERT INTO `deals` VALUES (14,7,80,3,48,'2017-10-27 12:00:00','2017-10-29 12:00:00','Hello1','asdasdasdasdasdasdsad'),(15,7,81,4,78,'2017-10-28 08:00:00','2017-10-29 23:00:00','Нужно арендовать на выходные','Этот автомобиль доступен только клиентам с VIP-статусом');
+INSERT INTO `deals` VALUES (14,7,80,6,48,'2017-10-27 12:00:00','2017-10-29 12:00:00','Hello1','asdasdasdasdasdasdsad',''),(17,7,82,6,114,'2017-10-28 08:00:00','2017-10-29 22:00:00','Нужна для перевозки картошки',NULL,''),(19,7,80,6,24,'2017-10-28 22:00:00','2017-10-29 22:00:00','',NULL,'НВ 2134540'),(20,7,82,2,72,'2017-10-28 23:00:00','2017-10-29 23:00:00','',NULL,'НВ 2134540'),(21,7,82,6,72,'2017-10-28 23:00:00','2017-10-29 23:00:00','',NULL,'НВ 2134540'),(23,7,25,6,2424,'2017-10-28 23:00:00','2017-10-29 23:00:00','',NULL,'НВ 1234567'),(24,7,15,6,1200,'2017-10-28 00:00:00','2017-10-29 00:00:00','',NULL,'НВ 2134540'),(25,7,5,4,2016,'2017-10-28 00:00:00','2017-10-29 00:00:00','Нужен автомобиль для семейной поездки','Авто на ремонте','НВ 2134540'),(26,7,3,6,1368,'2017-10-28 00:00:00','2017-10-29 00:00:00','',NULL,'НВ 2134540');
 /*!40000 ALTER TABLE `deals` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -61,4 +64,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-26 17:17:48
+-- Dump completed on 2017-10-27  0:16:36

@@ -55,19 +55,22 @@ public class DealDAOImpl implements DealDAO {
 	}
 	
 	@Override
-	public Deal findOneByNickname(String nickname) throws DAOException {
+	public List<Deal> findAllByNickname(String nickname) throws DAOException {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		Deal deal = null;
+		List<Deal> list = null;
 		try {
 			connection = pool.take();
 			statement = connection.prepareStatement(DealSQL.SELECT_DEAL_BY_NICKNAME);
 			statement.setString(DealSQL.INDEX_USER_NICKNAME, nickname);
 			
 			resultSet = statement.executeQuery();
-			if (resultSet.next()) {
+			list = new ArrayList<>();
+			while (resultSet.next()) {
 				deal = readFromResultSet(resultSet);
+				list.add(deal);
 			}
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Error execution findOneByNickname method", e);
@@ -76,7 +79,7 @@ public class DealDAOImpl implements DealDAO {
 		} finally {
 			pool.closeConnection(connection, statement, resultSet);
 		}
-		return deal;
+		return list;
 	}
 
 	@Override
@@ -92,7 +95,7 @@ public class DealDAOImpl implements DealDAO {
 			resultSet = statement.executeQuery();
 			list = new ArrayList<>();
 			Deal deal = null;
-			if (resultSet.next()) {
+			while (resultSet.next()) {
 				deal = readFromResultSet(resultSet);
 				list.add(deal);
 			}			
@@ -136,12 +139,13 @@ public class DealDAOImpl implements DealDAO {
 			connection = pool.take();
 			statement = connection.prepareStatement(DealSQL.INSERT_DEAL, Statement.RETURN_GENERATED_KEYS);
 
-			statement.setFloat(DealSQL.INDEX_DEAL_BILL, deal.getCost());
+			statement.setFloat(DealSQL.INDEX_DEAL_COST, deal.getCost());
 			statement.setInt(DealSQL.INDEX_DEAL_CAR_ID, deal.getCar().getId());
 			statement.setString(DealSQL.INDEX_DEAL_DESCRIPTION, deal.getComment());
 			statement.setInt(DealSQL.INDEX_DEAL_DEAL_STATE_ID, deal.getState().getIndex());
 			statement.setInt(DealSQL.INDEX_DEAL_USER_ID, deal.getUser().getId());
 			statement.setString(DealSQL.INDEX_DEAL_CANCEL_REASON, deal.getCancelReason());
+			statement.setString(DealSQL.INDEX_DEAL_PASSWORD_NUMBER, deal.getPassportNumber());
 			
 			SimpleDateFormat format = new SimpleDateFormat(DATETIME_FORMAT);
 			statement.setString(DealSQL.INDEX_DEAL_DATE_FROM, format.format(deal.getDateFrom().getTime()));
@@ -172,12 +176,13 @@ public class DealDAOImpl implements DealDAO {
 			statement = connection.prepareStatement(DealSQL.UPDATE_DEAL);
 			
 			statement.setInt(DealSQL.INDEX_DEAL_ID_UPDATE, deal.getId());
-			statement.setFloat(DealSQL.INDEX_DEAL_BILL, deal.getCost());
+			statement.setFloat(DealSQL.INDEX_DEAL_COST, deal.getCost());
 			statement.setInt(DealSQL.INDEX_DEAL_CAR_ID, deal.getCar().getId());
 			statement.setString(DealSQL.INDEX_DEAL_DESCRIPTION, deal.getComment());
 			statement.setInt(DealSQL.INDEX_DEAL_DEAL_STATE_ID, deal.getState().getIndex());
 			statement.setInt(DealSQL.INDEX_DEAL_USER_ID, deal.getUser().getId());
 			statement.setString(DealSQL.INDEX_DEAL_CANCEL_REASON, deal.getCancelReason());
+			statement.setString(DealSQL.INDEX_DEAL_PASSWORD_NUMBER, deal.getPassportNumber());
 
 			SimpleDateFormat format = new SimpleDateFormat(DATETIME_FORMAT);
 			statement.setString(DealSQL.INDEX_DEAL_DATE_FROM, format.format(deal.getDateFrom().getTime()));
@@ -208,6 +213,7 @@ public class DealDAOImpl implements DealDAO {
 		}
 		deal.setComment(resultSet.getString(DEAL_COMMENT));
 		deal.setCancelReason(resultSet.getString(DEAL_CANCEL_REASON));
+		deal.setPassportNumber(resultSet.getString(DEAL_PASSPORT_NUMBER));
 		
 		Car car = new Car();
 		car.setId(resultSet.getInt(CAR_ID));

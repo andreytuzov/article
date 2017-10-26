@@ -1,34 +1,34 @@
 package by.epam.task.controller.command.impl;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import by.epam.task.controller.command.ICommand;
 import by.epam.task.controller.command.exception.CommandException;
+import by.epam.task.controller.manager.PageResourceManager;
 import by.epam.task.domain.Deal;
 import by.epam.task.service.DealService;
 import by.epam.task.service.exception.ServiceException;
 import by.epam.task.service.factory.ServiceFactory;
 
-import static by.epam.task.controller.validator.Validator.*;
+public class ViewDealList implements ICommand {
 
-public class ConfirmDeal implements ICommand {
+	private static final Logger logger = Logger.getLogger(ViewDealList.class);
 	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 		DealService dealService = ServiceFactory.getInstance().getDealService();
-		// Get info
-		String id = request.getParameter("id");
-		// Data validation
-		if (!isValidInt(id)) {
-			throw new CommandException("Incorrect request data");
-		} 		
 		try {
-			dealService.confirm(Integer.valueOf(id));
+			List<Deal> listDeal = dealService.findAll();
+			request.setAttribute("listDeal", listDeal);
 		} catch (ServiceException e) {
-			throw new CommandException("Error execution the confirmDeal command", e); 
+			throw new CommandException("Error execution the viewDealList command", e);
 		}
-		return null;
+		return PageResourceManager.getPagePath("page.name.deal.listview");
 	}
 
 }

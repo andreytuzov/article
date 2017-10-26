@@ -1,6 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `motordepot` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `motordepot`;
+-- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: motordeport
+-- Host: localhost    Database: motordepot
 -- ------------------------------------------------------
 -- Server version	5.5.23
 
@@ -16,28 +18,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `damages`
+-- Table structure for table `deal_states`
 --
 
-DROP TABLE IF EXISTS `damages`;
+DROP TABLE IF EXISTS `deal_states`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `damages` (
-  `dmg_deal_id` int(11) NOT NULL,
-  `dmg_cost` float NOT NULL,
-  `dmg_description` varchar(200) NOT NULL,
-  PRIMARY KEY (`dmg_deal_id`),
-  CONSTRAINT `fk_damages_deals` FOREIGN KEY (`dmg_deal_id`) REFERENCES `deals` (`d_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `deal_states` (
+  `ds_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ds_name` varchar(45) NOT NULL,
+  PRIMARY KEY (`ds_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `damages`
+-- Dumping data for table `deal_states`
 --
 
-LOCK TABLES `damages` WRITE;
-/*!40000 ALTER TABLE `damages` DISABLE KEYS */;
-/*!40000 ALTER TABLE `damages` ENABLE KEYS */;
+LOCK TABLES `deal_states` WRITE;
+/*!40000 ALTER TABLE `deal_states` DISABLE KEYS */;
+INSERT INTO `deal_states` VALUES (1,'created'),(2,'confirmed'),(3,'paid'),(4,'canceled'),(5,'damaged'),(6,'completed');
+/*!40000 ALTER TABLE `deal_states` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-26 17:17:49
+-- Dump completed on 2017-10-27  0:16:37

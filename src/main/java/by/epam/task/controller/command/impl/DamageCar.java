@@ -18,14 +18,14 @@ public class DamageCar implements ICommand {
 		DealService dealService = ServiceFactory.getInstance().getDealService();
 		// Getting user entered info
 		String id = request.getParameter("id");
-		String bill = request.getParameter("damage_bill");
+		String cost = request.getParameter("damage_cost");
 		String description = request.getParameter("damage_description");
 		// Data validation
-		if (!isValidInt(id) || !isValidFloat(bill) || !isValidString(description, 10, 200)) {
+		if (!isValidInt(id) || !isValidFloat(cost) || !isValidString(description, 10, 200)) {
 			throw new CommandException("Incorrect request data");
 		}
 		try {
-			dealService.addDamage(Integer.valueOf(id), Float.valueOf(bill), description);
+			dealService.addDamage(Integer.valueOf(id), Float.valueOf(cost), description);
 		} catch (ServiceException e) {
 			throw new CommandException("Error execution the damageCar command", e); 
 		}

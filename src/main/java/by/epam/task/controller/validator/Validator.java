@@ -93,4 +93,11 @@ public class Validator {
 		return matcher.matches();
 	}
 	
+	public static boolean isValidPassportNumber(String passportNumber) {
+		Pattern pattern = Pattern.compile("^\\W{2,}\\s?\\d{6,}$");
+		Matcher matcher = pattern.matcher(passportNumber);
+		logger.debug("isValidEmail is " + matcher.matches() + ": " + passportNumber);
+		return matcher.matches();
+	}
+	
 }

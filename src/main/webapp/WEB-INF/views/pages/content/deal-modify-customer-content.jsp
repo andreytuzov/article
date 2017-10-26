@@ -7,19 +7,19 @@
 	
 	<c:choose>
 		<c:when test="${deal.state eq 'CREATED'}">
-			<i>Подтвердите или отмените заказ автомобиля</i>
+			<i>Вы можете изменить заказ</i>
 		</c:when>
 		<c:when test="${deal.state eq 'CONFIRMED'}">
-			<i>Ожидание оплаты заказа клиентом</i>
+			<i>Заказ подтвержден администратором. Ожидание оплаты</i>
 		</c:when>
 		<c:when test="${deal.state eq 'PAID'}">
-			<i>Заказ оплачен клиентом. Завершите сделку или укажите повреждение автомобиля</i>
+			<i>Заказ оплачен. Можете приезжать за автомобилем</i>
 		</c:when>
 		<c:when test="${deal.state eq 'CANCELED'}">
-			<i>Заказ отменен</i>
+			<i>Заказ отказан администратором</i>
 		</c:when>
 		<c:when test="${deal.state eq 'DAMAGED'}">
-			<i>Автомобиль был поврежден. Ожидание оплаты клиента</i>
+			<i>Автомобиль был поврежден. Оплатите стоимость ремонта</i>
 		</c:when>
 		<c:when test="${deal.state eq 'COMPLETED'}">
 			<i>Заказ успешно завершен</i>
@@ -33,10 +33,10 @@
 <div class="col-sm-10"> 
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#main-tab" data-toggle="tab"><fmt:message key="prop.deal.tab.booking"/></a>	
-		<c:if test="${deal.state eq 'CREATED' || deal.state eq 'CANCELED'}">	
+		<c:if test="${deal.state eq 'CANCELED'}">	
 			<li><a href="#cancel-tab" data-toggle="tab"><fmt:message key="prop.deal.tab.cancel"/></a></li>		
 		</c:if>
-		<c:if test="${deal.state eq 'PAID' || not empty deal.damage.description}">	
+		<c:if test="${not empty deal.damage.description}">	
 			<li><a href="#damage-tab" data-toggle="tab"><fmt:message key="prop.deal.tab.damage"/></a></li>
 		</c:if>
 	</ul>
@@ -132,18 +132,22 @@
 				
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<c:if test="${deal.state eq 'PAID'}">
-							<button class="btn btn-primary" onclick="completeDeal(${deal.id}); return false;"><fmt:message key="prop.form.button.complete"/></button>
+						
+						<c:if test="${deal.state eq 'CREATED' || empty deal.state}">
+							<button class="btn btn-primary"><fmt:message key="prop.form.button.save"/></button>
 						</c:if>
 						<c:if test="${deal.state eq 'CREATED'}">
-							<button class="btn btn-primary" onclick="confirmDeal(${deal.id}); return false;"><fmt:message key="prop.form.button.confirm"/></button>
+							<button class="btn btn-primary" onclick="deleteDeal(${deal.id}); return false;"><fmt:message key="prop.form.button.delete"/></button>
+						</c:if>
+						<c:if test="${deal.state eq 'CONFIRMED' || deal.state eq 'DAMAGED'}">
+							<button class="btn btn-primary" onclick="payDeal(${deal.id}); return false;"><fmt:message key="prop.form.button.pay"/></button>
 						</c:if>
 					</div>
 				</div>
 			</form>
 		</div>
 				
-		<c:if test="${deal.state eq 'CREATED' || deal.state eq 'CANCELED'}">
+		<c:if test="${deal.state eq 'CANCELED'}">
 			<div class="tab-pane" id="cancel-tab">
 				<form id="cancelDealForm" class="form-horizontal" action="/motordepot/page?action=cancel_deal" method="post"
 					data-bv-trigger="blur"
@@ -159,24 +163,16 @@
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 								<textarea rows="5" class="form-control" name="cancelReason"
-									placeholder="<fmt:message key="prop.deal.column.cancel.reason.placeholder"/>"
 									minLength="10" maxLength="200" data-bv-stringlength-message="<fmt:message key="prop.deal.column.cancel.reason.stringlength"/>"
 									required data-bv-notempty-message="<fmt:message key="prop.deal.column.cancel.reason.notempty"/>">${deal.cancelReason}</textarea>
 							</div>
 						</div>
 					</div>
-					<c:if test="${deal.state eq 'CREATED'}">
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								<button class="btn btn-primary"><fmt:message key="prop.form.button.cancel"/></button>
-							</div>
-						</div>
-					</c:if>
 				</form>
 			</div>
 		</c:if>
 			
-		<c:if test="${deal.state eq 'PAID' || not empty deal.damage.description}">
+		<c:if test="${not empty deal.damage.description}">
 			<div class="tab-pane" id="damage-tab">
 				<form id="damageDealForm" class="form-horizontal" action="/motordepot/page?action=damage_car" method="post"
 					data-bv-trigger="blur"
@@ -210,17 +206,7 @@
 									minLength="10" maxlength="200" data-bv-stringlength-message="<fmt:message key="prop.deal.column.damage.description.stringlength"/>">${deal.damage.description}</textarea>
 							</div>
 						</div>
-					</div>
-					
-					<c:if test="${deal.state eq 'PAID'}">
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								<button class="btn btn-primary"><fmt:message key="prop.form.button.save"/></button>
-							</div>
-						</div>
-					</c:if>
-					
-					
+					</div>			
 				</form>		
 			</div>
 		</c:if>

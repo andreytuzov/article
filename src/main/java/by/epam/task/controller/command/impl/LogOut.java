@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import by.epam.task.controller.command.ICommand;
 import by.epam.task.controller.command.exception.CommandException;
+import by.epam.task.controller.manager.PageResourceManager;
 
 public class LogOut implements ICommand {
 
@@ -15,7 +16,7 @@ public class LogOut implements ICommand {
 		if (session.getAttribute("user") != null) {
 			session.invalidate();
 		}
-		return request.getHeader("referer");
+		return PageResourceManager.getUrlPath("page.url.car.listview");
 	}
 
 }

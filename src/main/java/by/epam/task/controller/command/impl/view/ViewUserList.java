@@ -1,29 +1,26 @@
 package by.epam.task.controller.command.impl.view;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.epam.task.controller.command.ICommand;
 import by.epam.task.controller.command.exception.CommandException;
 import by.epam.task.controller.manager.PageResourceManager;
-import by.epam.task.domain.Car;
-import by.epam.task.service.CarService;
+import by.epam.task.service.UserService;
 import by.epam.task.service.exception.ServiceException;
 import by.epam.task.service.factory.ServiceFactory;
 
-public class ViewCarList implements ICommand {
+public class ViewUserList implements ICommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-		CarService carService = ServiceFactory.getInstance().getCarService();
+		UserService userService = ServiceFactory.getInstance().getUserService();
 		try {
-			request.setAttribute("listCar", carService.findAll());
+			request.setAttribute("listUser", userService.findAll());
 		} catch (ServiceException e) {
-			throw new CommandException("Error execution the ViewCarList command", e);
+			throw new CommandException("Error executing the viewUserList command", e);
 		}
-		return PageResourceManager.getPagePath("page.name.car.listview");
+		return PageResourceManager.getPagePath("page.name.user.listview");
 	}
 
 }

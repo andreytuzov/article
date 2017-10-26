@@ -3,7 +3,7 @@ package by.epam.task.dao.sql;
 public class DamageSQL {
 	private DamageSQL() {}
 	
-	public static final int INDEX_DAMAGE_BILL = 1;
+	public static final int INDEX_DAMAGE_COST = 1;
 	public static final int INDEX_DAMAGE_DESCRIPTION = 2;
 	public static final int INDEX_DAMAGE_DEAL_ID = 3;
 	 

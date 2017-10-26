@@ -18,7 +18,7 @@ public class UserSQL {
 	public static final int INDEX_USER_DRIVEN_EXPERIENCE = 8;
 	
 	
-	public static final String SELECT_USERS = "SELECT * FROM users";
+	public static final String SELECT_USERS = "SELECT * FROM users u, roles r WHERE u.u_role_id = r.r_id";
 	public static final String SELECT_USER_BY_ID = "SELECT * FROM users u, roles r WHERE u.u_role_id = r.r_id AND u_id = ?";
 	public static final String SELECT_USER_BY_NICKNAME = "SELECT * FROM users u, roles r WHERE u.u_role_id = r.r_id AND u_nickname = ?";
 	public static final String SELECT_USER_BY_NICKNAME_AND_PASSWORD = "SELECT * FROM users u, roles r WHERE u.u_role_id = r.r_id AND u_nickname = ? AND u_password = ?";

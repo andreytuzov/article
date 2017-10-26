@@ -18,11 +18,12 @@ public class PayDeal implements ICommand {
 		DealService dealService = ServiceFactory.getInstance().getDealService();
 		// Get info
 		String id = request.getParameter("id");
-		// Data validation
-		if (!isValidInt(id)) {
-			throw new CommandException("Incorrect request data");
-		}
+		String nickname = (String) request.getSession().getAttribute("user");
 		try {
+			// Data validation
+			if (!isValidInt(id) || !isValidString(nickname) || !dealService.checkUser(nickname, Integer.valueOf(id))) {
+				throw new CommandException("Incorrect request data");
+			}
 			dealService.pay(Integer.valueOf(id));
 		} catch (ServiceException e) {
 			throw new CommandException("Error execution the payDeal command", e);

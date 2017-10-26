@@ -28,15 +28,17 @@ public class ModifyDeal implements ICommand {
 		String dateFrom = request.getParameter("dateFrom");	
 		String dateTo = request.getParameter("dateTo");
 		String comment = request.getParameter("comment");
-		// Data validation
-		if (isValidString(id) && !isValidInt(id) || !isValidInt(carId) || !isValidString(nickname) || !isValidDate(dateFrom) 
-				|| !isValidDate(dateTo) || !isValidLengthMax(comment, 200)) {
-			throw new CommandException("Incorrect request data");
-		}
-		SimpleDateFormat format = new SimpleDateFormat(DATETIME_FORMAT);
+		String passportNumber = request.getParameter("passportNumber");
 		try {
+			// Data validation
+			if (!isValidInt(carId) || !isValidString(nickname) || !isValidDate(dateFrom) || !isValidDate(dateTo)  
+					|| !isValidLengthMax(comment, 200) || isValidInt(id) && !dealService.checkUser(nickname, Integer.valueOf(id))
+					|| !isValidPassportNumber(passportNumber)) {
+				throw new CommandException("Incorrect request data");
+			}
+			SimpleDateFormat format = new SimpleDateFormat(DATETIME_FORMAT);
 			dealService.modify(isValidString(id) ? Integer.valueOf(id) : 0, nickname, Integer.valueOf(carId), 
-					format.parse(dateFrom), format.parse(dateTo), comment);
+					format.parse(dateFrom), format.parse(dateTo), comment, passportNumber);
 		} catch (ServiceException e) {
 			throw new CommandException("Error execution the modifyDeal command", e); 
 		} catch (ParseException e) {

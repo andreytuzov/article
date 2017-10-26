@@ -45,7 +45,13 @@ public class ViewModifyDeal implements ICommand {
 		} catch (ServiceException e) {
 			throw new CommandException("Error execution the viewModifyDeal command", e);
 		}
-		return PageResourceManager.getPagePath("page.name.deal.modify-admin");			
+		if (isAdmin != null && isAdmin) {
+			return PageResourceManager.getPagePath("page.name.deal.modify-admin");		
+		} else {
+			return PageResourceManager.getPagePath("page.name.deal.modify-customer");		
+		}
+		
+			
 		
 	}
 
