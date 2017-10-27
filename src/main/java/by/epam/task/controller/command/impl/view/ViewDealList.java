@@ -1,4 +1,4 @@
-package by.epam.task.controller.command.impl;
+package by.epam.task.controller.command.impl.view;
 
 import java.util.List;
 

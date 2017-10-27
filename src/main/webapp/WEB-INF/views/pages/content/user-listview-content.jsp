@@ -6,7 +6,7 @@
 
 	<h2>Список пользователей</h2>
 
-	<table class="table table-striped table-hover table-bordered" id="userTable"> 
+	<table class="table table-striped table-hover table-bordered searchTable" id="userTable"> 
 		<thead>
 			<tr>
 				<th>Ник</th>

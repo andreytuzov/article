@@ -90,7 +90,7 @@
 		</div>
 				
 		<div class="tab-pane" id="booking-tab">
-			<table class="table table-striped table-hover table-bordered" id="userDealTable"> 
+			<table class="table table-striped table-hover table-bordered searchTable" id="userDealTable"> 
 				<thead>
 					<tr>
 						<th>Статус</th>

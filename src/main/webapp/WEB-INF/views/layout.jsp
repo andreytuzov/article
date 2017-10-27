@@ -10,13 +10,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>${param.title}</title> 
-	<link href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" rel="stylesheet"></link>
+	
+	<link href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" rel="stylesheet"></link>	
 	<link href="${pageContext.request.contextPath}/static/css/bootstrap-validator.min.css" rel="stylesheet"></link>
 	<link href="${pageContext.request.contextPath}/static/css/bootstrap-datetimepicker.min.css" rel="stylesheet"></link>
 	<link href="${pageContext.request.contextPath}/static/css/style.css" rel="stylesheet"></link>
 </head>
    
-<body> 	
+<body> 
 	<header id="header">
 		<jsp:include page="/WEB-INF/views/template/header.jsp"/> 
 	</header>
@@ -39,9 +40,10 @@
 	
 	<script src="${pageContext.request.contextPath}/static/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/moment.min.js"></script>
-	<script src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
+	
 	<script src="${pageContext.request.contextPath}/static/js/bootstrap-validator.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/dynamic.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/langscript.js"></script>
 </body>	

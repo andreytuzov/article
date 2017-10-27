@@ -1,6 +1,6 @@
 CREATE DATABASE  IF NOT EXISTS `motordepot` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `motordepot`;
--- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: motordepot
 -- ------------------------------------------------------
@@ -39,7 +39,7 @@ CREATE TABLE `damages` (
 
 LOCK TABLES `damages` WRITE;
 /*!40000 ALTER TABLE `damages` DISABLE KEYS */;
-INSERT INTO `damages` VALUES (14,600,'Машина попала в аварию. Было повреждено переднее стекло автомобиля.'),(17,100,'Поврежден передний бампер '),(21,11,'Повреждение бокового зеркала'),(24,1.1,'Повреждение ручки');
+INSERT INTO `damages` VALUES (14,600,'Машина попала в аварию. Было повреждено переднее стекло автомобиля.'),(17,100,'Поврежден передний бампер '),(20,3,'фоывдфыодвлфыовд лофыдлв ыфв'),(21,11,'Повреждение бокового зеркала'),(24,1.1,'Повреждение ручки'),(45,1.1,'asdasdasdasdasdasd'),(46,3,'asdasdsadsadsad');
 /*!40000 ALTER TABLE `damages` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-27  0:16:37
+-- Dump completed on 2017-10-27 21:30:22

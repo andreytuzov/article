@@ -6,7 +6,7 @@
 
 	<h2>Каталог сделок</h2>
 
-	<table class="table table-striped table-hover table-bordered" id="dealTable"> 
+	<table class="table table-striped table-hover table-bordered searchTable" id="dealTable"> 
 		<thead>
 			<tr>
 				<th>Статус</th>

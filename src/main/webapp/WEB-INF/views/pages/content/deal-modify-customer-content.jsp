@@ -7,25 +7,25 @@
 	
 	<c:choose>
 		<c:when test="${deal.state eq 'CREATED'}">
-			<i>Вы можете изменить заказ</i>
+			<i><fmt:message key="prop.deal.header.info.customer.created"/></i>
 		</c:when>
 		<c:when test="${deal.state eq 'CONFIRMED'}">
-			<i>Заказ подтвержден администратором. Ожидание оплаты</i>
+			<i><fmt:message key="prop.deal.header.info.customer.confirmed"/></i>
 		</c:when>
 		<c:when test="${deal.state eq 'PAID'}">
-			<i>Заказ оплачен. Можете приезжать за автомобилем</i>
+			<i><fmt:message key="prop.deal.header.info.customer.paid"/></i>
 		</c:when>
 		<c:when test="${deal.state eq 'CANCELED'}">
-			<i>Заказ отказан администратором</i>
+			<i><fmt:message key="prop.deal.header.info.customer.canceled"/></i>
 		</c:when>
 		<c:when test="${deal.state eq 'DAMAGED'}">
-			<i>Автомобиль был поврежден. Оплатите стоимость ремонта</i>
+			<i><fmt:message key="prop.deal.header.info.customer.damaged"/></i>
 		</c:when>
 		<c:when test="${deal.state eq 'COMPLETED'}">
-			<i>Заказ успешно завершен</i>
+			<i><fmt:message key="prop.deal.header.info.customer.completed"/></i>
 		</c:when>
 		<c:otherwise>
-			<i>Заполните пожалуйста форму указав верные данные</i>
+			<i><fmt:message key="prop.deal.header.info.customer.other"/></i>
 		</c:otherwise>
 	</c:choose>
 </div>
@@ -48,7 +48,6 @@
 			<a href="#" onclick="hiddenAlert()" class="close">×</a>
 			<span></span>
 		</div>
- 	
  	
 		<div class="tab-pane active" id="main-tab">
  			<form id="modifyDealForm" class="form-horizontal" action="/motordepot/page?action=modify_deal" method="post"
@@ -76,10 +75,19 @@
 					<div class="col-sm-10">
 						<div class="input-group date" id="dateFromPicker">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-							<input type="datetime" required class="form-control" name="dateFrom" 
-								value='<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${deal.dateFrom}"/>'
-								placeholder="<fmt:message key="prop.deal.column.datefrom.placeholder"/>"
-								required data-bv-notempty-message="<fmt:message key="prop.deal.column.datefrom.notempty"/>">
+							<c:choose>
+								<c:when test="${empty deal.state || deal.state eq 'CREATED'}">
+									<input type="datetime" required class="form-control" name="dateFrom" 
+										value='<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${deal.dateFrom}"/>'
+										placeholder="<fmt:message key="prop.deal.column.datefrom.placeholder"/>"
+										required data-bv-notempty-message="<fmt:message key="prop.deal.column.datefrom.notempty"/>">
+								</c:when>
+								<c:otherwise>
+									<input type="datetime" readonly class="form-control" name="dateFrom" 
+										value='<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${deal.dateFrom}"/>'/>
+								</c:otherwise>
+							</c:choose>
+							
 						</div>
 					</div>
 				</div>
@@ -88,10 +96,18 @@
 					<div class="col-sm-10">
 						<div class="input-group date" id="dateToPicker">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-							<input type="datetime" required class="form-control" name="dateTo" 
-								value="<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${deal.dateTo}"/>"
-								placeholder="<fmt:message key="prop.deal.column.dateto.placeholder"/>"
-								required data-bv-notempty-message="<fmt:message key="prop.deal.column.dateto.notempty"/>">			
+							<c:choose>
+								<c:when test="${empty deal.state || deal.state eq 'CREATED'}">
+									<input type="datetime" required class="form-control" name="dateTo" 
+										value="<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${deal.dateTo}"/>"
+										placeholder="<fmt:message key="prop.deal.column.dateto.placeholder"/>"
+										required data-bv-notempty-message="<fmt:message key="prop.deal.column.dateto.notempty"/>">			
+								</c:when>
+								<c:otherwise>
+									<input type="datetime" readonly class="form-control" name="dateTo" 
+										value="<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${deal.dateTo}"/>"/>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 				</div>
@@ -100,8 +116,7 @@
 					<div class="col-sm-10">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-							<input id="totalCost" type="text" readonly class="form-control" name="cost" 
-								value="${deal.cost}"/>
+							<input id="totalCost" type="text" readonly class="form-control" name="cost" value="${deal.cost}"/>
 						</div>				
 					</div>
 				</div>
@@ -110,25 +125,41 @@
 					<div class="col-sm-10">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
-							<input type="text" class="form-control" name="passportNumber" 
-								placeholder="<fmt:message key="prop.deal.column.passportNumber.placeholder"/>"
-								required data-bv-notempty-message="<fmt:message key="prop.deal.column.passportNumber.notempty"/>"
-								pattern="^[A-Za-zА-Яа-яЁё]{2,}\s?\d{6,}$" data-bv-regexp-message="<fmt:message key="prop.deal.column.passportNumber.regexp"/>"
-								value="${deal.passportNumber}"/>
+							<c:choose>
+								<c:when test="${empty deal.state || deal.state eq 'CREATED'}">
+									<input type="text" class="form-control" name="passportNumber" 
+										placeholder="<fmt:message key="prop.deal.column.passportNumber.placeholder"/>"
+										required data-bv-notempty-message="<fmt:message key="prop.deal.column.passportNumber.notempty"/>"
+										pattern="^[A-Za-zА-Яа-яЁё]{2,}\s?\d{6,}$" data-bv-regexp-message="<fmt:message key="prop.deal.column.passportNumber.regexp"/>"
+										value="${deal.passportNumber}"/>
+								</c:when>
+								<c:otherwise>
+									<input type="text" class="form-control" name="passportNumber" readonly value="${deal.passportNumber}"/>
+								</c:otherwise>
+							</c:choose>
 						</div>				
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="comment"><fmt:message key="prop.deal.column.comment"/></label>
-					<div class="col-sm-10">
-						<div class="input-group">
-							<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-							<textarea rows="5" class="form-control" name="comment"
-								placeholder="<fmt:message key="prop.deal.column.comment.placeholder"/>"
-								maxlength="200" data-bv-stringlength-message="<fmt:message key="prop.deal.column.comment.stringlength"/>">${deal.comment}</textarea>
+				<c:if test="${empty deal.state || deal.state eq 'CREATED' || not empty deal.comment}">
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="comment"><fmt:message key="prop.deal.column.comment"/></label>
+						<div class="col-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+								<c:choose>
+									<c:when test="${empty deal.state || deal.state eq 'CREATED'}">
+										<textarea rows="5" class="form-control" name="comment"
+											placeholder="<fmt:message key="prop.deal.column.comment.placeholder"/>"
+											maxlength="200" data-bv-stringlength-message="<fmt:message key="prop.deal.column.comment.stringlength"/>">${deal.comment}</textarea>
+									</c:when>
+									<c:otherwise>
+										<textarea rows="5" readonly class="form-control" name="comment">${deal.comment}</textarea>
+									</c:otherwise>
+								</c:choose>
+							</div>
 						</div>
 					</div>
-				</div>		
+				</c:if>		
 				
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
@@ -139,7 +170,7 @@
 						<c:if test="${deal.state eq 'CREATED'}">
 							<button class="btn btn-primary" onclick="deleteDeal(${deal.id}); return false;"><fmt:message key="prop.form.button.delete"/></button>
 						</c:if>
-						<c:if test="${deal.state eq 'CONFIRMED' || deal.state eq 'DAMAGED'}">
+						<c:if test="${deal.state eq 'CONFIRMED'}">
 							<button class="btn btn-primary" onclick="payDeal(${deal.id}); return false;"><fmt:message key="prop.form.button.pay"/></button>
 						</c:if>
 					</div>
@@ -162,9 +193,7 @@
 						<div class="col-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-								<textarea rows="5" class="form-control" name="cancelReason"
-									minLength="10" maxLength="200" data-bv-stringlength-message="<fmt:message key="prop.deal.column.cancel.reason.stringlength"/>"
-									required data-bv-notempty-message="<fmt:message key="prop.deal.column.cancel.reason.notempty"/>">${deal.cancelReason}</textarea>
+								<textarea rows="5" class="form-control" name="cancelReason" readonly>${deal.cancelReason}</textarea>
 							</div>
 						</div>
 					</div>
@@ -187,10 +216,7 @@
 						<div class="col-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-								<input id="totalCost" type="text" id="damage_cost" class="form-control" name="damage_cost" 
-									placeholder="<fmt:message key="prop.deal.column.damage.cost.placeholder"/>"
-									required data-bv-notempty-message="<fmt:message key="prop.deal.column.damage.cost.notempty"/>"
-									pattern="^\d+(\.\d)?$" data-bv-regexp-message="<fmt:message key="prop.deal.column.damage.cost.regexp"/>"
+								<input readonly type="text" class="form-control" name="damage_cost" 
 									value="${deal.damage.cost}"/>
 							</div>				
 						</div>
@@ -200,11 +226,15 @@
 						<div class="col-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-								<textarea rows="5" class="form-control" name="damage_description"
-									placeholder="<fmt:message key="prop.deal.column.damage.description.placeholder"/>"
-									required data-bv-notempty-message="<fmt:message key="prop.deal.column.damage.description.notempty"/>"
-									minLength="10" maxlength="200" data-bv-stringlength-message="<fmt:message key="prop.deal.column.damage.description.stringlength"/>">${deal.damage.description}</textarea>
+								<textarea rows="5" readonly class="form-control" name="damage_description">${deal.damage.description}</textarea>
 							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<c:if test="${deal.state eq 'DAMAGED'}">
+								<button class="btn btn-primary" onclick="payDeal(${deal.id}); return false;"><fmt:message key="prop.form.button.pay"/></button>
+							</c:if>
 						</div>
 					</div>			
 				</form>		

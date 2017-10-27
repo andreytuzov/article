@@ -31,7 +31,7 @@ public class ViewModifyDeal implements ICommand {
 		String carId = request.getParameter("carId");
 		// Data validation
 		Boolean isAdmin = (Boolean) request.getSession().getAttribute("admin");
-		if (!(isValidInt(id) || isValidInt(carId))) {
+		if (!(isValidInt(id) || !isAdmin && isValidInt(carId))) {
 			throw new CommandException("Incorrect request data");
 		}
 		try {

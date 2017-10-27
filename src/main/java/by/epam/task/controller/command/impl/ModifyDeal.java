@@ -11,6 +11,7 @@ import by.epam.task.service.factory.ServiceFactory;
 
 import static by.epam.task.controller.validator.Validator.*;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -37,12 +38,15 @@ public class ModifyDeal implements ICommand {
 				throw new CommandException("Incorrect request data");
 			}
 			SimpleDateFormat format = new SimpleDateFormat(DATETIME_FORMAT);
-			dealService.modify(isValidString(id) ? Integer.valueOf(id) : 0, nickname, Integer.valueOf(carId), 
+			int dealId = dealService.modify(isValidString(id) ? Integer.valueOf(id) : 0, nickname, Integer.valueOf(carId), 
 					format.parse(dateFrom), format.parse(dateTo), comment, passportNumber);
+			response.getWriter().append("" + dealId);
 		} catch (ServiceException e) {
 			throw new CommandException("Error execution the modifyDeal command", e); 
 		} catch (ParseException e) {
 			throw new CommandException("Incorrect format of dates", e); 
+		} catch (IOException e) {
+			throw new CommandException("Error execution response function", e);
 		}
 		return null;
 	}

@@ -7,26 +7,23 @@
 	
 	<c:choose>
 		<c:when test="${deal.state eq 'CREATED'}">
-			<i>Подтвердите или отмените заказ автомобиля</i>
+			<i><fmt:message key="prop.deal.header.info.admin.created"/></i>
 		</c:when>
 		<c:when test="${deal.state eq 'CONFIRMED'}">
-			<i>Ожидание оплаты заказа клиентом</i>
+			<i><fmt:message key="prop.deal.header.info.admin.confirmed"/></i>
 		</c:when>
 		<c:when test="${deal.state eq 'PAID'}">
-			<i>Заказ оплачен клиентом. Завершите сделку или укажите повреждение автомобиля</i>
+			<i><fmt:message key="prop.deal.header.info.admin.paid"/></i>
 		</c:when>
 		<c:when test="${deal.state eq 'CANCELED'}">
-			<i>Заказ отменен</i>
+			<i><fmt:message key="prop.deal.header.info.admin.canceled"/></i>
 		</c:when>
 		<c:when test="${deal.state eq 'DAMAGED'}">
-			<i>Автомобиль был поврежден. Ожидание оплаты клиента</i>
+			<i><fmt:message key="prop.deal.header.info.admin.damaged"/></i>
 		</c:when>
 		<c:when test="${deal.state eq 'COMPLETED'}">
-			<i>Заказ успешно завершен</i>
+			<i><fmt:message key="prop.deal.header.info.admin.completed"/></i>
 		</c:when>
-		<c:otherwise>
-			<i>Заполните пожалуйста форму указав верные данные</i>
-		</c:otherwise>
 	</c:choose>
 </div>
 
@@ -76,10 +73,8 @@
 					<div class="col-sm-10">
 						<div class="input-group date" id="dateFromPicker">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-							<input type="datetime" required class="form-control" name="dateFrom" 
-								value='<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${deal.dateFrom}"/>'
-								placeholder="<fmt:message key="prop.deal.column.datefrom.placeholder"/>"
-								required data-bv-notempty-message="<fmt:message key="prop.deal.column.datefrom.notempty"/>">
+							<input type="datetime" readonly class="form-control" name="dateFrom" 
+								value='<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${deal.dateFrom}"/>'/>
 						</div>
 					</div>
 				</div>
@@ -88,10 +83,8 @@
 					<div class="col-sm-10">
 						<div class="input-group date" id="dateToPicker">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-							<input type="datetime" required class="form-control" name="dateTo" 
-								value="<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${deal.dateTo}"/>"
-								placeholder="<fmt:message key="prop.deal.column.dateto.placeholder"/>"
-								required data-bv-notempty-message="<fmt:message key="prop.deal.column.dateto.notempty"/>">			
+							<input type="datetime" readonly class="form-control" name="dateTo" 
+								value="<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${deal.dateTo}"/>"/>			
 						</div>
 					</div>
 				</div>
@@ -100,8 +93,7 @@
 					<div class="col-sm-10">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-							<input id="totalCost" type="text" readonly class="form-control" name="cost" 
-								value="${deal.cost}"/>
+							<input id="totalCost" type="text" readonly class="form-control" name="cost" value="${deal.cost}"/>
 						</div>				
 					</div>
 				</div>
@@ -110,26 +102,21 @@
 					<div class="col-sm-10">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
-							<input type="text" class="form-control" name="passportNumber" 
-								placeholder="<fmt:message key="prop.deal.column.passportNumber.placeholder"/>"
-								required data-bv-notempty-message="<fmt:message key="prop.deal.column.passportNumber.notempty"/>"
-								pattern="^[A-Za-zА-Яа-яЁё]{2,}\s?\d{6,}$" data-bv-regexp-message="<fmt:message key="prop.deal.column.passportNumber.regexp"/>"
-								value="${deal.passportNumber}"/>
+							<input type="text" class="form-control" name="passportNumber" readonly value="${deal.passportNumber}"/>
 						</div>				
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="comment"><fmt:message key="prop.deal.column.comment"/></label>
-					<div class="col-sm-10">
-						<div class="input-group">
-							<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-							<textarea rows="5" class="form-control" name="comment"
-								placeholder="<fmt:message key="prop.deal.column.comment.placeholder"/>"
-								maxlength="200" data-bv-stringlength-message="<fmt:message key="prop.deal.column.comment.stringlength"/>">${deal.comment}</textarea>
+				<c:if test="${not empty deal.comment}">
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="comment"><fmt:message key="prop.deal.column.comment"/></label>
+						<div class="col-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+								<textarea rows="5" readonly class="form-control" name="comment">${deal.comment}</textarea>
+							</div>
 						</div>
 					</div>
-				</div>		
-				
+				</c:if>		
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<c:if test="${deal.state eq 'PAID'}">
@@ -158,10 +145,18 @@
 						<div class="col-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-								<textarea rows="5" class="form-control" name="cancelReason"
-									placeholder="<fmt:message key="prop.deal.column.cancel.reason.placeholder"/>"
-									minLength="10" maxLength="200" data-bv-stringlength-message="<fmt:message key="prop.deal.column.cancel.reason.stringlength"/>"
-									required data-bv-notempty-message="<fmt:message key="prop.deal.column.cancel.reason.notempty"/>">${deal.cancelReason}</textarea>
+								<c:choose>
+									<c:when test="${deal.state eq 'CREATED'}">
+										<textarea rows="5" class="form-control" name="cancelReason"
+											placeholder="<fmt:message key="prop.deal.column.cancel.reason.placeholder"/>"
+											minLength="10" maxLength="200" data-bv-stringlength-message="<fmt:message key="prop.deal.column.cancel.reason.stringlength"/>"
+											required data-bv-notempty-message="<fmt:message key="prop.deal.column.cancel.reason.notempty"/>">${deal.cancelReason}</textarea>
+									</c:when>
+									<c:otherwise>
+										<textarea rows="5" class="form-control" readonly name="cancelReason">${deal.cancelReason}</textarea>
+									</c:otherwise>
+								</c:choose>
+								
 							</div>
 						</div>
 					</div>
@@ -191,11 +186,19 @@
 						<div class="col-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-								<input id="totalCost" type="text" id="damage_cost" class="form-control" name="damage_cost" 
-									placeholder="<fmt:message key="prop.deal.column.damage.cost.placeholder"/>"
-									required data-bv-notempty-message="<fmt:message key="prop.deal.column.damage.cost.notempty"/>"
-									pattern="^\d+(\.\d)?$" data-bv-regexp-message="<fmt:message key="prop.deal.column.damage.cost.regexp"/>"
-									value="${deal.damage.cost}"/>
+								<c:choose>
+									<c:when test="${deal.state eq 'PAID'}">
+										<input id="totalCost" type="text" id="damage_cost" class="form-control" name="damage_cost" 
+											placeholder="<fmt:message key="prop.deal.column.damage.cost.placeholder"/>"
+											required data-bv-notempty-message="<fmt:message key="prop.deal.column.damage.cost.notempty"/>"
+											pattern="^\d+(\.\d)?$" data-bv-regexp-message="<fmt:message key="prop.deal.column.damage.cost.regexp"/>"
+											value="${deal.damage.cost}"/>
+									</c:when>
+									<c:otherwise>
+										<input type="text" readonly class="form-control" name="damage_cost" 
+											value="${deal.damage.cost}"/>
+									</c:otherwise>
+								</c:choose>
 							</div>				
 						</div>
 					</div>
@@ -204,10 +207,17 @@
 						<div class="col-sm-10">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-								<textarea rows="5" class="form-control" name="damage_description"
-									placeholder="<fmt:message key="prop.deal.column.damage.description.placeholder"/>"
-									required data-bv-notempty-message="<fmt:message key="prop.deal.column.damage.description.notempty"/>"
-									minLength="10" maxlength="200" data-bv-stringlength-message="<fmt:message key="prop.deal.column.damage.description.stringlength"/>">${deal.damage.description}</textarea>
+								<c:choose>
+									<c:when test="${deal.state eq 'PAID'}">
+										<textarea rows="5" class="form-control" name="damage_description"
+											placeholder="<fmt:message key="prop.deal.column.damage.description.placeholder"/>"
+											required data-bv-notempty-message="<fmt:message key="prop.deal.column.damage.description.notempty"/>"
+											minLength="10" maxlength="200" data-bv-stringlength-message="<fmt:message key="prop.deal.column.damage.description.stringlength"/>">${deal.damage.description}</textarea>
+									</c:when>
+									<c:otherwise>
+										<textarea rows="5" class="form-control" readonly name="damage_description">${deal.damage.description}</textarea>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 					</div>
@@ -219,7 +229,6 @@
 							</div>
 						</div>
 					</c:if>
-					
 					
 				</form>		
 			</div>
