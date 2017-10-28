@@ -79,4 +79,13 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public void update(User user) throws ServiceException {
+		try {
+			userDAO.update(user);
+		} catch (DAOException e) {
+			throw new ServiceException("Error executing update method", e);
+		}
+	}
+
 }

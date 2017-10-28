@@ -6,12 +6,14 @@
 <nav class="navbar navbar-inverse navbar-static-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="#"><fmt:message key="prop.header.title"/></a>
+			<a class="navbar-brand" href="/motordepot/page?action=view_car_list"><img src="http://arendovat-avto.ru/uploads/vybrat-avtomobil.png"/></a>
 		</div>
 		<ul class="nav navbar-nav">
 			<li><a href="/motordepot/page?action=view_car_list"><fmt:message key="prop.header.button.carlist"/></a></li>
-			<li><a href="/motordepot/page?action=view_deal_list"><fmt:message key="prop.header.button.deallist"/></a></li>
-			<li><a href="/motordepot/page?action=view_user_list">Users</a></li>
+			<c:if test="${admin}">
+				<li><a href="/motordepot/page?action=view_deal_list"><span class="glyphicon glyphicon-list-alt"></span> <fmt:message key="prop.header.button.deallist"/></a></li>
+				<li><a href="/motordepot/page?action=view_user_list"><span class="glyphicon glyphicon-user"></span> <fmt:message key="prop.header.button.userlist"/></a></li>
+			</c:if>
 		</ul>
 		<c:if test="${admin}">
 			<a class="btn btn-danger navbar-btn" href="/motordepot/page?action=view_modify_car"><fmt:message key="prop.header.button.addcar"/></a>
@@ -19,8 +21,8 @@
 		<ul class="nav navbar-nav navbar-right">
 			<c:choose>
 				<c:when test="${empty user}">
-					<li><a href="#" data-toggle="modal" data-target="#signupModal"><span class="glyphicon glyphicon-user"></span> <fmt:message key="prop.header.authentication.signup"/></a></li>
-					<li><a href="#" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> <fmt:message key="prop.header.authentication.login"/></a></li>
+					<li><a href="#" data-toggle="modal" data-target="#signupModal" data-backdrop="static" data-keyboard="false"><span class="glyphicon glyphicon-user"></span> <fmt:message key="prop.header.authentication.signup"/></a></li>
+					<li><a href="#" data-toggle="modal" data-target="#loginModal" data-backdrop="static" data-keyboard="false"><span class="glyphicon glyphicon-log-in"></span> <fmt:message key="prop.header.authentication.login"/></a></li>
 				</c:when>
 				<c:otherwise>
 					<li><a href="/motordepot/page?action=view_modify_user_room&nickname=${user}"><span class="glyphicon glyphicon-home"></span> ${user}</a></li>

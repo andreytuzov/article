@@ -15,5 +15,7 @@ public interface UserService {
 	
 	int add(User user, String password) throws ServiceException;
 	
+	void update(User user) throws ServiceException;
+	
 	User findOne(int id) throws ServiceException;
 }

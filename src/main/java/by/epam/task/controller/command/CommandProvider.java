@@ -16,6 +16,7 @@ import by.epam.task.controller.command.impl.LogIn;
 import by.epam.task.controller.command.impl.LogOut;
 import by.epam.task.controller.command.impl.ModifyCar;
 import by.epam.task.controller.command.impl.ModifyDeal;
+import by.epam.task.controller.command.impl.ModifyUser;
 import by.epam.task.controller.command.impl.PayDeal;
 import by.epam.task.controller.command.impl.SignUp;
 import by.epam.task.controller.command.impl.WrongRequest;
@@ -52,6 +53,7 @@ public class CommandProvider {
 		commands.put(CommandName.LOG_IN, new LogIn());
 		commands.put(CommandName.VIEW_LOG_IN, new ViewLogIn());
 		commands.put(CommandName.LOG_OUT, new LogOut());
+		commands.put(CommandName.MODIFY_USER, new ModifyUser());
 		 
 		commands.put(CommandName.VIEW_MODIFY_USER_ROOM, new ViewModifyUserRoom());
 		commands.put(CommandName.VIEW_USER_LIST, new ViewUserList());

@@ -15,7 +15,7 @@
 			data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
 		<input type="hidden" name="id" value="${car.id}"/>
 		<div class="alert" id="alert-message" style="display: none">
-			<a href="#" onclick="hidden_message()" class="close">×</a>
+			<a href="#" onclick="hiddenAlert()" class="close">×</a>
 			<span></span>
 		</div>
 		<fieldset>
@@ -93,8 +93,8 @@
 			</div>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<button class="btn btn-primary"><fmt:message key="prop.form.button.save"/></button>
-					<button class="btn btn-default" onclick="goback(); return false;"><fmt:message key="prop.form.button.cancel"/></button>
+					<button class="btn btn-primary"><fmt:message key="prop.common.button.save"/></button>
+					<button class="btn btn-default" onclick="goback(); return false;"><fmt:message key="prop.common.button.cancel"/></button>
 				</div>
 			</div>
 		</fieldset>

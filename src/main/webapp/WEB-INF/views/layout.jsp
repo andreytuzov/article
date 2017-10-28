@@ -12,6 +12,7 @@
 	<title>${param.title}</title> 
 	
 	<link href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" rel="stylesheet"></link>	
+	<link href="${pageContext.request.contextPath}/static/css/datatables.min.css" rel="stylesheet"></link>
 	<link href="${pageContext.request.contextPath}/static/css/bootstrap-validator.min.css" rel="stylesheet"></link>
 	<link href="${pageContext.request.contextPath}/static/css/bootstrap-datetimepicker.min.css" rel="stylesheet"></link>
 	<link href="${pageContext.request.contextPath}/static/css/style.css" rel="stylesheet"></link>
@@ -36,14 +37,14 @@
 	
 	<footer>
 		<jsp:include page="/WEB-INF/views/template/footer.jsp"/>
-	</footer>
+	</footer> 
 	
 	<script src="${pageContext.request.contextPath}/static/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/moment.min.js"></script>
-	
 	<script src="${pageContext.request.contextPath}/static/js/bootstrap-validator.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/bootstrap-datetimepicker.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/static/js/datatables.min.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/dynamic.js"></script>
 	<script src="${pageContext.request.contextPath}/static/js/langscript.js"></script>
 </body>	

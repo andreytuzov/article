@@ -4,16 +4,18 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="container-fluid">
 
-	<h2>Список пользователей</h2>
+	<div class="page-header">
+		<h3><fmt:message key="prop.user.header.list"/></h3>
+	</div>
 
 	<table class="table table-striped table-hover table-bordered searchTable" id="userTable"> 
 		<thead>
 			<tr>
-				<th>Ник</th>
-				<th>Имя</th>
-				<th>Фамилия</th>
-				<th>Телефон</th>
-				<th>Почта</th>
+				<th><fmt:message key="prop.user.column.nickname"/></th>
+				<th><fmt:message key="prop.user.column.name"/></th>
+				<th><fmt:message key="prop.user.column.lastname"/></th>
+				<th><fmt:message key="prop.user.column.phone"/></th>
+				<th><fmt:message key="prop.user.column.email"/></th>
 			</tr> 
 		</thead>
 		<tbody id="searchTable">

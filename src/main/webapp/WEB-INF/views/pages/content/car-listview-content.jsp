@@ -5,7 +5,10 @@
 <div class="container-fluid">
 
 	<div class="page-header">
-		<h3>Каталог автомобилей</h3> 
+		<h3><fmt:message key="prop.car.header.list"/></h3> 
+		<c:if test="${empty user}">
+			<i><fmt:message key="prop.car.header.list.placeholder"/></i>
+		</c:if>
 	</div>
 
 	<div class="alert" style="display: none">
@@ -20,9 +23,15 @@
 				<th><fmt:message key="prop.car.column.year"/></th>
 				<th><fmt:message key="prop.car.column.volume"/></th>
 				<th><fmt:message key="prop.car.column.prise"/></th>
-				<th>Edit</th>
-				<th>Delete</th>
-				<th>Order</th>
+				<c:choose>
+					<c:when test="${admin}">
+						<th><fmt:message key="prop.car.column.edit"/></th>
+						<th><fmt:message key="prop.car.column.delete"/></th>
+					</c:when>
+					<c:when test="${not empty user}">
+						<th><fmt:message key="prop.car.column.order"/></th>
+					</c:when>
+				</c:choose>
 			</tr>
 		</thead>
 		<tbody id="searchTable">
@@ -32,9 +41,16 @@
 					<td>${car.year}</td>
 					<td>${car.volume}</td>
 					<td>${car.prise} $</td>
-					<td><a href="/motordepot/page?action=view_modify_car&id=${car.id}"><span class="glyphicon glyphicon-pencil"></span></a></td>
-					<td><a onclick="deleteCar(${car.id})" href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
-					<td><a href="/motordepot/page?action=view_modify_deal&carId=${car.id}"><span class="glyphicon glyphicon-edit"></span></a></td>
+					<c:choose>
+						<c:when test="${admin}">
+							<td><a href="/motordepot/page?action=view_modify_car&id=${car.id}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+							<td><a onclick="deleteCar(${car.id})" href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
+						</c:when>
+						<c:when test="${not empty user}">
+							<td><a href="/motordepot/page?action=view_modify_deal&carId=${car.id}"><span class="glyphicon glyphicon-edit"></span></a></td>
+						</c:when>
+					</c:choose>
+					
 				</tr>
 			</c:forEach>	
 		</tbody>

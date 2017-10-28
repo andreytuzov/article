@@ -8,27 +8,24 @@ $(document).ready(function() {
 	
 	$(".searchTable").DataTable({
 		language: {
-			"decimal":        "",
-		    "emptyTable":     "No data available in table",
-		    "info":           "Showing _START_ to _END_ of _TOTAL_ entries",
-		    "infoEmpty":      "Showing 0 to 0 of 0 entries",
-		    "infoFiltered":   "(filtered from _MAX_ total entries)",
-		    "infoPostFix":    "",
-		    "thousands":      ",",
-		    "lengthMenu":     "Show _MENU_ entries",
-		    "loadingRecords": "Loading...",
-		    "processing":     "Processing...",
-		    "search":         "Search:",
-		    "zeroRecords":    "No matching records found",
+		    "emptyTable":     messages["script.table.emptyTable"],
+		    "info":           messages["script.table.info"],
+		    "infoEmpty":      messages["script.table.infoEmpty"],
+		    "infoFiltered":   messages["script.table.infoFiltered"],
+		    "lengthMenu":     messages["script.table.lengthMenu"],
+		    "loadingRecords": messages["script.table.loadingRecords"],
+		    "processing":     messages["script.table.processing"],
+		    "search":         messages["script.table.search"],
+		    "zeroRecords":    messages["script.table.zeroRecords"],
 		    "paginate": {
-		        "first":      "First",
-		        "last":       "Last",
-		        "next":       "Next",
-		        "previous":   "Previous"
+		        "first":      messages["script.table.paginate.first"],
+		        "last":       messages["script.table.paginate.last"],
+		        "next":       messages["script.table.paginate.next"],
+		        "previous":   messages["script.table.paginate.previous"]
 		    },
 		    "aria": {
-		        "sortAscending":  ": activate to sort column ascending",
-		        "sortDescending": ": activate to sort column descending"
+		        "sortAscending":  messages["script.table.aria.sortAscending"],
+		        "sortDescending": messages["script.table.aria.sortDescending"]
 		    }
 		}
 	});
@@ -90,6 +87,61 @@ $(document).ready(function() {
 					showErrorAlert(messages["script.deal.error.modify"]);
 				})
 		});
+	
+	$("#loginForm")
+		.bootstrapValidator()
+		.on("success.form.bv", function(e) {
+			// Prevent form submission
+			e.preventDefault();
+			// Get the form instance
+			var $form = $(e.target)
+			// Use ajax to submit form data
+			$.post($form.attr("action"), $form.serialize())
+				.success(function(data) {
+					location.reload();
+				})
+				.error(function() {
+					$("#alert-dialog-message").attr("class", "alert alert-danger").show();
+					$("#alert-dialog-message > span").html("Ошибка входа пользователя");
+				})
+		});
+	
+	$("#modifyUserForm")
+		.bootstrapValidator()
+		.on("success.form.bv", function(e) {
+			// Prevent form submission
+			e.preventDefault();
+			// Get the form instance
+			var $form = $(e.target)
+			// Use ajax to submit form data
+			$.post($form.attr("action"), $form.serialize())
+				.success(function(data) {
+					alert("Пользователь был успешно обновлен"); 
+					location.reload();
+				})
+				.error(function() {
+					showErrorAlert("Ошибка редактирования пользователя");
+				})
+		});
+	
+	$("#signUpForm")
+		.bootstrapValidator()
+		.on("success.form.bv", function(e) {
+			// Prevent form submission
+			e.preventDefault();
+			// Get the form instance
+			var $form = $(e.target)
+			// Use ajax to submit form data
+			$.post($form.attr("action"), $form.serialize())
+				.success(function(data) {
+					location.reload();
+				})
+				.error(function() {
+					$("#alert-dialog-message").attr("class", "alert alert-danger").show();
+					$("#alert-dialog-message > span").html("Ошибка регистрации");
+				})
+		});
+	
 	$("#cancelDealForm")
 		.bootstrapValidator()
 		.on("success.form.bv", function(e) {
@@ -129,6 +181,10 @@ $(document).ready(function() {
 function showErrorAlert(errorMsg) {
 	$(".alert").attr("class", "alert alert-danger").show();
 	$(".alert > span").html(errorMsg);
+}
+function hiddenAlertDialog() {
+	$("#alert-dialog-message").css("display", "none");
+	
 }
 function hiddenAlert() {
 	$(".alert").css("display", "none");

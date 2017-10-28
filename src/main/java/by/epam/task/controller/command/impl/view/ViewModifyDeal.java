@@ -16,8 +16,6 @@ import by.epam.task.service.factory.ServiceFactory;
 
 import static by.epam.task.controller.validator.Validator.*;
 
-import java.util.Calendar;
-
 public class ViewModifyDeal implements ICommand {
 
 	private static final Logger logger = Logger.getLogger(ViewModifyDeal.class);
@@ -31,6 +29,9 @@ public class ViewModifyDeal implements ICommand {
 		String carId = request.getParameter("carId");
 		// Data validation
 		Boolean isAdmin = (Boolean) request.getSession().getAttribute("admin");
+		if (isAdmin == null) {
+			isAdmin = false;
+		}
 		if (!(isValidInt(id) || !isAdmin && isValidInt(carId))) {
 			throw new CommandException("Incorrect request data");
 		}
@@ -45,7 +46,7 @@ public class ViewModifyDeal implements ICommand {
 		} catch (ServiceException e) {
 			throw new CommandException("Error execution the viewModifyDeal command", e);
 		}
-		if (isAdmin != null && isAdmin) {
+		if (isAdmin) {
 			return PageResourceManager.getPagePath("page.name.deal.modify-admin");		
 		} else {
 			return PageResourceManager.getPagePath("page.name.deal.modify-customer");		

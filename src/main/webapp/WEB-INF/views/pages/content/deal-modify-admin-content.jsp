@@ -7,22 +7,22 @@
 	
 	<c:choose>
 		<c:when test="${deal.state eq 'CREATED'}">
-			<i><fmt:message key="prop.deal.header.info.admin.created"/></i>
+			<i><fmt:message key="prop.deal.header.placeholder.admin.created"/></i>
 		</c:when>
 		<c:when test="${deal.state eq 'CONFIRMED'}">
-			<i><fmt:message key="prop.deal.header.info.admin.confirmed"/></i>
+			<i><fmt:message key="prop.deal.header.placeholder.admin.confirmed"/></i>
 		</c:when>
 		<c:when test="${deal.state eq 'PAID'}">
-			<i><fmt:message key="prop.deal.header.info.admin.paid"/></i>
+			<i><fmt:message key="prop.deal.header.placeholder.admin.paid"/></i>
 		</c:when>
 		<c:when test="${deal.state eq 'CANCELED'}">
-			<i><fmt:message key="prop.deal.header.info.admin.canceled"/></i>
+			<i><fmt:message key="prop.deal.header.placeholder.admin.canceled"/></i>
 		</c:when>
 		<c:when test="${deal.state eq 'DAMAGED'}">
-			<i><fmt:message key="prop.deal.header.info.admin.damaged"/></i>
+			<i><fmt:message key="prop.deal.header.placeholder.admin.damaged"/></i>
 		</c:when>
 		<c:when test="${deal.state eq 'COMPLETED'}">
-			<i><fmt:message key="prop.deal.header.info.admin.completed"/></i>
+			<i><fmt:message key="prop.deal.header.placeholder.admin.completed"/></i>
 		</c:when>
 	</c:choose>
 </div>
@@ -120,10 +120,10 @@
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<c:if test="${deal.state eq 'PAID'}">
-							<button class="btn btn-primary" onclick="completeDeal(${deal.id}); return false;"><fmt:message key="prop.form.button.complete"/></button>
+							<button class="btn btn-primary" onclick="completeDeal(${deal.id}); return false;"><fmt:message key="prop.common.button.complete"/></button>
 						</c:if>
 						<c:if test="${deal.state eq 'CREATED'}">
-							<button class="btn btn-primary" onclick="confirmDeal(${deal.id}); return false;"><fmt:message key="prop.form.button.confirm"/></button>
+							<button class="btn btn-primary" onclick="confirmDeal(${deal.id}); return false;"><fmt:message key="prop.common.button.confirm"/></button>
 						</c:if>
 					</div>
 				</div>
@@ -163,7 +163,7 @@
 					<c:if test="${deal.state eq 'CREATED'}">
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
-								<button class="btn btn-primary"><fmt:message key="prop.form.button.cancel"/></button>
+								<button class="btn btn-primary"><fmt:message key="prop.common.button.cancel"/></button>
 							</div>
 						</div>
 					</c:if>
@@ -225,7 +225,7 @@
 					<c:if test="${deal.state eq 'PAID'}">
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
-								<button class="btn btn-primary"><fmt:message key="prop.form.button.save"/></button>
+								<button class="btn btn-primary"><fmt:message key="prop.common.button.save"/></button>
 							</div>
 						</div>
 					</c:if>

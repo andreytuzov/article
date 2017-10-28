@@ -57,7 +57,7 @@ public class UserDAOImpl implements UserDAO {
 			connection = pool.take();
 			statement = connection.prepareStatement(UserSQL.SELECT_USER_BY_NICKNAME_AND_PASSWORD);
 			statement.setString(UserSQL.INDEX_USER_NICKNAME, nickname);
-			statement.setString(UserSQL.INDEX_USER_PASSWORD, password);
+			statement.setString(UserSQL.INDEX_USER_PASSWORD_SELECT, password);
 			
 			resultSet = statement.executeQuery();
 			if (resultSet.next()) {
@@ -134,6 +134,32 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
+	public void update(User user) throws DAOException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		try {
+			connection = pool.take();
+			statement = connection.prepareStatement(UserSQL.UPDATE_USER);
+			statement.setString(UserSQL.INDEX_USER_NICKNAME, user.getNickname());
+			statement.setInt(UserSQL.INDEX_USER_ROLE_ID, user.getRole().getIndex());
+			statement.setString(UserSQL.INDEX_USER_NAME, user.getName());
+			statement.setString(UserSQL.INDEX_USER_LASTNAME, user.getLastname());
+			statement.setString(UserSQL.INDEX_USER_PHONE, user.getPhone());
+			statement.setString(UserSQL.INDEX_USER_EMAIL, user.getEmail());
+			statement.setInt(UserSQL.INDEX_USER_DRIVEN_EXPERIENCE, user.getDrivenExperience());
+			statement.setInt(UserSQL.INDEX_USER_ID_UPDATE, user.getId());
+			
+			statement.executeUpdate();
+		} catch (ConnectionPoolException e) {
+			throw new DAOException("Error getting connection", e);
+		} catch (SQLException e) {
+			throw new DAOException("Error execution the update method", e);
+		} finally {
+			pool.closeConnection(connection, statement);
+		}
+	}
+	
+	@Override
 	public User findOne(int id) throws DAOException {
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -173,4 +199,5 @@ public class UserDAOImpl implements UserDAO {
 		
 		return user;
 	}
+
 }

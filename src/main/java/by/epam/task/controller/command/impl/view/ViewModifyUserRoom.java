@@ -3,6 +3,8 @@ package by.epam.task.controller.command.impl.view;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import by.epam.task.controller.command.ICommand;
 import by.epam.task.controller.command.exception.CommandException;
 import by.epam.task.controller.manager.PageResourceManager;
@@ -15,14 +17,21 @@ import static by.epam.task.controller.validator.Validator.*;
 
 public class ViewModifyUserRoom implements ICommand {
 
+	private static final Logger logger = Logger.getLogger(ViewModifyUserRoom.class);
+	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 		UserService userService = ServiceFactory.getInstance().getUserService();
 		DealService dealService = ServiceFactory.getInstance().getDealService();
 		// Getting info
 		String nickname = request.getParameter("nickname");
+		String accessNickname = (String) request.getSession().getAttribute("user");
+		Boolean isAdmin = (Boolean) request.getSession().getAttribute("admin");
+		if (isAdmin == null) {
+			isAdmin = false;
+		}
 		// Data validation
-		if (!isValidString(nickname)) {
+		if (!isValidString(nickname) || !(nickname.equals(accessNickname) || isAdmin)) {
 			throw new CommandException("Incorrect request data");
 		}
 		try {

@@ -80,7 +80,7 @@ public class Validator {
 	}
 	
 	public static boolean isValidPhone(String phone) {
-		Pattern pattern = Pattern.compile("^[\\s0-9()+-]{6,}$");
+		Pattern pattern = Pattern.compile("^(\\+[0-9]+)?\\s?(\\([0-9]{2,}\\))?\\s?[0-9]{2,}-[0-9]{2}-[0-9]{2}$");
 		Matcher matcher = pattern.matcher(phone);
 		logger.debug("isValidPhone is " + matcher.matches() + ": " + phone);
 		return matcher.matches();

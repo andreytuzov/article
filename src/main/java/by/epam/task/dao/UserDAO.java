@@ -14,6 +14,8 @@ public interface UserDAO {
 	List<User> findAll() throws DAOException;
 
 	int insert(User user, String password) throws DAOException;
+	
+	void update(User user) throws DAOException;
 
 	User findOne(int id) throws DAOException;
 }
