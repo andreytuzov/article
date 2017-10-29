@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import by.epam.task.dao.DealDAO;
@@ -55,6 +56,66 @@ public class DealDAOImpl implements DealDAO {
 	}
 	
 	@Override
+	public List<Deal> findAllByCarAfterNow(int id) throws DAOException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		Deal deal = null;
+		List<Deal> list = null;
+		try {
+			connection = pool.take();
+			statement = connection.prepareStatement(DealSQL.SELECT_DEAL_BY_CAR_AFTER_NOW);
+			statement.setInt(DealSQL.INDEX_DEAL_CAR_ID, id);
+			
+			resultSet = statement.executeQuery();
+			list = new ArrayList<>();
+			while (resultSet.next()) {
+				deal = readFromResultSet(resultSet);
+				list.add(deal);
+			}
+		} catch (ConnectionPoolException e) {
+			throw new DAOException("Error execution findAllAfterNow method", e);
+		} catch (SQLException e) {
+			throw new DAOException("Error execution sql script", e);
+		} finally {
+			pool.closeConnection(connection, statement, resultSet);
+		}
+		return list;
+	}
+
+	@Override
+	public List<Deal> findAllByCarBetweenDate(int id, Date dateFrom, Date dateTo) throws DAOException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		Deal deal = null;
+		List<Deal> list = null;
+		try {
+			connection = pool.take();
+			statement = connection.prepareStatement(DealSQL.SELECT_DEAL_BY_CAR_BETWEEN_DATE);
+			
+			SimpleDateFormat format = new SimpleDateFormat(DATETIME_FORMAT);
+			statement.setInt(DealSQL.INDEX_DEAL_CAR_ID, id);
+			statement.setString(DealSQL.INDEX_DEAL_DATE_FROM, format.format(dateFrom.getTime()));
+			statement.setString(DealSQL.INDEX_DEAL_DATE_TO, format.format(dateTo.getTime()));
+			
+			resultSet = statement.executeQuery();
+			list = new ArrayList<>();
+			while (resultSet.next()) {
+				deal = readFromResultSet(resultSet);
+				list.add(deal);
+			}
+		} catch (ConnectionPoolException e) {
+			throw new DAOException("Error execution findAllAfterNow method", e);
+		} catch (SQLException e) {
+			throw new DAOException("Error execution sql script", e);
+		} finally {
+			pool.closeConnection(connection, statement, resultSet);
+		}
+		return list;
+	}
+	
+	@Override
 	public List<Deal> findAllByNickname(String nickname) throws DAOException {
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -72,6 +133,36 @@ public class DealDAOImpl implements DealDAO {
 				deal = readFromResultSet(resultSet);
 				list.add(deal);
 			}
+		} catch (ConnectionPoolException e) {
+			throw new DAOException("Error execution findOneByNickname method", e);
+		} catch (SQLException e) {
+			throw new DAOException("Error execution sql script", e);
+		} finally {
+			pool.closeConnection(connection, statement, resultSet);
+		}
+		return list;
+	}
+	
+	@Override
+	public List<Deal> findAllByDealState(DealState dealState) throws DAOException {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		List<Deal> list = null;
+		try {
+			connection = pool.take();
+			statement = connection.prepareStatement(DealSQL.SELECT_DEAL_BY_DEALSTATE);
+			statement.setInt(DealSQL.INDEX_DEAL_DEAL_STATE_ID_SELECT, dealState.getIndex());
+			
+			resultSet = statement.executeQuery();
+			list = new ArrayList<>();
+			Deal deal = null;
+			while (resultSet.next()) {
+				deal = readFromResultSet(resultSet);
+				if (deal.getState() == dealState) {					
+					list.add(deal);
+				}
+			}			
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Error execution findOneByNickname method", e);
 		} catch (SQLException e) {
@@ -241,7 +332,17 @@ public class DealDAOImpl implements DealDAO {
 		damage.setCost(resultSet.getInt(DAMAGE_COST));
 		deal.setDamage(damage);
 		
-		deal.setState(DealState.valueOf(resultSet.getString(DEAL_STATE_NAME).toUpperCase()));
+		// logic separation of the state
+		DealState dealState = DealState.valueOf(resultSet.getString(DEAL_STATE_NAME).toUpperCase());
+		Date now = new Date();
+		if (dealState == DealState.PAID && now.getTime() > deal.getDateFrom().getTime()) {
+			if (now.getTime() < deal.getDateTo().getTime()) {
+				dealState = DealState.ACTIVE;
+			} else {
+				dealState = DealState.FINISHED;
+			}
+		}
+		deal.setState(dealState);
 		return deal;
 	}
 }

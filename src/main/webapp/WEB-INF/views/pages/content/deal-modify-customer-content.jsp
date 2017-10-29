@@ -21,7 +21,7 @@
 		<c:when test="${deal.state eq 'DAMAGED'}">
 			<i><fmt:message key="prop.deal.header.placeholder.customer.damaged"/></i>
 		</c:when>
-		<c:when test="${deal.state eq 'COMPLETED'}">
+		<c:when test="${$deal.state eq 'COMPLETED_DAMAGE' || deal.state eq 'COMPLETED_SUCCESS'}">
 			<i><fmt:message key="prop.deal.header.placeholder.customer.completed"/></i>
 		</c:when>
 		<c:otherwise>
@@ -59,6 +59,21 @@
 				<input type="hidden" name="id" value="${deal.id}"/>
 				<input type="hidden" name="carId" value="${car.id}"/>				
 				<input type="hidden" id="carPrise" value="${car.prise}"/>
+				<input type="hidden" id="locale" value="${language}"/>
+
+				<c:if test="${not empty carSchedule && carSchedule.size() ne 0}">
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="dateFrom">BUSY DATE</label>
+						<div class="col-sm-10">
+							<div class="alert alert-info">
+								<c:forEach var="item" items="${carSchedule}">
+									<i><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${item.dateFrom}"/> - <fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${item.dateFrom}"/></i>
+									<br/>
+								</c:forEach>
+							</div>
+						</div>
+					</div>
+				</c:if>
 				 
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="model"><fmt:message key="prop.deal.column.car"/></label>
@@ -70,6 +85,9 @@
 						</div>
 					</div>
 				</div>
+				
+				
+				
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="dateFrom"><fmt:message key="prop.deal.column.datefrom"/></label>
 					<div class="col-sm-10">
@@ -78,16 +96,15 @@
 							<c:choose>
 								<c:when test="${empty deal.state || deal.state eq 'CREATED'}">
 									<input type="datetime" required class="form-control" name="dateFrom" 
-										value='<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${deal.dateFrom}"/>'
+										value='<fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${deal.dateFrom}"/>'
 										placeholder="<fmt:message key="prop.deal.column.datefrom.placeholder"/>"
 										required data-bv-notempty-message="<fmt:message key="prop.deal.column.datefrom.notempty"/>">
 								</c:when>
 								<c:otherwise>
 									<input type="datetime" readonly class="form-control" name="dateFrom" 
-										value='<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${deal.dateFrom}"/>'/>
+										value='<fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${deal.dateFrom}"/>'/>
 								</c:otherwise>
 							</c:choose>
-							
 						</div>
 					</div>
 				</div>
@@ -99,18 +116,19 @@
 							<c:choose>
 								<c:when test="${empty deal.state || deal.state eq 'CREATED'}">
 									<input type="datetime" required class="form-control" name="dateTo" 
-										value="<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${deal.dateTo}"/>"
+										value="<fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${deal.dateTo}"/>"
 										placeholder="<fmt:message key="prop.deal.column.dateto.placeholder"/>"
 										required data-bv-notempty-message="<fmt:message key="prop.deal.column.dateto.notempty"/>">			
 								</c:when>
 								<c:otherwise>
 									<input type="datetime" readonly class="form-control" name="dateTo" 
-										value="<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${deal.dateTo}"/>"/>
+										value="<fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${deal.dateTo}"/>"/>
 								</c:otherwise>
 							</c:choose>
 						</div>
 					</div>
 				</div>
+				
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="cost"><fmt:message key="prop.deal.column.cost"/></label>
 					<div class="col-sm-10">

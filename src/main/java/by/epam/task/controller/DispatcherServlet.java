@@ -1,7 +1,6 @@
 package by.epam.task.controller;
 
 import java.io.IOException;
-import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,17 +19,29 @@ import by.epam.task.service.InitializingService;
 import by.epam.task.service.exception.ServiceException;
 import by.epam.task.service.factory.ServiceFactory;
 
+/**
+ * Контроллер для обработки всех запросов
+ *
+ */
 public class DispatcherServlet extends HttpServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Объект логгера
+	 */
 	private static final Logger logger = Logger.getLogger(DispatcherServlet.class);
 	
+	/**
+	 * Сервис инициализации
+	 */
 	private static final InitializingService initializingService = ServiceFactory.getInstance().getInitializingService();
 	
+	/**
+	 * Метод первоначальной инициализации объектов
+	 * 
+	 * @throws ServletException если возникает ошибка связанная с сервлетом
+	 */
 	@Override
 	public void init() throws ServletException {
 		super.init();
@@ -41,19 +52,16 @@ public class DispatcherServlet extends HttpServlet {
 		}
 	}
 	
-	// TODO to create a listener
-	private void requestListener(HttpServletRequest request) {
-		Enumeration<String> keys = request.getParameterNames();
-		while (keys.hasMoreElements()) {
-			String key = keys.nextElement();
-			String value = request.getParameter(key); 
-			logger.debug(key + " : " + value);
-		}
-	}
-
+	/**
+	 * Метод для обработки всех запросов
+	 * 
+	 * @param request объект запроса
+	 * @param response объект ответа
+	 * @throws IOException если возикает ошибка ввода вывода
+	 * @throws ServletException если возникает ошибка связанная с сервлетом
+	 */
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		requestListener(request);
 		// Getting data
 		String action = request.getParameter("action");
 		Role role = (Role) request.getSession().getAttribute("role");
@@ -81,6 +89,9 @@ public class DispatcherServlet extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * Метод освобождения используемых ресурсов
+	 */
 	@Override
 	public void destroy() {
 		super.destroy();

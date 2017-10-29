@@ -21,8 +21,17 @@
 		<c:when test="${deal.state eq 'DAMAGED'}">
 			<i><fmt:message key="prop.deal.header.placeholder.admin.damaged"/></i>
 		</c:when>
-		<c:when test="${deal.state eq 'COMPLETED'}">
+		<c:when test="${deal.state eq 'COMPLETED_DAMAGE'}">
+			<i><fmt:message key="prop.deal.header.placeholder.admin.completed_damage"/></i>
+		</c:when>
+		<c:when test="${deal.state eq 'COMPLETED_SUCCESS'}">
 			<i><fmt:message key="prop.deal.header.placeholder.admin.completed"/></i>
+		</c:when>
+		<c:when test="${deal.state eq 'ACTIVE'}">
+			<i><fmt:message key="prop.deal.header.placeholder.admin.active"/></i>
+		</c:when>
+		<c:when test="${deal.state eq 'FINISHED'}">
+			<i><fmt:message key="prop.deal.header.placeholder.admin.finished"/></i>
 		</c:when>
 	</c:choose>
 </div>
@@ -33,7 +42,7 @@
 		<c:if test="${deal.state eq 'CREATED' || deal.state eq 'CANCELED'}">	
 			<li><a href="#cancel-tab" data-toggle="tab"><fmt:message key="prop.deal.tab.cancel"/></a></li>		
 		</c:if>
-		<c:if test="${deal.state eq 'PAID' || not empty deal.damage.description}">	
+		<c:if test="${deal.state eq 'FINISHED' || not empty deal.damage.description}">	
 			<li><a href="#damage-tab" data-toggle="tab"><fmt:message key="prop.deal.tab.damage"/></a></li>
 		</c:if>
 	</ul>
@@ -74,7 +83,7 @@
 						<div class="input-group date" id="dateFromPicker">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 							<input type="datetime" readonly class="form-control" name="dateFrom" 
-								value='<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${deal.dateFrom}"/>'/>
+								value='<fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${deal.dateFrom}"/>'/>
 						</div>
 					</div>
 				</div>
@@ -84,7 +93,7 @@
 						<div class="input-group date" id="dateToPicker">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 							<input type="datetime" readonly class="form-control" name="dateTo" 
-								value="<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${deal.dateTo}"/>"/>			
+								value="<fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${deal.dateTo}"/>"/>			
 						</div>
 					</div>
 				</div>
@@ -119,7 +128,7 @@
 				</c:if>		
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<c:if test="${deal.state eq 'PAID'}">
+						<c:if test="${deal.state eq 'FINISHED'}">
 							<button class="btn btn-primary" onclick="completeDeal(${deal.id}); return false;"><fmt:message key="prop.common.button.complete"/></button>
 						</c:if>
 						<c:if test="${deal.state eq 'CREATED'}">
@@ -171,7 +180,7 @@
 			</div>
 		</c:if>
 			
-		<c:if test="${deal.state eq 'PAID' || not empty deal.damage.description}">
+		<c:if test="${deal.state eq 'FINISHED' || not empty deal.damage.description}">
 			<div class="tab-pane" id="damage-tab">
 				<form id="damageDealForm" class="form-horizontal" action="/motordepot/page?action=damage_car" method="post"
 					data-bv-trigger="blur"
@@ -187,7 +196,7 @@
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
 								<c:choose>
-									<c:when test="${deal.state eq 'PAID'}">
+									<c:when test="${deal.state eq 'FINISHED'}">
 										<input id="totalCost" type="text" id="damage_cost" class="form-control" name="damage_cost" 
 											placeholder="<fmt:message key="prop.deal.column.damage.cost.placeholder"/>"
 											required data-bv-notempty-message="<fmt:message key="prop.deal.column.damage.cost.notempty"/>"
@@ -208,7 +217,7 @@
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
 								<c:choose>
-									<c:when test="${deal.state eq 'PAID'}">
+									<c:when test="${deal.state eq 'FINISHED'}">
 										<textarea rows="5" class="form-control" name="damage_description"
 											placeholder="<fmt:message key="prop.deal.column.damage.description.placeholder"/>"
 											required data-bv-notempty-message="<fmt:message key="prop.deal.column.damage.description.notempty"/>"
@@ -222,7 +231,7 @@
 						</div>
 					</div>
 					
-					<c:if test="${deal.state eq 'PAID'}">
+					<c:if test="${deal.state eq 'FINISHED'}">
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
 								<button class="btn btn-primary"><fmt:message key="prop.common.button.save"/></button>

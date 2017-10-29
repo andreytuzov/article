@@ -39,7 +39,7 @@ public class SignUp implements ICommand {
 		} catch (ServiceException e) {
 			throw new CommandException("Error execution the signUp command", e);
 		}
-		return PageResourceManager.getUrlPath("page.url.user.login");
+		return null;
 	}
 
 }

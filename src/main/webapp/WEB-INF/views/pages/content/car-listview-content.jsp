@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="mytags" uri="http://epam.by/jsp/tlds/mytags" %>
+
 <div class="container-fluid">
 
 	<div class="page-header">
@@ -19,10 +21,11 @@
 	<table class="table table-striped table-hover table-bordered searchTable" id="carTable"> 
 		<thead>
 			<tr>
-				<th><fmt:message key="prop.car.column.model"/></th>
+				<th class="col-sm-2"><fmt:message key="prop.car.column.model"/></th>
 				<th><fmt:message key="prop.car.column.year"/></th>
 				<th><fmt:message key="prop.car.column.volume"/></th>
 				<th><fmt:message key="prop.car.column.prise"/></th>
+				<th><fmt:message key="prop.car.column.description"/></th>
 				<c:choose>
 					<c:when test="${admin}">
 						<th><fmt:message key="prop.car.column.edit"/></th>
@@ -41,6 +44,7 @@
 					<td>${car.year}</td>
 					<td>${car.volume}</td>
 					<td>${car.prise} $</td>
+					<td><mytags:trim text="${car.description}"/></td>
 					<c:choose>
 						<c:when test="${admin}">
 							<td><a href="/motordepot/page?action=view_modify_car&id=${car.id}"><span class="glyphicon glyphicon-pencil"></span></a></td>
@@ -50,7 +54,6 @@
 							<td><a href="/motordepot/page?action=view_modify_deal&carId=${car.id}"><span class="glyphicon glyphicon-edit"></span></a></td>
 						</c:when>
 					</c:choose>
-					
 				</tr>
 			</c:forEach>	
 		</tbody>

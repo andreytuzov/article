@@ -7,6 +7,8 @@ import org.apache.log4j.Logger;
 
 import com.mysql.cj.core.util.StringUtils;
 
+import by.epam.task.domain.DealState;
+
 public class Validator {
 
 	private static final Logger logger = Logger.getLogger(Validator.class);
@@ -66,7 +68,7 @@ public class Validator {
 	}
 	
 	public static boolean isValidDate(String date) {
-		Pattern pattern = Pattern.compile("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)\\d\\d\\s([01][0-9]|2[0-3]):([0-5][0-9])$");
+		Pattern pattern = Pattern.compile("^(19|20)\\d\\d/(0[1-9]|1[012])/(0[1-9]|[12][0-9]|3[01])\\s([01][0-9]|2[0-3]):([0-5][0-9])$");
 		Matcher matcher = pattern.matcher(date);
 		logger.debug("isValidDate is " + matcher.matches() + ":" + date + "'");
 		return matcher.matches();
@@ -98,6 +100,17 @@ public class Validator {
 		Matcher matcher = pattern.matcher(passportNumber);
 		logger.debug("isValidEmail is " + matcher.matches() + ": " + passportNumber);
 		return matcher.matches();
+	}
+	
+	public static boolean isValidDealState(String dealState) {
+		try {
+			DealState.valueOf(dealState);
+		} catch (NumberFormatException e) {
+			logger.debug("isValidDealState is false:" + dealState);
+			return false;
+		}
+		logger.debug("isValidDealState is success:" + dealState);
+		return true;
 	}
 	
 }

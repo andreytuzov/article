@@ -2,42 +2,59 @@ package by.epam.task.controller.command;
 
 import by.epam.task.domain.Role;
 
+/**
+ * Перечисление все действий доступных на сайте
+ *
+ */
 public enum CommandName {
 	
-	WRONG_REQUEST,
-	VIEW_CAR_LIST,
-	VIEW_CAR,
-	VIEW_MODIFY_CAR(Role.ADMIN),
-	MODIFY_CAR(Role.ADMIN),
-	DELETE_CAR(Role.ADMIN),
+	WRONG_REQUEST,                                    /** Обработка некорректных запросов */
+
+	VIEW_CAR_LIST,                                    /** Отображение списка автомобилей */
+	VIEW_CAR,                                         /** Отображение автомобиля */
+	VIEW_MODIFY_CAR(Role.ADMIN),                      /** Отображение страницы для изменения автомобиля */
+	MODIFY_CAR(Role.ADMIN),	                          /** Обработка запроса изменения автомобиля */
+	DELETE_CAR(Role.ADMIN),	                          /** Обработка запроса удаления автомобиля */
+
+	SIGN_UP(Role.ANONYMOUS),                          /** Обработка запроса регистрации пользователя */
+	LOG_IN(Role.ANONYMOUS),                           /** Обработка запроса входа пользователя */
+	LOG_OUT(Role.CUSTOMER, Role.ADMIN),               /** Обработка запроса выхода пользователя */
+	MODIFY_USER(Role.CUSTOMER, Role.ADMIN),           /** Обработка запроса редактирования пользователя */
 	
-	VIEW_SIGN_UP(Role.ANONYMOUS),
-	SIGN_UP(Role.ANONYMOUS),
-	LOG_IN(Role.ANONYMOUS),
-	VIEW_LOG_IN(Role.ANONYMOUS),
-	LOG_OUT(Role.CUSTOMER, Role.ADMIN),
-	MODIFY_USER(Role.CUSTOMER),
+	VIEW_MODIFY_USER_ROOM(Role.CUSTOMER, Role.ADMIN), /** Отображение страницы пользователя */
+	VIEW_USER_LIST(Role.ADMIN),                       /** Отображение списка пользователей */
 	
-	VIEW_MODIFY_USER_ROOM(Role.CUSTOMER, Role.ADMIN),
-	VIEW_USER_LIST(Role.ADMIN),
+	VIEW_DEAL_LIST(Role.ADMIN),                       /** Отображение списка сделок */
+	VIEW_MODIFY_DEAL(Role.ADMIN, Role.CUSTOMER),      /** Отображение страницы редактирования сделки */
 	
-	VIEW_DEAL_LIST(Role.ADMIN),
-	VIEW_MODIFY_DEAL(Role.ADMIN, Role.CUSTOMER),
+	MODIFY_DEAL(Role.CUSTOMER),                       /** Обработка запроса редактирования заказа*/
+	DELETE_DEAL(Role.CUSTOMER),                       /** Обработка запроса удаления заказа */
+	CONFIRM_DEAL(Role.ADMIN),                         /** Обработка запроса подтверждения заказа */
+	CANCEL_DEAL(Role.ADMIN),                          /** Обработка запроса отмены заказа */
+	PAY_DEAL(Role.CUSTOMER),                          /** Обработка запроса оплаты заказа */
+	COMPLETE_DEAL(Role.ADMIN),                        /** Обработка запроса завершения сделки */
+	DAMAGE_CAR(Role.ADMIN);                           /** Обработка запроса добавления повреждения автомобиля */
 	
-	MODIFY_DEAL(Role.CUSTOMER),
-	DELETE_DEAL(Role.CUSTOMER),
-	CONFIRM_DEAL(Role.ADMIN),
-	CANCEL_DEAL(Role.ADMIN),
-	PAY_DEAL(Role.CUSTOMER),
-	COMPLETE_DEAL(Role.ADMIN),
-	DAMAGE_CAR(Role.ADMIN);
-	
+	/**
+	 *	Список ролей, которым доступны соответствующие команды
+	 */
 	final Role[] accessRoles;
 	
+	/**
+	 * Конструктор команд 
+	 * 
+	 * @param accessRoles роли, которым доступны команды
+	 */
 	private CommandName(Role... accessRoles) {
 		this.accessRoles = accessRoles;
 	}
 	
+	/**
+	 * Метод для проверки прав доступа к соответствующей команде
+	 * 
+	 * @param role роль пользователя
+	 * @return результат проверки прав доступа
+	 */
 	public boolean isAccessed(Role role) {
 		if (accessRoles.length == 0) {
 			return true;

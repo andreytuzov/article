@@ -88,6 +88,52 @@ public class Car {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((model == null) ? 0 : model.hashCode());
+		result = prime * result + power;
+		result = prime * result + Float.floatToIntBits(prise);
+		result = prime * result + Float.floatToIntBits(volume);
+		result = prime * result + year;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Car other = (Car) obj;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (id != other.id)
+			return false;
+		if (model == null) {
+			if (other.model != null)
+				return false;
+		} else if (!model.equals(other.model))
+			return false;
+		if (power != other.power)
+			return false;
+		if (Float.floatToIntBits(prise) != Float.floatToIntBits(other.prise))
+			return false;
+		if (Float.floatToIntBits(volume) != Float.floatToIntBits(other.volume))
+			return false;
+		if (year != other.year)
+			return false;
+		return true;
+	}
+
+	@Override
 	public String toString() {
 		return "Car [id=" + id + ", model=" + model + ", year=" + year + ", volume=" + volume + ", power=" + power
 				+ ", prise=" + prise + ", description=" + description + "]";

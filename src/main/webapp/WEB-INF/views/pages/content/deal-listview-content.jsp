@@ -6,30 +6,85 @@
 
 	<div class="page-header">
 		<h3><fmt:message key="prop.deal.header.list"/></h3>
+			<c:choose>
+				<c:when test="${param.dealState eq 'CREATED'}">
+					<i><fmt:message key="prop.deal.header.placeholder.admin.created"/></i>
+				</c:when>
+				<c:when test="${param.dealState eq 'CONFIRMED'}">
+					<i><fmt:message key="prop.deal.header.placeholder.admin.confirmed"/></i>
+				</c:when>
+				<c:when test="${param.dealState eq 'PAID'}">
+					<i><fmt:message key="prop.deal.header.placeholder.admin.paid"/></i>
+				</c:when>
+				<c:when test="${param.dealState eq 'CANCELED'}">
+					<i><fmt:message key="prop.deal.header.placeholder.admin.canceled"/></i>
+				</c:when>
+				<c:when test="${param.dealState eq 'DAMAGED'}">
+					<i><fmt:message key="prop.deal.header.placeholder.admin.damaged"/></i>
+				</c:when>
+				<c:when test="${param.dealState eq 'COMPLETED_DAMAGE'}">
+					<i><fmt:message key="prop.deal.header.placeholder.admin.completed_damage"/></i>
+				</c:when>
+				<c:when test="${param.dealState eq 'COMPLETED_SUCCESS'}">
+					<i><fmt:message key="prop.deal.header.placeholder.admin.completed"/></i>
+				</c:when>
+				<c:when test="${param.dealState eq 'ACTIVE'}">
+					<i><fmt:message key="prop.deal.header.placeholder.admin.active"/></i>
+				</c:when>
+				<c:when test="${param.dealState eq 'FINISHED'}">
+					<i><fmt:message key="prop.deal.header.placeholder.admin.finished"/></i>
+				</c:when>
+			</c:choose>
+	</div>
+	
+	
+	<div class="btn-group">
+		<a class="btn btn-primary" href="/motordepot/page?action=view_deal_list&dealState=CREATED"><fmt:message key="prop.deal.button.new"/></a>
+		<a class="btn btn-primary" href="/motordepot/page?action=view_deal_list&dealState=CONFIRMED"><fmt:message key="prop.deal.button.payment"/></a>
+		<div class="btn-group">
+			<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><fmt:message key="prop.deal.button.current"/>
+				<span class="caret"></span></a>
+			<ul class="dropdown-menu">		
+				<li><a href="/motordepot/page?action=view_deal_list&dealState=PAID"><fmt:message key="prop.deal.button.waiting"/></a></li>
+				<li><a href="/motordepot/page?action=view_deal_list&dealState=ACTIVE"><fmt:message key="prop.deal.button.active"/></a></li>
+				<li><a href="/motordepot/page?action=view_deal_list&dealState=FINISHED"><fmt:message key="prop.deal.button.completed"/></a></li>
+			</ul>
+		</div>
+		<div class="btn-group">
+			<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><fmt:message key="prop.deal.button.finished"/>
+				<span class="caret"></span></a>
+			<ul class="dropdown-menu">	
+				<li><a href="/motordepot/page?action=view_deal_list&dealState=COMPLETED_SUCCESS"><fmt:message key="prop.deal.button.success"/></a></li>	
+				<li><a href="/motordepot/page?action=view_deal_list&dealState=CANCELED"><fmt:message key="prop.deal.button.canceled"/></a></li>
+				<li><a href="/motordepot/page?action=view_deal_list&dealState=COMPLETED_DAMAGE"><fmt:message key="prop.deal.button.damage"/></a></li>	
+			</ul>
+		</div>
 	</div>
 
-	<table class="table table-striped table-hover table-bordered searchTable" id="dealTable"> 
-		<thead>
-			<tr>
-				<th><fmt:message key="prop.deal.column.state"/></th>
-				<th><fmt:message key="prop.user.column.nickname"/></th>
-				<th><fmt:message key="prop.car.column.model"/></th>
-				<th><fmt:message key="prop.deal.column.datefrom"/></th>
-				<th><fmt:message key="prop.deal.column.dateto"/></th>
-				<th><fmt:message key="prop.deal.column.cost"/></th>
-			</tr> 
-		</thead>
-		<tbody id="searchTable">
-			<c:forEach var="deal" items="${listDeal}">
+	<div style="margin-top: 20px;">
+		<table class="table table-striped table-hover table-bordered searchTable" id="dealTable"> 
+			<thead>
 				<tr>
-					<td><a href="/motordepot/page?action=view_modify_deal&id=${deal.id}">${deal.state}</a></td>
-					<td><a href="/motordepot/page?action=view_modify_user_room&nickname=${deal.user.nickname}">${deal.user.nickname}</a></td>
-					<td><a href="/motordepot/page?action=view_car&id=${deal.car.id}">${deal.car.model}</a></td>
-					<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${deal.dateFrom}"/></td>
-					<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${deal.dateTo}"/></td>
-					<td>${deal.cost} $</td>
-				</tr>
-			</c:forEach>	
-		</tbody>
-	</table> 
+					<th class="col-sm-1">Order</th>
+					<th class="col-sm-2"><fmt:message key="prop.user.column.nickname"/></th>
+					<th class="col-sm-2"><fmt:message key="prop.deal.column.datefrom"/></th>
+					<th class="col-sm-2"><fmt:message key="prop.deal.column.dateto"/></th>
+					<th class="col-sm-3"><fmt:message key="prop.car.column.model"/></th>
+					<th class="col-sm-2"><fmt:message key="prop.deal.column.cost"/></th>
+				</tr> 
+			</thead>
+			<tbody id="searchTable">
+				<c:forEach var="deal" items="${listDeal}">
+					<tr>
+						<td><a href="/motordepot/page?action=view_modify_deal&id=${deal.id}"><span class="glyphicon glyphicon-edit"></span></a></td>
+						<td><a href="/motordepot/page?action=view_modify_user_room&nickname=${deal.user.nickname}">${deal.user.nickname}</a></td>
+						<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${deal.dateFrom}"/></td>
+						<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${deal.dateTo}"/></td>
+						<td><a href="/motordepot/page?action=view_car&id=${deal.car.id}">${deal.car.model}</a></td>
+						<td>${deal.cost} $</td>
+					</tr>
+				</c:forEach>	
+			</tbody>
+		</table> 
+	</div>
 </div>

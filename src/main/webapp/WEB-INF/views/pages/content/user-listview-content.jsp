@@ -11,11 +11,11 @@
 	<table class="table table-striped table-hover table-bordered searchTable" id="userTable"> 
 		<thead>
 			<tr>
-				<th><fmt:message key="prop.user.column.nickname"/></th>
-				<th><fmt:message key="prop.user.column.name"/></th>
-				<th><fmt:message key="prop.user.column.lastname"/></th>
-				<th><fmt:message key="prop.user.column.phone"/></th>
-				<th><fmt:message key="prop.user.column.email"/></th>
+				<th class="col-sm-2"><fmt:message key="prop.user.column.nickname"/></th>
+				<th class="col-sm-2"><fmt:message key="prop.user.column.name"/></th>
+				<th class="col-sm-2"><fmt:message key="prop.user.column.lastname"/></th>
+				<th class="col-sm-3"><fmt:message key="prop.user.column.phone"/></th>
+				<th class="col-sm-3"><fmt:message key="prop.user.column.email"/></th>
 			</tr> 
 		</thead>
 		<tbody id="searchTable">

@@ -32,8 +32,8 @@ $(document).ready(function() {
 	
 	$("#dateFromPicker")
 		.datetimepicker({
-			format: "DD/MM/YYYY HH:00",
-			locale: "ru"
+			format: "YYYY/MM/DD HH:00",
+			locale: $("#locale").attr("value")
 		})
 		.on("dp.change", function(e) {
 			$("#dateToPicker").data("DateTimePicker").minDate(e.date);
@@ -42,9 +42,9 @@ $(document).ready(function() {
 	
 	$("#dateToPicker")
 		.datetimepicker({
-			format: "DD/MM/YYYY HH:00",
+			format: "YYYY/MM/DD HH:00",
 			useCurrent: false,
-			locale: "ru"
+			locale: $("#locale").attr("value")
 		})
 		.on("dp.change", function(e) {
 			$("#dateFromPicker").data("DateTimePicker").maxDate(e.date);
@@ -101,8 +101,8 @@ $(document).ready(function() {
 					location.reload();
 				})
 				.error(function() {
-					$("#alert-dialog-message").attr("class", "alert alert-danger").show();
-					$("#alert-dialog-message > span").html("Ошибка входа пользователя");
+					$("#login-message").attr("class", "alert alert-danger").show();
+					$("#login-message > span").html(messages["script.user.error.login"]);
 				})
 		});
 	
@@ -116,11 +116,10 @@ $(document).ready(function() {
 			// Use ajax to submit form data
 			$.post($form.attr("action"), $form.serialize())
 				.success(function(data) {
-					alert("Пользователь был успешно обновлен"); 
-					location.reload();
+					alert(messages["script.user.success.modify"]); 
 				})
 				.error(function() {
-					showErrorAlert("Ошибка редактирования пользователя");
+					showErrorAlert(messages["script.user.error.modify"]);
 				})
 		});
 	
@@ -134,11 +133,12 @@ $(document).ready(function() {
 			// Use ajax to submit form data
 			$.post($form.attr("action"), $form.serialize())
 				.success(function(data) {
+					alert(messages["script.user.success.signup"]);
 					location.reload();
 				})
 				.error(function() {
-					$("#alert-dialog-message").attr("class", "alert alert-danger").show();
-					$("#alert-dialog-message > span").html("Ошибка регистрации");
+					$("#signup-message").attr("class", "alert alert-danger").show();
+					$("#signup-message > span").html(messages["script.user.error.signup"]);
 				})
 		});
 	
@@ -182,9 +182,11 @@ function showErrorAlert(errorMsg) {
 	$(".alert").attr("class", "alert alert-danger").show();
 	$(".alert > span").html(errorMsg);
 }
-function hiddenAlertDialog() {
-	$("#alert-dialog-message").css("display", "none");
-	
+function hiddenSignUpAlertMessage() {
+	$("#signup-message").css("display", "none");
+}
+function hiddenLoginAlertMessage() {
+	$("#login-message").css("display", "none");
 }
 function hiddenAlert() {
 	$(".alert").css("display", "none");

@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import by.epam.task.controller.command.ICommand;
 import by.epam.task.controller.command.exception.CommandException;
 import by.epam.task.controller.manager.PageResourceManager;
+import by.epam.task.domain.Car;
 import by.epam.task.domain.Deal;
 import by.epam.task.service.CarService;
 import by.epam.task.service.DealService;
@@ -41,7 +42,9 @@ public class ViewModifyDeal implements ICommand {
 				request.setAttribute("deal", deal);
 				request.setAttribute("car", deal.getCar());
 			} else {
-				request.setAttribute("car", carService.findOne(Integer.valueOf(carId)));
+				Car car = carService.findOne(Integer.valueOf(carId));
+				request.setAttribute("car", car);
+				request.setAttribute("carSchedule", dealService.findAllByCarAfterNow(car.getId()));
 			}
 		} catch (ServiceException e) {
 			throw new CommandException("Error execution the viewModifyDeal command", e);

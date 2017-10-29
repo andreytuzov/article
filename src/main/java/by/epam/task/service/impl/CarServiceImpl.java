@@ -18,6 +18,9 @@ public class CarServiceImpl implements CarService {
 		Car car = null;
 		try {
 			car = carDAO.findOne(id);
+			if (car == null) {
+				throw new ServiceException("The car was not found");
+			}
 		} catch (DAOException e) {
 			throw new ServiceException("Error execution the findOne method", e);
 		}

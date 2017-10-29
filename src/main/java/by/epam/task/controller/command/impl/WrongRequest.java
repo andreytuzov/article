@@ -5,12 +5,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.epam.task.controller.command.ICommand;
 import by.epam.task.controller.command.exception.CommandException;
+import by.epam.task.controller.manager.PageResourceManager;
 
 public class WrongRequest implements ICommand {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-		return null;
+		return PageResourceManager.getPagePath("page.name.error.notfound");
 	}
 
 }

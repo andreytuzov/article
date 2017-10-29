@@ -66,9 +66,15 @@
 			</div>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<a class="btn btn-primary" href="/motordepot/page?action=view_modify_deal&carId=${car.id}"><fmt:message key="prop.common.button.booking"/></a>
-					<a class="btn btn-primary" href="/motordepot/page?action=view_modify_car&id=${car.id}"><fmt:message key="prop.common.button.edit"/></a>
-					<a class="btn btn-default" href="#" onclick="deleteCar(${car.id})"><fmt:message key="prop.common.button.delete"/></a>
+					<c:choose>
+						<c:when test="${admin}">
+							<a class="btn btn-primary" href="/motordepot/page?action=view_modify_car&id=${car.id}"><fmt:message key="prop.common.button.edit"/></a>
+							<a class="btn btn-default" href="#" onclick="deleteCar(${car.id})"><fmt:message key="prop.common.button.delete"/></a>
+						</c:when>
+						<c:when test="${not empty user}">
+							<a class="btn btn-primary" href="/motordepot/page?action=view_modify_deal&carId=${car.id}"><fmt:message key="prop.common.button.booking"/></a>
+						</c:when>
+					</c:choose>
 				</div>
 			</div>
 		</fieldset>

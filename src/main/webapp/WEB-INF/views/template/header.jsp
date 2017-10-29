@@ -11,7 +11,7 @@
 		<ul class="nav navbar-nav">
 			<li><a href="/motordepot/page?action=view_car_list"><fmt:message key="prop.header.button.carlist"/></a></li>
 			<c:if test="${admin}">
-				<li><a href="/motordepot/page?action=view_deal_list"><span class="glyphicon glyphicon-list-alt"></span> <fmt:message key="prop.header.button.deallist"/></a></li>
+				<li><a href="/motordepot/page?action=view_deal_list&dealState=CREATED"><span class="glyphicon glyphicon-list-alt"></span> <fmt:message key="prop.header.button.deallist"/></a></li>
 				<li><a href="/motordepot/page?action=view_user_list"><span class="glyphicon glyphicon-user"></span> <fmt:message key="prop.header.button.userlist"/></a></li>
 			</c:if>
 		</ul>

@@ -6,7 +6,7 @@
 	<h3><fmt:message key="prop.user.header.room"/>, ${userObject.nickname}</h3>
 </div>
 
-<div class="col-sm-10"> 
+<div> 
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#user-tab" data-toggle="tab"><fmt:message key="prop.user.tab.info"/></a></li>	
 		<c:if test="${not (admin && user eq userObject.nickname)}">
@@ -33,7 +33,7 @@
 				
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="name"><fmt:message key="prop.user.column.name"/></label>
-					<div class="col-sm-10">
+					<div class="col-sm-5">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 							<c:choose>
@@ -54,7 +54,7 @@
 				
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="lastname"><fmt:message key="prop.user.column.lastname"/></label>
-					<div class="col-sm-10">
+					<div class="col-sm-5">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 							<c:choose>
@@ -74,7 +74,7 @@
 				
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="drivenExperience"><fmt:message key="prop.user.column.drivenExperience"/></label>
-					<div class="col-sm-10">
+					<div class="col-sm-5">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
 							<c:choose>
@@ -96,7 +96,7 @@
 				
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="phone"><fmt:message key="prop.user.column.phone"/></label>
-					<div class="col-sm-10">
+					<div class="col-sm-5">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
 							<c:choose>
@@ -118,7 +118,7 @@
 				
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="email"><fmt:message key="prop.user.column.email"/></label>
-					<div class="col-sm-10">
+					<div class="col-sm-5">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
 							<c:choose>
@@ -152,20 +152,43 @@
 				<table class="table table-striped table-hover table-bordered searchTable" id="dealTable"> 
 					<thead>
 						<tr>
-							<th><fmt:message key="prop.deal.column.state"/></th>
-							<th><fmt:message key="prop.car.column.model"/></th>
-							<th><fmt:message key="prop.deal.column.datefrom"/></th>
-							<th><fmt:message key="prop.deal.column.dateto"/></th>
-							<th><fmt:message key="prop.deal.column.cost"/></th>
+							<th class="col-sm-9"><fmt:message key="prop.deal.column.state"/></th>
+							<th class="col-sm-2"><fmt:message key="prop.car.column.model"/></th>
+							<th class="col-sm-1"><fmt:message key="prop.deal.column.datefrom"/></th>
+							<th class="col-sm-1"><fmt:message key="prop.deal.column.dateto"/></th>
+							<th class="col-sm-1"><fmt:message key="prop.deal.column.cost"/></th>
 						</tr> 
 					</thead>
 					<tbody id="searchTable">
 						<c:forEach var="deal" items="${listDeal}">
 							<tr>
-								<td><a href="/motordepot/page?action=view_modify_deal&id=${deal.id}">${deal.state}</a></td>
+								<td>
+									<a href="/motordepot/page?action=view_modify_deal&id=${deal.id}">
+										<c:choose>
+											<c:when test="${deal.state eq 'CREATED'}">
+												<i><fmt:message key="prop.deal.header.placeholder.customer.created"/></i>
+											</c:when>
+											<c:when test="${deal.state eq 'CONFIRMED'}">
+												<i><fmt:message key="prop.deal.header.placeholder.customer.confirmed"/></i>
+											</c:when>
+											<c:when test="${deal.state eq 'PAID'}">
+												<i><fmt:message key="prop.deal.header.placeholder.customer.paid"/></i>
+											</c:when>
+											<c:when test="${deal.state eq 'CANCELED'}">
+												<i><fmt:message key="prop.deal.header.placeholder.customer.canceled"/></i>
+											</c:when>
+											<c:when test="${deal.state eq 'DAMAGED'}">
+												<i><fmt:message key="prop.deal.header.placeholder.customer.damaged"/></i>
+											</c:when>
+											<c:when test="${deal.state eq 'COMPLETED_DAMAGE' || deal.state eq 'COMPLETED_SUCCESS'}">
+												<i><fmt:message key="prop.deal.header.placeholder.customer.completed"/></i>
+											</c:when>
+										</c:choose>									
+									</a>
+								</td>
 								<td><a href="/motordepot/page?action=view_car&id=${deal.car.id}">${deal.car.model}</a></td>
-								<td><fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${deal.dateFrom}"/></td>
-								<td><fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${deal.dateTo}"/></td>
+								<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${deal.dateFrom}"/></td>
+								<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${deal.dateTo}"/></td>
 								<td>${deal.cost} $</td>
 							</tr>
 						</c:forEach>	

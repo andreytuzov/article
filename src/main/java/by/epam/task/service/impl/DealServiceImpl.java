@@ -37,6 +37,17 @@ public class DealServiceImpl implements DealService {
 	}
 	
 	@Override
+	public List<Deal> findAllByCarAfterNow(int id) throws ServiceException {
+		List<Deal> list = null;
+		try {
+			list = dealDAO.findAllByCarAfterNow(id);
+		} catch (DAOException e) {
+			throw new ServiceException("Error execution findOneByNickname method", e);
+		}
+		return list;
+	}
+	
+	@Override
 	public List<Deal> findAllByNickname(String nickname) throws ServiceException {
 		List<Deal> list = null;
 		try {
@@ -52,6 +63,17 @@ public class DealServiceImpl implements DealService {
 		List<Deal> list = null;
 		try {
 			list = dealDAO.findAll();
+		} catch (DAOException e) {
+			throw new ServiceException("Error execution findAll method", e);
+		}
+		return list;
+	}
+	
+	@Override
+	public List<Deal> findAllByDealState(DealState dealState) throws ServiceException {
+		List<Deal> list = null;
+		try {
+			list = dealDAO.findAllByDealState(dealState);
 		} catch (DAOException e) {
 			throw new ServiceException("Error execution findAll method", e);
 		}
@@ -82,8 +104,9 @@ public class DealServiceImpl implements DealService {
 			// Data validation
 			Car car = carDAO.findOne(carId);
 			User user = userDAO.findOneByNickname(nickname);
-			if (car == null || user == null) {
-				throw new ServiceException("Incorrect identificators");
+			Date now = new Date();
+			if (car == null || user == null || now.after(dateFrom) || dateFrom.after(dateTo)) {
+				throw new ServiceException("Incorrect data");
 			}
 			// Check state
 			if (id != 0) {
@@ -133,7 +156,7 @@ public class DealServiceImpl implements DealService {
 			if (deal == null || deal.getState() != DealState.PAID) {
 				throw new ServiceException("Incorrect state of deal");
 			}
-			deal.setState(DealState.COMPLETED);
+			deal.setState(DealState.COMPLETED_SUCCESS);
 			dealDAO.update(deal);
 		} catch (DAOException e) {
 			throw new ServiceException("Error execution completeDeal method", e);
@@ -167,7 +190,7 @@ public class DealServiceImpl implements DealService {
 			if (deal.getState() == DealState.CONFIRMED) {
 				deal.setState(DealState.PAID);
 			} else {
-				deal.setState(DealState.COMPLETED);
+				deal.setState(DealState.COMPLETED_DAMAGE);
 			}
 			dealDAO.update(deal);
 		} catch (DAOException e) {
@@ -182,7 +205,7 @@ public class DealServiceImpl implements DealService {
 		try {
 			Deal deal = dealDAO.findOne(id);
 			// Data validation
-			if (deal == null || deal.getState() != DealState.PAID) {
+			if (deal == null || deal.getState() != DealState.FINISHED) {
 				throw new ServiceException("Incorrect state of deal");
 			}
 			deal.setState(DealState.DAMAGED);
@@ -206,6 +229,19 @@ public class DealServiceImpl implements DealService {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public boolean checkScheduleCar(int id, Date dateFrom, Date dateTo) throws ServiceException {
+		try {
+			List<Deal> list = dealDAO.findAllByCarBetweenDate(id, dateFrom, dateTo);
+			if (list.isEmpty()) {
+				return true;
+			}
+		} catch (DAOException e) {
+			throw new ServiceException("Error executing the checkScheduleCar method", e);
+		}
+		return false;
 	}
 
 }

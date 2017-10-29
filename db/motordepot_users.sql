@@ -1,6 +1,6 @@
 CREATE DATABASE  IF NOT EXISTS `motordepot` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `motordepot`;
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: motordepot
 -- ------------------------------------------------------
@@ -37,7 +37,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`u_id`),
   KEY `fk_users_roles_idx` (`u_role_id`),
   CONSTRAINT `fk_users_roles` FOREIGN KEY (`u_role_id`) REFERENCES `roles` (`r_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (7,'misoft','724633',2,3,'+375 (29) 831-48-13','andrei.tuzau@gmail.com','Андрей','Тузов'),(8,'admin','admin',1,3,'+375 (29) 831-48-13','andrei.tuzau@gmail.com','Андрей','Тузов'),(9,'Sergey','12345678',2,3,'+375 (29) 123-12-12','tropicano@gmail.com','Sergey','Kovalev'),(10,'hello','hello',2,5,'298314813','misoft10@mail.ru','Andrey','Ivanovich');
+INSERT INTO `users` VALUES (15,'admin','admin',1,3,'+375 (029) 123-45-67','admin@gmail.com','Andrey','Tuzov'),(16,'tropicano','password',2,10,'12-23-43','ivan@gmail.com','Иван','Иванов'),(17,'misoft','password',2,25,'+375 (29) 456-12-32','misoft@mail.ru','Eugene','Smolyakov');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-27 21:30:22
+-- Dump completed on 2017-10-29 22:12:33

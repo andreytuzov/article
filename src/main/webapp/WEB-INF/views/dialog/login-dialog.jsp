@@ -14,8 +14,8 @@
 					data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
 					data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
 					data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
-					<div class="alert" style="padding: 8px; display: none" id="alert-dialog-message">
-						<a href="#" onclick="hiddenAlertDialog()" class="close">×</a>
+					<div class="alert" style="padding: 8px; display: none" id="login-message">
+						<a href="#" onclick="hiddenLoginAlertMessage()" class="close">×</a>
 						<span></span>
 					</div>
 					<fieldset>
