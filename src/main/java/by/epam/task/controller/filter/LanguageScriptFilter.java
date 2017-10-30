@@ -11,16 +11,18 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
-
+/**
+ * Фильтр, обеспечивающий поддержку интернационализации для javascript
+ */
 public class LanguageScriptFilter implements Filter {
 
-	private static final Logger logger = Logger.getLogger(LanguageScriptFilter.class);
-	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 	}
 	
+	/**
+	 * Передается массив строк для текущей локали 
+	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {

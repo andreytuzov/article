@@ -2,7 +2,7 @@
  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 <web-app>
-	<display-name>Articles Application</display-name>
+	<display-name>Motordepot Application</display-name>
 	
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -41,6 +41,10 @@
 		<filter-name>languageScriptFilter</filter-name>
 		<url-pattern>/static/js/langscript.js</url-pattern>
 	</filter-mapping>
+	
+	<listener>
+		<listener-class>by.epam.task.controller.listener.ServletRequestListenerImpl</listener-class>
+	</listener>
 	
 	<servlet>
 		<servlet-name>dispatcherServlet</servlet-name>

@@ -8,8 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import by.epam.task.dao.CarDAO;
 import by.epam.task.dao.connection.ConnectionPool;
 import by.epam.task.dao.exception.ConnectionPoolException;
@@ -19,10 +17,12 @@ import by.epam.task.domain.Car;
 
 import static by.epam.task.dao.ColumnLabel.*;
 
+/**
+ * Класс, реализующий интерфейс CarDAO
+ */
 public class CarDAOImpl implements CarDAO {
 
-	private static final Logger logger = Logger.getLogger(CarDAOImpl.class);
-	
+	/** Пул соединений с базой данных */
 	private ConnectionPool pool = ConnectionPool.getInstance();
 
 	@Override

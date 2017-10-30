@@ -5,13 +5,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.epam.task.controller.command.ICommand;
 import by.epam.task.controller.command.exception.CommandException;
-import by.epam.task.domain.Deal;
 import by.epam.task.service.DealService;
 import by.epam.task.service.exception.ServiceException;
 import by.epam.task.service.factory.ServiceFactory;
 
 import static by.epam.task.controller.validator.Validator.*;
 
+
+/**
+ * Команда для обработки запроса администратора на подтверждение заказа 
+ */
 public class ConfirmDeal implements ICommand {
 	
 	@Override

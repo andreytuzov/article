@@ -1,15 +1,26 @@
 package by.epam.task.domain;
 
+/**
+ * Объект бизнес данных: пользователь
+ */
 public class User {
 
+	/** Идентификатор пользователя */
 	private int id;
+	/** Ник пользователя */
 	private String nickname;
+	/** Имя пользователя */
 	private String name;
+	/** Фамилия пользователя */
 	private String lastname;
+	/** Телефон пользователя */
 	private String phone;
+	/** Электронный адрес пользователя */
 	private String email;
+	/** Опыт вождения пользователя */
 	private int drivenExperience;
 
+	/** Класс роли пользователя */
 	private Role role;
 
 	public User() {

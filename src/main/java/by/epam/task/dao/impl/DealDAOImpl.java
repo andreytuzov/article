@@ -24,10 +24,15 @@ import by.epam.task.domain.User;
 
 import static by.epam.task.dao.ColumnLabel.*;
 
+/**
+ * Класс, реализующий интерфейс DealDAO
+ */
 public class DealDAOImpl implements DealDAO {
-
+	
+	/** Пул соединений с базой данных */
 	private final ConnectionPool pool = ConnectionPool.getInstance();
 	
+	/** Формат даты в таблице */
 	private static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm";
 	
 	@Override
@@ -289,7 +294,15 @@ public class DealDAOImpl implements DealDAO {
 		}
 		return deal.getId();
 	}
-	
+
+	/**
+	 * Метод для получения пользователя из объекта результатов выполнения запроса
+	 * 
+	 * @param resultSet объект результатов выполнения запроса
+	 * @return объект заказа
+	 * @throws SQLException возникает при ошибке чтения данных из объекта класса ResultSet
+	 * @throws DAOException возникает при некорректном формате дат
+	 */
 	private Deal readFromResultSet(ResultSet resultSet) throws SQLException, DAOException {
 		Deal deal = new Deal();
 		deal.setId(resultSet.getInt(DEAL_ID));

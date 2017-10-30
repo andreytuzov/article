@@ -5,6 +5,7 @@
 <c:set var="language" value="${not empty param.lang ? param.lang : not empty language ? language : pageContext.request.locale}" scope="session"/>
 <fmt:setLocale value="${language}" scope="session"/>
 <fmt:setBundle basename="l10n.prop" scope="session"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,8 +33,6 @@
 		<jsp:include page="/WEB-INF/views/dialog/login-dialog.jsp"/>
 		<jsp:include page="/WEB-INF/views/dialog/signup-dialog.jsp"/>
 	</div>
-	
-	
 	
 	<footer>
 		<jsp:include page="/WEB-INF/views/template/footer.jsp"/>

@@ -9,14 +9,28 @@ import by.epam.task.service.impl.DealServiceImpl;
 import by.epam.task.service.impl.InitializingServiceImpl;
 import by.epam.task.service.impl.UserServiceImpl;
 
+/**
+ * Класс-фабрика service-объектов  
+ */
 public class ServiceFactory {
+	
+	/** Единственный экземпляр данной фабрики */
 	private static final ServiceFactory instance = new ServiceFactory();
 
+	/** Класс для работы с объектом бизнес данных Car */
 	private final CarService carService = new CarServiceImpl();
+	/** Класс для работы с объектом бизнес данных User */
 	private final UserService userService = new UserServiceImpl();
+	/** Класс для инициализации приложения */
 	private final InitializingService initializingService = new InitializingServiceImpl();
+	/** Класс для работы с объектом бизнес данных Deal */
 	private final DealService dealService = new DealServiceImpl();
 
+	/**
+	 * Получение экземпляра данной фабрики
+	 * 
+	 * @return экземпляр данной фабрики
+	 */
 	public static ServiceFactory getInstance() {
 		return instance;
 	}

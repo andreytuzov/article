@@ -1,17 +1,23 @@
 package by.epam.task.domain;
 
 /**
- * @author User
- *
+ * Объект бизнес данных: автомобиль
  */
 public class Car {
 
+	/** Идентификатор автомобиля */
 	private int id;
+	/** Модель автомобиля */
 	private String model;
+	/** Год выпуска автомобиля */
 	private int year;
+	/** Объем двигателя автомобиля */
 	private float volume;
+	/** Мощность автомобиля */
 	private int power;
+	/** Цена проката за час */
 	private float prise;
+	/** Описание автомобиля */
 	private String description;
 
 	public Car() {

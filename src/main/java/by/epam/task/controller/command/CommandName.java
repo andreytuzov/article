@@ -4,40 +4,58 @@ import by.epam.task.domain.Role;
 
 /**
  * Перечисление все действий доступных на сайте
- *
  */
 public enum CommandName {
 	
-	WRONG_REQUEST,                                    /** Обработка некорректных запросов */
+	/** Обработка некорректных запросов */
+	WRONG_REQUEST,                                    
 
-	VIEW_CAR_LIST,                                    /** Отображение списка автомобилей */
-	VIEW_CAR,                                         /** Отображение автомобиля */
-	VIEW_MODIFY_CAR(Role.ADMIN),                      /** Отображение страницы для изменения автомобиля */
-	MODIFY_CAR(Role.ADMIN),	                          /** Обработка запроса изменения автомобиля */
-	DELETE_CAR(Role.ADMIN),	                          /** Обработка запроса удаления автомобиля */
+	/** Отображение списка автомобилей */
+	VIEW_CAR_LIST,                                    
+	/** Отображение автомобиля */
+	VIEW_CAR,                                         
+	/** Отображение страницы для изменения автомобиля */
+	VIEW_MODIFY_CAR(Role.ADMIN),                      
+	/** Обработка запроса изменения автомобиля */
+	MODIFY_CAR(Role.ADMIN),	                          
+	/** Обработка запроса удаления автомобиля */
+	DELETE_CAR(Role.ADMIN),	                          
 
-	SIGN_UP(Role.ANONYMOUS),                          /** Обработка запроса регистрации пользователя */
-	LOG_IN(Role.ANONYMOUS),                           /** Обработка запроса входа пользователя */
-	LOG_OUT(Role.CUSTOMER, Role.ADMIN),               /** Обработка запроса выхода пользователя */
-	MODIFY_USER(Role.CUSTOMER, Role.ADMIN),           /** Обработка запроса редактирования пользователя */
+	/** Обработка запроса регистрации пользователя */
+	SIGN_UP(Role.ANONYMOUS),                          
+	/** Обработка запроса входа пользователя */
+	LOG_IN(Role.ANONYMOUS),                           
+	/** Обработка запроса выхода пользователя */
+	LOG_OUT(Role.CUSTOMER, Role.ADMIN),               
+	/** Обработка запроса редактирования пользователя */
+	MODIFY_USER(Role.CUSTOMER, Role.ADMIN),           
 	
-	VIEW_MODIFY_USER_ROOM(Role.CUSTOMER, Role.ADMIN), /** Отображение страницы пользователя */
-	VIEW_USER_LIST(Role.ADMIN),                       /** Отображение списка пользователей */
+	/** Отображение страницы пользователя */
+	VIEW_MODIFY_USER_ROOM(Role.CUSTOMER, Role.ADMIN), 
+	/** Отображение списка пользователей */
+	VIEW_USER_LIST(Role.ADMIN),                       
 	
-	VIEW_DEAL_LIST(Role.ADMIN),                       /** Отображение списка сделок */
-	VIEW_MODIFY_DEAL(Role.ADMIN, Role.CUSTOMER),      /** Отображение страницы редактирования сделки */
+	/** Отображение списка сделок */
+	VIEW_DEAL_LIST(Role.ADMIN),                       
+	/** Отображение страницы редактирования сделки */
+	VIEW_MODIFY_DEAL(Role.ADMIN, Role.CUSTOMER),      
 	
-	MODIFY_DEAL(Role.CUSTOMER),                       /** Обработка запроса редактирования заказа*/
-	DELETE_DEAL(Role.CUSTOMER),                       /** Обработка запроса удаления заказа */
-	CONFIRM_DEAL(Role.ADMIN),                         /** Обработка запроса подтверждения заказа */
-	CANCEL_DEAL(Role.ADMIN),                          /** Обработка запроса отмены заказа */
-	PAY_DEAL(Role.CUSTOMER),                          /** Обработка запроса оплаты заказа */
-	COMPLETE_DEAL(Role.ADMIN),                        /** Обработка запроса завершения сделки */
-	DAMAGE_CAR(Role.ADMIN);                           /** Обработка запроса добавления повреждения автомобиля */
+	/** Обработка запроса редактирования заказа*/
+	MODIFY_DEAL(Role.CUSTOMER),                       
+	/** Обработка запроса удаления заказа */
+	DELETE_DEAL(Role.CUSTOMER),                       
+	/** Обработка запроса подтверждения заказа */
+	CONFIRM_DEAL(Role.ADMIN),                         
+	/** Обработка запроса отмены заказа */
+	CANCEL_DEAL(Role.ADMIN),                          
+	/** Обработка запроса оплаты заказа */
+	PAY_DEAL(Role.CUSTOMER),                          
+	/** Обработка запроса завершения сделки */
+	COMPLETE_DEAL(Role.ADMIN),                        
+	/** Обработка запроса добавления повреждения автомобиля */
+	DAMAGE_CAR(Role.ADMIN);                           
 	
-	/**
-	 *	Список ролей, которым доступны соответствующие команды
-	 */
+	/** Список ролей, которым доступны соответствующие команды */
 	final Role[] accessRoles;
 	
 	/**

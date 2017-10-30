@@ -7,8 +7,12 @@ import by.epam.task.dao.connection.ConnectionPool;
 import by.epam.task.dao.exception.ConnectionPoolException;
 import by.epam.task.dao.exception.DAOException;
 
+/**
+ * Класс, реализующий интерфейс InitializingDAO
+ */
 public class InitializingDAOImpl implements InitializingDAO {
 
+	/** Пул соединений с базой данных */
 	private final ConnectionPool pool = ConnectionPool.getInstance();
 	
 	@Override

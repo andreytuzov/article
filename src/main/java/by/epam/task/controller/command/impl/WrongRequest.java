@@ -7,6 +7,9 @@ import by.epam.task.controller.command.ICommand;
 import by.epam.task.controller.command.exception.CommandException;
 import by.epam.task.controller.manager.PageResourceManager;
 
+/**
+ * Команда для обработки некорректных запросов 
+ */
 public class WrongRequest implements ICommand {
 
 	@Override

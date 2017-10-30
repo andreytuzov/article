@@ -11,6 +11,9 @@ import by.epam.task.service.factory.ServiceFactory;
 
 import static by.epam.task.controller.validator.Validator.*;
 
+/**
+ * Команда для обработки запроса на удаление автомобиля администратором 
+ */
 public class DeleteCar implements ICommand {
 	
 	@Override

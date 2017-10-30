@@ -3,8 +3,6 @@ package by.epam.task.service.impl;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import by.epam.task.dao.CarDAO;
 import by.epam.task.dao.DamageDAO;
 import by.epam.task.dao.DealDAO;
@@ -21,8 +19,7 @@ import by.epam.task.service.exception.ServiceException;
 
 public class DealServiceImpl implements DealService {
 	
-	private static final Logger logger = Logger.getLogger(DealServiceImpl.class);
-	
+	/** Класс для работы с таблицей deals */
 	private final DealDAO dealDAO = DAOFactory.getInstance().getDealDAO();
 	
 	@Override

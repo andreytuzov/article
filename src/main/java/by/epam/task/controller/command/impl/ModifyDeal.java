@@ -16,8 +16,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Команда для обработки запроса пользователя на редактироване сделки 
+ */
 public class ModifyDeal implements ICommand {
-
+	
+	/** Строковый формат даты, получаемый из request */
 	private static final String DATETIME_FORMAT = "yyyy/MM/dd HH:mm";
 	
 	@Override

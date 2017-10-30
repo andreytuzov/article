@@ -13,6 +13,9 @@ import by.epam.task.service.factory.ServiceFactory;
 
 import static by.epam.task.controller.validator.Validator.*;
 
+/**
+ * Команда для обработки запроса отображения страницы для редактирования автомобиля  
+ */
 public class ViewModifyCar implements ICommand {
 
 	@Override

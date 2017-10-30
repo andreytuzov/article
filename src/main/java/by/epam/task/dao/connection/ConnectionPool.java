@@ -18,44 +18,48 @@ import by.epam.task.dao.connection.manager.DBParameter;
 import by.epam.task.dao.connection.manager.DBResourceManager;
 import by.epam.task.dao.exception.ConnectionPoolException;
 
+/**
+ * Класс для работы с пулом соединений
+ */
 public class ConnectionPool implements Closeable {
 
+	/** Объект логгера */
 	private static final Logger logger = Logger.getLogger(ConnectionPool.class);
 	
+	/** Экземпляр класса пула соединений*/
 	private static final ConnectionPool instance = new ConnectionPool();
 	
+	/** Коллекция свободных соединений*/
 	private BlockingQueue<Connection> freeConnection;
+	/** Коллекция занятых соединений */
 	private BlockingQueue<Connection> busyConnection;
 	
-	private String username;
-	private String password;
-	private String driver;
-	private String url;
-	private int poolsize;
-
-	private ConnectionPool() {
-		username = DBResourceManager.getValue(DBParameter.DATABASE_USERNAME);
-		password = DBResourceManager.getValue(DBParameter.DATABASE_PASSWORD);
-		driver = DBResourceManager.getValue(DBParameter.DATABASE_DRIVER);
-		url = DBResourceManager.getValue(DBParameter.DATABASE_URL);
-
-		try {
-			poolsize = Integer.parseInt(DBResourceManager.getValue(DBParameter.DATABASE_POOLSIZE));
-		} catch (NumberFormatException ex) {
-			poolsize = 5;
-		}
-	}
-	
+	/**
+	 * Метод для получения экземпляра данного класс
+	 * 
+	 * @return экземпляр данного класса
+	 */
 	public static ConnectionPool getInstance() {
 		return instance;
 	}
 	
 	/**
-	 * Initialization of the connection pool 
-	 *  
-	 * @throws ConnectionPoolException throw when connection error with database
+	 * Метод для инициализации колеекции соединений  
+	 * 
+	 * @throws ConnectionPoolException возникает при появлении ошибки выполнения метода
 	 */
 	public void init() throws ConnectionPoolException {
+		String username = DBResourceManager.getValue(DBParameter.DATABASE_USERNAME);
+		String password = DBResourceManager.getValue(DBParameter.DATABASE_PASSWORD);
+		String driver = DBResourceManager.getValue(DBParameter.DATABASE_DRIVER);
+		String url = DBResourceManager.getValue(DBParameter.DATABASE_URL);
+		int poolsize;
+		try {
+			poolsize = Integer.parseInt(DBResourceManager.getValue(DBParameter.DATABASE_POOLSIZE));
+		} catch (NumberFormatException ex) {
+			poolsize = 5;
+		}
+		
 		freeConnection = new ArrayBlockingQueue<>(poolsize);
 		busyConnection = new ArrayBlockingQueue<>(poolsize);
 		try {
@@ -71,7 +75,7 @@ public class ConnectionPool implements Closeable {
 	}
 	
 	/**
-	 * Close of connection
+	 * Метод для закрытия соединений
 	 */
 	@Override
 	public void close() throws IOException {
@@ -90,10 +94,10 @@ public class ConnectionPool implements Closeable {
 	}
 
 	/**
-	 * Method for getting connection from pool
+	 * Метод для получения объекта соединения 
 	 * 
-	 * @return connection's object
-	 * @throws ConnectionPoolException throw when error of getting connection
+	 * @return объект соединения 
+	 * @throws ConnectionPoolException возникает при ошибке получения соединения
 	 */
 	public Connection take() throws ConnectionPoolException {
 		Connection connection = null;
@@ -107,10 +111,10 @@ public class ConnectionPool implements Closeable {
 	}
 	
 	/**
-	 * Method for release a connection
+	 * Метод для освобождения соединения
 	 * 
-	 * @param connection connection
-	 * @throws ConnectionPoolException throw when error of putting connection
+	 * @param connection объект соединения
+	 * @throws ConnectionPoolException возникает при ошибке освобождение соединения
 	 */
 	public void free(Connection connection) throws ConnectionPoolException {
 		if (connection == null) {
@@ -125,12 +129,11 @@ public class ConnectionPool implements Closeable {
 	}
 	
 	/**
-	 * Closing of connection, statementы and resultSet
+	 * Метод для освобождения ресурсов 
 	 * 
-	 * @param connection object for closing 
-	 * @param statement object for closing 
-	 * @param preparedStatement object for closing 
-	 * @param resultSet object for closing 
+	 * @param connection объект соединения
+ 	 * @param statement объект запроса
+	 * @param resultSet объект результатов
 	 */
 	public void closeConnection(Connection connection, Statement statement, ResultSet resultSet) {
 		if (connection != null) {
@@ -140,7 +143,6 @@ public class ConnectionPool implements Closeable {
 				logger.error("Error closing connection", e);
 			}
 		}
-		
 		if (statement != null) {
 			try {
 				statement.close();
@@ -148,7 +150,6 @@ public class ConnectionPool implements Closeable {
 				logger.error("Error closing statement", e);
 			}
 		}
-		
 		if (resultSet != null) {
 			try {
 				resultSet.close();
@@ -158,6 +159,12 @@ public class ConnectionPool implements Closeable {
 		}
 	}
 	
+	/**
+	 * Метод для освобождения ресурсов
+	 * 
+	 * @param connection объект соединения
+	 * @param statement объект запроса
+	 */
 	public void closeConnection(Connection connection, Statement statement) {
 		closeConnection(connection, statement, null);
 	}

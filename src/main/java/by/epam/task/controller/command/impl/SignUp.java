@@ -1,11 +1,11 @@
 package by.epam.task.controller.command.impl;
 
 import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpServletResponse;
 
 import by.epam.task.controller.command.ICommand;
 import by.epam.task.controller.command.exception.CommandException;
-import by.epam.task.controller.manager.PageResourceManager;
 import by.epam.task.domain.Role;
 import by.epam.task.domain.User;
 import by.epam.task.service.UserService;
@@ -14,6 +14,9 @@ import by.epam.task.service.factory.ServiceFactory;
 
 import static by.epam.task.controller.validator.Validator.*;
 
+/**
+ * Команда для обработки запроса регистрации пользователя 
+ */
 public class SignUp implements ICommand {
 
 	@Override

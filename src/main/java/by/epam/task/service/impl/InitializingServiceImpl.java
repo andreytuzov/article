@@ -8,6 +8,7 @@ import by.epam.task.service.exception.ServiceException;
 
 public class InitializingServiceImpl implements InitializingService {
 
+	/** Класс для иницициализации приложения */
 	private final InitializingDAO initializingDAO = DAOFactory.getInstance().getInitializingDAO();
 	
 	@Override

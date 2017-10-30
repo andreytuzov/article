@@ -1,18 +1,19 @@
 package by.epam.task.controller.command.impl;
 
 import static by.epam.task.controller.validator.Validator.isValidInt;
-import static by.epam.task.controller.validator.Validator.isValidString;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.epam.task.controller.command.ICommand;
 import by.epam.task.controller.command.exception.CommandException;
-import by.epam.task.domain.Deal;
 import by.epam.task.service.DealService;
 import by.epam.task.service.exception.ServiceException;
 import by.epam.task.service.factory.ServiceFactory;
 
+/**
+ * Команда для обработки запроса администратора на завершение заказа 
+ */
 public class CompleteDeal implements ICommand {
 
 	@Override

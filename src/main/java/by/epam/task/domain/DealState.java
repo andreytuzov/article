@@ -1,9 +1,33 @@
 package by.epam.task.domain;
 
+/**
+ * Объект бизнес данных: состояние заказа
+ */
 public enum DealState {
-	CREATED(1), CONFIRMED(2), PAID(3), CANCELED(4), DAMAGED(5), COMPLETED_SUCCESS(6), COMPLETED_DAMAGE(7),// state from database
-	ACTIVE(3), FINISHED(3); // logical state
+	
+	// Состояния из базы данных
+	/** Только созданный заказ на прокат автомобиля */
+	CREATED(1), 
+	/** */
+	CONFIRMED(2), 
+	/** Заказ был оплачен клиентом. Клиент ожидает автомобиль */
+	PAID(3), 
+	/** Заказ был отменен администратором */
+	CANCELED(4),
+	/** Администратором было установлено повреждение автомобиля */
+	DAMAGED(5),
+	/** Заказ был успешно завершен */
+	COMPLETED_SUCCESS(6),
+	/** Заказ был завершен, но с повреждением автомобиля */
+	COMPLETED_DAMAGE(7),
+	
+	// Логические состояния 
+	/** Клиент пользуется автомобилем */
+	ACTIVE(3), 
+	/** Срок проката автомобиля завершен */
+	FINISHED(3); 
 
+	/** Индекс состояние равный первичному ключу в таблице состояний (deal_state) */
 	private final int index;
 
 	private DealState(int index) {

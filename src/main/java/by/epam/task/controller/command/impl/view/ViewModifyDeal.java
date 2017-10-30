@@ -3,8 +3,6 @@ package by.epam.task.controller.command.impl.view;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-
 import by.epam.task.controller.command.ICommand;
 import by.epam.task.controller.command.exception.CommandException;
 import by.epam.task.controller.manager.PageResourceManager;
@@ -17,10 +15,11 @@ import by.epam.task.service.factory.ServiceFactory;
 
 import static by.epam.task.controller.validator.Validator.*;
 
+/**
+ * Команда для обработки запроса отображения страницы для редактирования заказа  
+ */
 public class ViewModifyDeal implements ICommand {
 
-	private static final Logger logger = Logger.getLogger(ViewModifyDeal.class);
-	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 		CarService carService = ServiceFactory.getInstance().getCarService();

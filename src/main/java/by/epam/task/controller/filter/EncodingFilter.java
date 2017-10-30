@@ -9,10 +9,17 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+/**
+ * Фильтр для установка кодировки запросов и ответов 
+ */
 public class EncodingFilter implements Filter {
 	
+	/** Название кодировки */
 	private String encoding;
 	
+	/**
+	 * Сохраняется параметр кодировки, указанный в web.xml
+	 */
 	@Override
 	public void init(FilterConfig config) throws ServletException {
 		String encoding = config.getInitParameter("encoding");
@@ -21,6 +28,9 @@ public class EncodingFilter implements Filter {
 		}
 	}
 	
+	/**
+	 * Устанавливается кодировка запросов и ответов
+	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {

@@ -18,8 +18,12 @@ import by.epam.task.domain.User;
 
 import static by.epam.task.dao.ColumnLabel.*;
 
+/**
+ * Класс, реализующий интерфейс UserDAO
+ */
 public class UserDAOImpl implements UserDAO {
 	
+	/** Пул соединений с базой данных */
 	private ConnectionPool pool = ConnectionPool.getInstance();
 
 	@Override
@@ -184,6 +188,13 @@ public class UserDAOImpl implements UserDAO {
 		return user;
 	}
 	
+	/**
+	 * Метод для получения пользователя из объекта результатов выполнения запроса
+	 * 
+	 * @param resultSet объект результатов выполнения запроса
+	 * @return объект пользователя
+	 * @throws SQLException возникает при ошибке чтения данных из объекта класса ResultSet
+	 */
 	private User readFromResultSet(ResultSet resultSet) throws SQLException {
 		User user = new User();
 		user.setId(resultSet.getInt(USER_ID));

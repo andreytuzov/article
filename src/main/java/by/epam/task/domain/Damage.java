@@ -1,9 +1,15 @@
 package by.epam.task.domain;
 
+/**
+ * Объект бизнес данных: повреждение автомобиля
+ */
 public class Damage {
 
+	/** Идентификатор повреждения */
 	private int id;
+	/** Стоимость ремонта автомобиля */
 	private float cost;
+	/** Описание повреждения */
 	private String description;
 
 	public Damage() {

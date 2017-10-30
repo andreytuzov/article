@@ -14,6 +14,9 @@ import by.epam.task.service.factory.ServiceFactory;
 
 import static by.epam.task.controller.validator.Validator.*;
 
+/**
+ * Команда для обработки аутентификации пользователя 
+ */
 public class LogIn implements ICommand {
 		
 	@Override

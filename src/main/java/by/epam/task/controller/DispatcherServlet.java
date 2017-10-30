@@ -19,28 +19,21 @@ import by.epam.task.service.InitializingService;
 import by.epam.task.service.exception.ServiceException;
 import by.epam.task.service.factory.ServiceFactory;
 
-/**
- * Контроллер для обработки всех запросов
- *
+/** 
+ * Контроллер для обработки всех запросов 
  */
 public class DispatcherServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * Объект логгера
-	 */
+	/** Объект логгера */
 	private static final Logger logger = Logger.getLogger(DispatcherServlet.class);
 	
-	/**
-	 * Сервис инициализации
-	 */
+	/** Сервис инициализации */
 	private static final InitializingService initializingService = ServiceFactory.getInstance().getInitializingService();
 	
-	/**
-	 * Метод первоначальной инициализации объектов
-	 * 
-	 * @throws ServletException если возникает ошибка связанная с сервлетом
+	/** 
+	 * Метод первоначальной инициализации объектов 
 	 */
 	@Override
 	public void init() throws ServletException {
@@ -52,13 +45,8 @@ public class DispatcherServlet extends HttpServlet {
 		}
 	}
 	
-	/**
-	 * Метод для обработки всех запросов
-	 * 
-	 * @param request объект запроса
-	 * @param response объект ответа
-	 * @throws IOException если возикает ошибка ввода вывода
-	 * @throws ServletException если возникает ошибка связанная с сервлетом
+	/** 
+	 * Метод для обработки всех запросов 
 	 */
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -89,8 +77,8 @@ public class DispatcherServlet extends HttpServlet {
 		}
 	}
 	
-	/**
-	 * Метод освобождения используемых ресурсов
+	/** 
+	 * Метод освобождения используемых ресурсов 
 	 */
 	@Override
 	public void destroy() {

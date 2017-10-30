@@ -10,8 +10,11 @@ import by.epam.task.service.UserService;
 import by.epam.task.service.exception.ServiceException;
 import by.epam.task.service.factory.ServiceFactory;
 
+/**
+ * Команда для обработки запроса отображения списка пользователей
+ */
 public class ViewUserList implements ICommand {
-
+	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 		UserService userService = ServiceFactory.getInstance().getUserService();

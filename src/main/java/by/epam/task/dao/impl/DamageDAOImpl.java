@@ -12,8 +12,12 @@ import by.epam.task.dao.exception.DAOException;
 import by.epam.task.dao.sql.DamageSQL;
 import by.epam.task.domain.Damage;
 
+/**
+ * Класс, реализующий интерфейс DamageDAO
+ */
 public class DamageDAOImpl implements DamageDAO {
 
+	/** Пул соединений с базой данных */
 	private final ConnectionPool pool = ConnectionPool.getInstance();
 
 	@Override

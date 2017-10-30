@@ -29,14 +29,24 @@ import by.epam.task.controller.command.impl.view.ViewUserList;
 import by.epam.task.controller.command.impl.view.ViewModifyUserRoom;
 import by.epam.task.domain.Role;
 
+/**
+ *	Класс для хранения и полуения объектов-команд
+ *
+ */
 public class CommandProvider {
 
+	/** Объект для логгирования */
 	private static final Logger logger = Logger.getLogger(CommandProvider.class);
 
+	/** Экземпляр объекта провайдера команд */
 	private static final CommandProvider instance = new CommandProvider();
 
+	/** Карта, в которой ключ - название команды, а значение - объект-команда  */
 	private final Map<CommandName, ICommand> commands = new HashMap<>();
 
+	/**
+	 * Производиться заполнение карты команд
+	 */
 	private CommandProvider() {
 		commands.put(CommandName.WRONG_REQUEST, new WrongRequest());
 		commands.put(CommandName.VIEW_CAR_LIST, new ViewCarList());
@@ -65,7 +75,15 @@ public class CommandProvider {
 		commands.put(CommandName.COMPLETE_DEAL, new CompleteDeal());
 		commands.put(CommandName.DAMAGE_CAR, new DamageCar());
 	}
-
+	
+	/**
+	 * Метод для полученя объекта-команды с учетом роли пользователя 
+	 * 
+	 * @param key имя команды
+	 * @param role роль пользователя
+	 * @return объект-команда
+	 * @throws CommandException если пользователь с указанной ролью не имеет доступа к команде
+	 */
 	public ICommand getCommand(String key, Role role) throws CommandException {
 		ICommand command = null;
 		try {
@@ -84,6 +102,11 @@ public class CommandProvider {
 		return command;
 	}
 
+	/**
+	 * Получение экзепляра провайдера команд
+	 *  
+	 * @return экземпляр провайдера команд
+	 */
 	public static CommandProvider getInstance() {
 		return instance;
 	}

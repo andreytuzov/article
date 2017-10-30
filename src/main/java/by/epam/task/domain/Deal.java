@@ -2,19 +2,33 @@ package by.epam.task.domain;
 
 import java.util.Date;
 
+/**
+ * Объект бизнес данных: заказ
+ */
 public class Deal {
 
+	/** Идентификатор заказа */
 	private int id;
+	/** Стоимость заказа */
 	private float cost;
+	/** Дата начала заказа */
 	private Date dateFrom;
+	/** Дата окончания заказа */
 	private Date dateTo;
+	/** Комментарий пользователя к заказу */
 	private String comment;
+	/** Причина отмены заказа */
 	private String cancelReason;
+	/** Номер пасспорта */
 	private String passportNumber;
 
+	/** Класс пользователя, который выполняет заказ  */
 	private User user;
+	/** Класс автомобиля, для которого производится заказ */
 	private Car car;
+	/** Класс повреждения автомобиля */
 	private Damage damage;
+	/** Класс состояния заказа*/
 	private DealState state;
 
 	public Deal() {

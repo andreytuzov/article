@@ -10,12 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.epam.task.controller.command.ICommand;
 import by.epam.task.controller.command.exception.CommandException;
-import by.epam.task.controller.manager.PageResourceManager;
 import by.epam.task.domain.User;
 import by.epam.task.service.UserService;
 import by.epam.task.service.exception.ServiceException;
 import by.epam.task.service.factory.ServiceFactory;
 
+/**
+ * Команда для обработки запроса редактирования данных пользователя  
+ */
 public class ModifyUser implements ICommand {
 
 	@Override

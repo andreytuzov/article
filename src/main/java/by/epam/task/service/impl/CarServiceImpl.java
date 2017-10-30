@@ -11,6 +11,7 @@ import by.epam.task.service.exception.ServiceException;
 
 public class CarServiceImpl implements CarService {
 
+	/** Класс для работы с таблицей cars */
 	private final CarDAO carDAO = DAOFactory.getInstance().getCarDAO();
 	
 	@Override

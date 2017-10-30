@@ -11,6 +11,9 @@ import by.epam.task.service.factory.ServiceFactory;
 
 import static by.epam.task.controller.validator.Validator.*;
 
+/**
+ * Команда для обработки запроса администратора на добавление повреждения автомобиля 
+ */
 public class DamageCar implements ICommand {
 
 	@Override

@@ -11,6 +11,9 @@ import by.epam.task.service.factory.ServiceFactory;
 
 import static by.epam.task.controller.validator.Validator.*;
 
+/**
+ * Команда для обработки оплаты заказа клиентом 
+ */
 public class PayDeal implements ICommand {
 
 	@Override
