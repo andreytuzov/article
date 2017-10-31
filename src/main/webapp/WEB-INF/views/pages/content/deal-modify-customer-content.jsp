@@ -63,7 +63,7 @@
 
 				<c:if test="${not empty carSchedule && carSchedule.size() ne 0}">
 					<div class="form-group">
-						<label class="control-label col-sm-2" for="dateFrom">BUSY DATE</label>
+						<label class="control-label col-sm-2" for="dateFrom"><fmt:message key="prop.deal.column.busydate"/></label>
 						<div class="col-sm-10">
 							<div class="alert alert-info">
 								<c:forEach var="item" items="${carSchedule}">

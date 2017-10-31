@@ -33,7 +33,8 @@ $(document).ready(function() {
 	$("#dateFromPicker")
 		.datetimepicker({
 			format: "YYYY/MM/DD HH:00",
-			locale: $("#locale").attr("value")
+			locale: $("#locale").attr("value"),
+			minDate: new Date()
 		})
 		.on("dp.change", function(e) {
 			$("#dateToPicker").data("DateTimePicker").minDate(e.date);
@@ -44,7 +45,8 @@ $(document).ready(function() {
 		.datetimepicker({
 			format: "YYYY/MM/DD HH:00",
 			useCurrent: false,
-			locale: $("#locale").attr("value")
+			locale: $("#locale").attr("value"),
+			minDate: new Date()
 		})
 		.on("dp.change", function(e) {
 			$("#dateFromPicker").data("DateTimePicker").maxDate(e.date);

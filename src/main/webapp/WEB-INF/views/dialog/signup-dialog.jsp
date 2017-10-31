@@ -68,7 +68,7 @@
 								<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
 								<input type="text" name="phone" class="form-control" 
 									required data-bv-notempty-message="<fmt:message key="prop.user.column.phone.notempty"/>"
-									pattern="^(\+[0-9]+)?\s?(\([0-9]{2,}\))?\s?[0-9]{2,}-[0-9]{2}-[0-9]{2}$" data-bv-regexp-message="<fmt:message key="prop.user.column.phone.regexp"/>"
+									pattern="^(\+[0-9]+)?\s?([0-9]{2,})?\s?(\d-?){4,}\d$" data-bv-regexp-message="<fmt:message key="prop.user.column.phone.regexp"/>"
 									placeholder="<fmt:message key="prop.user.column.phone.placeholder"/>"/>
 							</div>
 						</div>
