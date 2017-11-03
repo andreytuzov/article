@@ -48,14 +48,14 @@ public class ConnectionPool implements Closeable {
 	 * 
 	 * @throws ConnectionPoolException возникает при появлении ошибки выполнения метода
 	 */
-	public void init() throws ConnectionPoolException {
-		String username = DBResourceManager.getValue(DBParameter.DATABASE_USERNAME);
-		String password = DBResourceManager.getValue(DBParameter.DATABASE_PASSWORD);
-		String driver = DBResourceManager.getValue(DBParameter.DATABASE_DRIVER);
-		String url = DBResourceManager.getValue(DBParameter.DATABASE_URL);
+	public void init(DBResourceManager dbResourceManager) throws ConnectionPoolException {
+		String username = dbResourceManager.getValue(DBParameter.DATABASE_USERNAME);
+		String password = dbResourceManager.getValue(DBParameter.DATABASE_PASSWORD);
+		String driver = dbResourceManager.getValue(DBParameter.DATABASE_DRIVER);
+		String url = dbResourceManager.getValue(DBParameter.DATABASE_URL);
 		int poolsize;
 		try {
-			poolsize = Integer.parseInt(DBResourceManager.getValue(DBParameter.DATABASE_POOLSIZE));
+			poolsize = Integer.parseInt(dbResourceManager.getValue(DBParameter.DATABASE_POOLSIZE));
 		} catch (NumberFormatException ex) {
 			poolsize = 5;
 		}

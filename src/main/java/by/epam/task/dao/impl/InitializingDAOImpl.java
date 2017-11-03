@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import by.epam.task.dao.InitializingDAO;
 import by.epam.task.dao.connection.ConnectionPool;
+import by.epam.task.dao.connection.manager.DBResourceManager;
+import by.epam.task.dao.connection.manager.DBType;
 import by.epam.task.dao.exception.ConnectionPoolException;
 import by.epam.task.dao.exception.DAOException;
 
@@ -16,9 +18,10 @@ public class InitializingDAOImpl implements InitializingDAO {
 	private final ConnectionPool pool = ConnectionPool.getInstance();
 	
 	@Override
-	public void init() throws DAOException {
+	public void init(DBType dbType) throws DAOException {
 		try {
-			pool.init();
+			DBResourceManager dbResourceManager = new DBResourceManager(dbType);
+			pool.init(dbResourceManager);
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("Error completing init method", e);
 		}

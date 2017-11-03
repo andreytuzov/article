@@ -1,6 +1,7 @@
 package by.epam.task.service.impl;
 
 import by.epam.task.dao.InitializingDAO;
+import by.epam.task.dao.connection.manager.DBType;
 import by.epam.task.dao.exception.DAOException;
 import by.epam.task.dao.factory.DAOFactory;
 import by.epam.task.service.InitializingService;
@@ -12,9 +13,9 @@ public class InitializingServiceImpl implements InitializingService {
 	private final InitializingDAO initializingDAO = DAOFactory.getInstance().getInitializingDAO();
 	
 	@Override
-	public void init() throws ServiceException {
+	public void init(DBType dbType) throws ServiceException {
 		try {
-			initializingDAO.init();
+			initializingDAO.init(dbType);
 		} catch (DAOException e) {
 			throw new ServiceException("Error initialization", e);
 		}

@@ -30,8 +30,12 @@ public class ModifyCar implements ICommand {
 		String power = request.getParameter("power");
 		String prise = request.getParameter("prise");
 		String description = request.getParameter("description");
+		Boolean isAdmin = (Boolean) request.getSession().getAttribute("admin");
+		if (isAdmin == null) {
+			isAdmin = false;
+		}
 		// Data validation
-		if ((isValidString(id) && !isValidInt(id)) || !isValidString(model, 5, 70) || !isValidYear(year) || !isValidFloat(volume) 
+		if (!isAdmin || (isValidString(id) && !isValidInt(id)) || !isValidString(model, 5, 70) || !isValidYear(year) || !isValidFloat(volume) 
 				|| !isValidInt(power) || !isValidFloat(prise) || !isValidString(description, 10)) {
 			throw new CommandException("Incorrect request data");
 		}

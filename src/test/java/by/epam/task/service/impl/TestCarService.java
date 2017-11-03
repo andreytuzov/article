@@ -6,6 +6,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import by.epam.task.dao.connection.manager.DBType;
 import by.epam.task.domain.Car;
 import by.epam.task.service.CarService;
 import by.epam.task.service.InitializingService;
@@ -29,7 +30,7 @@ public class TestCarService  {
 		initializingService = ServiceFactory.getInstance().getInitializingService();
 		carService = ServiceFactory.getInstance().getCarService();	
 		try {
-			initializingService.init();
+			initializingService.init(DBType.DB_TEST);
 		} catch (ServiceException e) {
 			logger.error("Error initialization pool", e);
 		}

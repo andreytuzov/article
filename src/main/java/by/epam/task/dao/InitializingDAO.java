@@ -1,5 +1,6 @@
 package by.epam.task.dao;
 
+import by.epam.task.dao.connection.manager.DBType;
 import by.epam.task.dao.exception.DAOException;
 
 /**
@@ -9,9 +10,10 @@ public interface InitializingDAO {
 	/**
 	 * Метод для инициализации пула соединений
 	 * 
+	 * @param dbType тип базы данных
 	 * @throws DAOException возникает при ошибке во время выполнения функции
 	 */
-	void init() throws DAOException;
+	void init(DBType dbType) throws DAOException;
 
 	/**
 	 * Метод для освобождения ресурсов 

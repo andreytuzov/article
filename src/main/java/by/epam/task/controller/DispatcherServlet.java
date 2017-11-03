@@ -14,6 +14,7 @@ import by.epam.task.controller.command.ICommand;
 import by.epam.task.controller.command.exception.CommandException;
 import by.epam.task.controller.manager.PageResourceManager;
 import by.epam.task.controller.validator.Validator;
+import by.epam.task.dao.connection.manager.DBType;
 import by.epam.task.domain.Role;
 import by.epam.task.service.InitializingService;
 import by.epam.task.service.exception.ServiceException;
@@ -39,7 +40,7 @@ public class DispatcherServlet extends HttpServlet {
 	public void init() throws ServletException {
 		super.init();
 		try {
-			initializingService.init();
+			initializingService.init(DBType.DB_MAIN);
 		} catch (ServiceException e) {
 			logger.error("Error completing initialization", e);
 		}
