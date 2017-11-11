@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: motordepot
+-- Host: localhost    Database: motordepot_test
 -- ------------------------------------------------------
 -- Server version	5.5.23
 
@@ -16,28 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `damages`
+-- Table structure for table `deal_states`
 --
 
-DROP TABLE IF EXISTS `damages`;
+DROP TABLE IF EXISTS `deal_states`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `damages` (
-  `dmg_deal_id` int(11) NOT NULL,
-  `dmg_cost` float NOT NULL,
-  `dmg_description` varchar(200) NOT NULL,
-  PRIMARY KEY (`dmg_deal_id`),
-  CONSTRAINT `fk_damages_deals` FOREIGN KEY (`dmg_deal_id`) REFERENCES `deals` (`d_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+CREATE TABLE `deal_states` (
+  `ds_id` int(11) NOT NULL,
+  `ds_name` varchar(45) NOT NULL,
+  PRIMARY KEY (`ds_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `damages`
+-- Dumping data for table `deal_states`
 --
 
-LOCK TABLES `damages` WRITE;
-/*!40000 ALTER TABLE `damages` DISABLE KEYS */;
-/*!40000 ALTER TABLE `damages` ENABLE KEYS */;
+LOCK TABLES `deal_states` WRITE;
+/*!40000 ALTER TABLE `deal_states` DISABLE KEYS */;
+INSERT INTO `deal_states` VALUES (1,'created'),(2,'confirmed'),(3,'paid'),(4,'canceled'),(5,'damaged'),(6,'completed_success'),(7,'completed_damage');
+/*!40000 ALTER TABLE `deal_states` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

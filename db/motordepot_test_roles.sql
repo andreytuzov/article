@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: motordepot
+-- Host: localhost    Database: motordepot_test
 -- ------------------------------------------------------
 -- Server version	5.5.23
 
@@ -16,28 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `damages`
+-- Table structure for table `roles`
 --
 
-DROP TABLE IF EXISTS `damages`;
+DROP TABLE IF EXISTS `roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `damages` (
-  `dmg_deal_id` int(11) NOT NULL,
-  `dmg_cost` float NOT NULL,
-  `dmg_description` varchar(200) NOT NULL,
-  PRIMARY KEY (`dmg_deal_id`),
-  CONSTRAINT `fk_damages_deals` FOREIGN KEY (`dmg_deal_id`) REFERENCES `deals` (`d_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `roles` (
+  `r_id` int(11) NOT NULL AUTO_INCREMENT,
+  `r_name` varchar(25) NOT NULL,
+  PRIMARY KEY (`r_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `damages`
+-- Dumping data for table `roles`
 --
 
-LOCK TABLES `damages` WRITE;
-/*!40000 ALTER TABLE `damages` DISABLE KEYS */;
-/*!40000 ALTER TABLE `damages` ENABLE KEYS */;
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (1,'admin'),(2,'customer');
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-11 15:00:41
+-- Dump completed on 2017-11-11 15:00:42

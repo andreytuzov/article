@@ -1,6 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `motordepot` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `motordepot`;
--- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: motordepot
 -- ------------------------------------------------------
@@ -59,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-29 22:12:33
+-- Dump completed on 2017-11-11 15:00:41
