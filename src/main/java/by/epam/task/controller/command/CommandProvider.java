@@ -26,6 +26,7 @@ import by.epam.task.controller.command.impl.view.ViewDealList;
 import by.epam.task.controller.command.impl.view.ViewModifyCar;
 import by.epam.task.controller.command.impl.view.ViewModifyDeal;
 import by.epam.task.controller.command.impl.view.ViewUserList;
+import by.epam.task.controller.validator.Validator;
 import by.epam.task.controller.command.impl.view.ViewModifyUserRoom;
 import by.epam.task.domain.Role;
 
@@ -87,15 +88,22 @@ public class CommandProvider {
 	public ICommand getCommand(String key, Role role) throws CommandException {
 		ICommand command = null;
 		try {
-			CommandName commandName = CommandName.valueOf(key.toUpperCase());
-			logger.debug("commandName.isAccessed(role) = " + commandName.isAccessed(role));
-			logger.debug("key = " + key);
-			if (commandName.isAccessed(role)) {
-				command = commands.get(commandName);
+			// Data validation
+			if (!Validator.isValidString(key)) {
+				logger.error("Action must not be empty");
+				command = commands.get(CommandName.WRONG_REQUEST);
 			} else {
-				throw new CommandException("User don't have permission to access on this page");
+				CommandName commandName = CommandName.valueOf(key.toUpperCase());
+				if (role == null) {
+					role = Role.ANONYMOUS;
+				}
+				if (commandName.isAccessed(role)) {
+					command = commands.get(commandName);
+				} else {
+					throw new CommandException("User don't have permission to access on this page");
+				}
 			}
-		} catch (IllegalArgumentException | NullPointerException e) {
+		} catch (IllegalArgumentException e) {
 			logger.error("Error getting command", e);
 			command = commands.get(CommandName.WRONG_REQUEST);
 		}

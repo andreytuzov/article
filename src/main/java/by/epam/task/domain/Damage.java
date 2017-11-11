@@ -1,10 +1,14 @@
 package by.epam.task.domain;
 
+import java.io.Serializable;
+
 /**
  * Объект бизнес данных: повреждение автомобиля
  */
-public class Damage {
+public class Damage implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	/** Идентификатор повреждения */
 	private int id;
 	/** Стоимость ремонта автомобиля */

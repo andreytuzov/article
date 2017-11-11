@@ -63,4 +63,13 @@ public interface UserService {
 	 * @throws ServiceException возникает при ошибке во время выполнения метода
 	 */
 	User findOne(int id) throws ServiceException;
+	
+	/**
+	 * Метод для проверки отсутствия ника пользователя
+	 * 
+	 * @param nickname ник пользователя
+	 * @return результат проверки отсутствия пользователя
+	 * @throws ServiceException возникает при ошибке во время выполнения метода
+	 */
+	boolean checkNickname(String nickname) throws ServiceException;
 }

@@ -14,8 +14,7 @@ public interface ICommand {
 	 * 
 	 * @param request объект запроса
 	 * @param response объект ответа
-	 * @return информация об представлении для возврата пользователю
 	 * @throws CommandException если произошла ошибка во время выполнения команды
 	 */
-	String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException;
+	void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException;
 }

@@ -1,12 +1,15 @@
 package by.epam.task.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Объект бизнес данных: заказ
  */
-public class Deal {
-
+public class Deal implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	/** Идентификатор заказа */
 	private int id;
 	/** Стоимость заказа */

@@ -96,6 +96,7 @@ public class DealServiceImpl implements DealService {
 	@Override
 	public int modify(int id, String nickname, int carId, Date dateFrom, Date dateTo, String comment, String passportNumber) throws ServiceException {
 		try {
+			boolean isNew = (id == 0) ? true : false;
 			CarDAO carDAO = DAOFactory.getInstance().getCarDAO();
 			UserDAO userDAO = DAOFactory.getInstance().getUserDAO();			
 			// Data validation
@@ -106,7 +107,7 @@ public class DealServiceImpl implements DealService {
 				throw new ServiceException("Incorrect data");
 			}
 			// Check state
-			if (id != 0) {
+			if (!isNew) {
 				Deal deal = dealDAO.findOne(id);
 				if (deal.getState() != DealState.CREATED) {
 					throw new ServiceException("The user does not have rights to edit deal");
@@ -116,7 +117,7 @@ public class DealServiceImpl implements DealService {
 			float cost =  car.getPrise() * (dateTo.getTime() - dateFrom.getTime()) / 3600000;
 			Deal deal = new Deal(id, cost, dateFrom, dateTo, comment, null, 
 					new User(user.getId()), new Car(carId), null, DealState.CREATED, passportNumber);
-			if (id == 0) {
+			if (!isNew) {
 				id = dealDAO.insert(deal);
 			} else {
 				dealDAO.update(deal);

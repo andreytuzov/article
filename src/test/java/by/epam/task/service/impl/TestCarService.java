@@ -19,6 +19,8 @@ public class TestCarService  {
 	
 	private static final Logger logger = Logger.getLogger(TestCarService.class);
 	
+	private static int CAR_ID = 1;
+	
 	private static CarService carService;
 	private static InitializingService initializingService;
 	
@@ -47,20 +49,19 @@ public class TestCarService  {
 	
 	@Before
 	public void createCar() {
-		car = new Car(0, "Opel Astra", 2001, 1.7f, 76, 1.3f, "Описание автомобиля");
 		try {
-			int id = carService.modify(car);
-			car.setId(id);
+			car = new Car(CAR_ID, "Opel Astra", 2001, 1.7f, 76, 1.3f, "Описание автомобиля");
+			CAR_ID = carService.modify(car);
+			car.setId(CAR_ID);
 		} catch (ServiceException e) {
 			logger.error("Error creating car", e);
 		}
 	}
 	
 	@Test
-	public void modifyTest() {	
+	public void modifyCarTest() {	
 		try {
 			Car expectedCar = new Car(car.getId(), "VW Polo", 2015, 1.6f, 90, 2, "Description car");
-			
 			carService.modify(expectedCar);
 			Car realCar = carService.findOne(expectedCar.getId());
 			
@@ -70,21 +71,26 @@ public class TestCarService  {
 		}
 	}
 	
+	@Test(expected = ServiceException.class)
+	public void deleteCarTest() throws ServiceException {
+		try {
+			carService.delete(car.getId());			
+		} catch (ServiceException e) {
+			logger.error("Error execution carService method", e);
+		}
+		carService.findOne(car.getId());
+	}
+	
 	@Test
-	public void readTest() {	
+	public void readCarTest() {	
 		try {
 			Car realCar = carService.findOne(car.getId());
-			
 			Assert.assertEquals(car, realCar);
 		} catch (ServiceException e) {
 			logger.error("Error execution carService method", e);
 		}
 	}
 	
-	@Test(expected = ServiceException.class)
-	public void deleteTest() throws ServiceException {	
-		carService.delete(car.getId());
-		carService.findOne(car.getId());
-	}
+	
 
 }

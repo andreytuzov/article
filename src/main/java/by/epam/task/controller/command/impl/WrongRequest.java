@@ -1,5 +1,8 @@
 package by.epam.task.controller.command.impl;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,8 +16,13 @@ import by.epam.task.controller.manager.PageResourceManager;
 public class WrongRequest implements ICommand {
 
 	@Override
-	public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-		return PageResourceManager.getPagePath("page.name.error.notfound");
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
+		String page = PageResourceManager.getPagePath("page.name.error.notfound");
+		try {
+			request.getRequestDispatcher(page).forward(request, response);
+		} catch (ServletException | IOException e) {
+			throw new CommandException("Error execution request function", e);
+		}
 	}
 
 }

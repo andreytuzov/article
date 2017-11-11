@@ -38,7 +38,7 @@
 			</tr>
 		</thead>
 		<tbody id="searchTable">
-			<c:forEach var="car" items="${listCar}">
+			<c:forEach var="car" items="${rc_list}">
 				<tr>
 					<td><a href="/motordepot/page?action=view_car&id=${car.id}">${car.model}</a></td>
 					<td>${car.year}</td>

@@ -40,9 +40,10 @@ public class DispatcherServlet extends HttpServlet {
 	public void init() throws ServletException {
 		super.init();
 		try {
-			initializingService.init(DBType.DB_MAIN);
+			initializingService.init(DBType.DB_TEST);
 		} catch (ServiceException e) {
 			logger.error("Error completing initialization", e);
+			throw new ServletException("Error initialization", e);
 		}
 	}
 	
@@ -54,24 +55,18 @@ public class DispatcherServlet extends HttpServlet {
 		// Getting data
 		String action = request.getParameter("action");
 		Role role = (Role) request.getSession().getAttribute("role");
-		// Data validation
-		if (!Validator.isValidString(action)) {
-			logger.error("Action must not be empty");
-			request.getRequestDispatcher(PageResourceManager.getPagePath("page.name.error")).forward(request, response);
-		}
-		if (role == null) {
-			role = Role.ANONYMOUS;
-		}
 		try {
 			ICommand command = CommandProvider.getInstance().getCommand(action, role);
-			String page = command.execute(request, response);
-			if (page != null) {
-				if (page.indexOf("/WEB-INF/") == -1) {
-					response.sendRedirect(page);
-				} else {
-					request.getRequestDispatcher(page).forward(request, response);
-				}
-			}
+			command.execute(request, response);
+			
+			
+//			if (page != null) {
+//				if (page.indexOf("/WEB-INF/") == -1) {
+//					response.sendRedirect(page);
+//				} else {
+//					request.getRequestDispatcher(page).forward(request, response);
+//				}
+//			}
 		} catch (CommandException e) {
 			logger.error("Error execution a command", e);
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

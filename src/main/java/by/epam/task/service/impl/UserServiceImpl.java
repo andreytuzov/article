@@ -84,4 +84,17 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public boolean checkNickname(String nickname) throws ServiceException {
+		try {
+			User user = userDAO.findOneByNickname(nickname);
+			if (user == null) {
+				return true;
+			}
+		} catch (DAOException e) {
+			throw new ServiceException("Error executing update method", e);
+		}
+		return false;
+	}
+
 }
