@@ -11,6 +11,8 @@ import org.apache.log4j.Logger;
 
 import by.epam.task.controller.command.CommandProvider;
 import by.epam.task.controller.command.ICommand;
+import by.epam.task.controller.command.RequestParameter;
+import by.epam.task.controller.command.SessionParameter;
 import by.epam.task.controller.command.exception.CommandException;
 import by.epam.task.controller.manager.PageResourceManager;
 import by.epam.task.controller.validator.Validator;
@@ -40,7 +42,7 @@ public class DispatcherServlet extends HttpServlet {
 	public void init() throws ServletException {
 		super.init();
 		try {
-			initializingService.init(DBType.DB_TEST);
+			initializingService.init(DBType.DB_MAIN);
 		} catch (ServiceException e) {
 			logger.error("Error completing initialization", e);
 			throw new ServletException("Error initialization", e);
@@ -53,20 +55,11 @@ public class DispatcherServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Getting data
-		String action = request.getParameter("action");
-		Role role = (Role) request.getSession().getAttribute("role");
+		String action = request.getParameter(RequestParameter.ACTION);
+		Role role = (Role) request.getSession().getAttribute(SessionParameter.ROLE_NAME);
 		try {
 			ICommand command = CommandProvider.getInstance().getCommand(action, role);
 			command.execute(request, response);
-			
-			
-//			if (page != null) {
-//				if (page.indexOf("/WEB-INF/") == -1) {
-//					response.sendRedirect(page);
-//				} else {
-//					request.getRequestDispatcher(page).forward(request, response);
-//				}
-//			}
 		} catch (CommandException e) {
 			logger.error("Error execution a command", e);
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

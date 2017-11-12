@@ -11,6 +11,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import by.epam.task.controller.command.SessionParameter;
+
 /**
  * Фильтр для изменения локали в сессии
  */
@@ -40,7 +42,7 @@ public class LanguageFilter implements Filter {
 		// Set a new language for the session
 		String lang = req.getParameter(paramName);
 		if (lang != null) {
-			req.getSession().setAttribute("language", lang);
+			req.getSession().setAttribute(SessionParameter.LANGUAGE, lang);
 		}
 		// Redirect to the previous page
 		((HttpServletResponse) response).sendRedirect(req.getHeader("referer"));

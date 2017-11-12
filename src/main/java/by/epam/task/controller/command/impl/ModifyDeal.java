@@ -41,7 +41,7 @@ public class ModifyDeal implements ICommand {
 		String nickname = (String) request.getSession().getAttribute(SessionParameter.USER_NICKNAME);
 		try {
 			// Data validation
-			if (!isValidRequestParameter(carId, nickname, strDateFrom, strDateTo, comment, carId, passportNumber)
+			if (!isValidRequestParameter(carId, nickname, strDateFrom, strDateTo, comment, passportNumber)
 					|| isValidInt(id) && !dealService.checkUser(nickname, Integer.valueOf(id))) {
 				throw new CommandException("Incorrect request data");
 			}
@@ -77,7 +77,7 @@ public class ModifyDeal implements ICommand {
 	 * @return результат валидации
 	 */
 	private boolean isValidRequestParameter(String carId, String nickname, String strDateFrom, String strDateTo,
-			String comment, String id, String passportNumber) {
+			String comment, String passportNumber) {
 		if (!isValidInt(carId) || !isValidString(nickname) || !isValidDate(strDateFrom) || !isValidDate(strDateTo)  
 				|| !isValidLengthMax(comment, DEAL_COMMENT_MAX_LENGTH) || !isValidPassportNumber(passportNumber)) {
 			return false;

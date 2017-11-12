@@ -22,7 +22,7 @@
 						<div class="form-group">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>	
-								<input type="text" name="nickname" class="form-control"  
+								<input type="text" name="ru_nickname" class="form-control"  
 									placeholder="<fmt:message key="prop.user.column.nickname.placeholder"/>" 
 									required data-bv-notempty-message="<fmt:message key="prop.user.column.nickname.notempty"/>"
 									minLength="5" maxLength="25" data-bv-stringlength-message="<fmt:message key="prop.user.column.nickname.stringlength"/>"/>
@@ -31,7 +31,7 @@
 						<div class="form-group">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-								<input type="password" name="password" class="form-control" 
+								<input type="password" name="ru_password" class="form-control" 
 									placeholder="<fmt:message key="prop.user.column.password.placeholder"/>"
 									required data-bv-notempty-message="<fmt:message key="prop.user.column.password.notempty"/>"
 									minLength="5" maxLength="25" data-bv-stringlength-message="<fmt:message key="prop.user.column.password.stringlength"/>"/> 

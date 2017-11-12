@@ -19,13 +19,13 @@
 			</tr> 
 		</thead>
 		<tbody id="searchTable">
-			<c:forEach var="userObject" items="${listUser}">
+			<c:forEach var="user" items="${ru_list}">
 				<tr>
-					<td><a href="/motordepot/page?action=view_modify_user_room&nickname=${userObject.nickname}">${userObject.nickname}</a></td>
-					<td>${userObject.name}</td>
-					<td>${userObject.lastname}</td>
-					<td>${userObject.phone}</td>
-					<td>${userObject.email}</td>
+					<td><a href="/motordepot/page?action=view_modify_user_room&ru_nickname=${user.nickname}">${user.nickname}</a></td>
+					<td>${user.name}</td>
+					<td>${user.lastname}</td>
+					<td>${user.phone}</td>
+					<td>${user.email}</td>
 				</tr>
 			</c:forEach>	
 		</tbody>

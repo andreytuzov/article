@@ -3,13 +3,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="page-header">
-	<h3><fmt:message key="prop.user.header.room"/>, ${userObject.nickname}</h3>
+	<h3><fmt:message key="prop.user.header.room"/>, ${ru_object.nickname}</h3>
 </div>
 
 <div> 
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#user-tab" data-toggle="tab"><fmt:message key="prop.user.tab.info"/></a></li>	
-		<c:if test="${not (admin && user eq userObject.nickname)}">
+		<c:if test="${not (sr_is_admin && su_nickname eq ru_object.nickname)}">
 			<li><a href="#booking-tab" data-toggle="tab"><fmt:message key="prop.user.tab.order"/></a></li>		
 		</c:if>
 	</ul>
@@ -29,22 +29,22 @@
 				data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
 				data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
 				
-				<input type="hidden" name="nickname" value="${userObject.nickname}"/>
+				<input type="hidden" name="ru_nickname" value="${ru_object.nickname}"/>
 				
 				<div class="form-group">
-					<label class="control-label col-sm-2" for="name"><fmt:message key="prop.user.column.name"/></label>
+					<label class="control-label col-sm-2" for="ru_name"><fmt:message key="prop.user.column.name"/></label>
 					<div class="col-sm-5">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 							<c:choose>
-								<c:when test="${user eq userObject.nickname}">
-									<input type="text" name="name" class="form-control" 
-										value="${userObject.name}"
+								<c:when test="${su_nickname eq ru_object.nickname}">
+									<input type="text" name="ru_name" class="form-control" 
+										value="${ru_object.name}"
 										required data-bv-notempty-message="<fmt:message key="prop.user.column.name.notempty"/>"
 										placeholder="<fmt:message key="prop.user.column.name.placeholder"/>"/>
 								</c:when>
 								<c:otherwise>
-									<input type="text" readonly name="name" class="form-control" value="${userObject.name}"/>
+									<input type="text" readonly name="ru_name" class="form-control" value="${ru_object.name}"/>
 								</c:otherwise>
 							</c:choose>
 							
@@ -53,19 +53,19 @@
 				</div>
 				
 				<div class="form-group">
-					<label class="control-label col-sm-2" for="lastname"><fmt:message key="prop.user.column.lastname"/></label>
+					<label class="control-label col-sm-2" for="ru_lastname"><fmt:message key="prop.user.column.lastname"/></label>
 					<div class="col-sm-5">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 							<c:choose>
-								<c:when test="${user eq userObject.nickname}">
-									<input type="text" name="lastname" class="form-control"
-										value="${userObject.lastname}"
+								<c:when test="${su_nickname eq ru_object.nickname}">
+									<input type="text" name="ru_lastname" class="form-control"
+										value="${ru_object.lastname}"
 										required data-bv-notempty-message="<fmt:message key="prop.user.column.lastname.notempty"/>" 
 										placeholder="<fmt:message key="prop.user.column.lastname.placeholder"/>"/>
 								</c:when>
 								<c:otherwise>
-									<input type="text" readonly name="lastname" class="form-control" value="${userObject.lastname}"/>
+									<input type="text" readonly name="ru_lastname" class="form-control" value="${ru_object.lastname}"/>
 								</c:otherwise>
 							</c:choose>
 						</div>
@@ -73,20 +73,20 @@
 				</div>
 				
 				<div class="form-group">
-					<label class="control-label col-sm-2" for="drivenExperience"><fmt:message key="prop.user.column.drivenExperience"/></label>
+					<label class="control-label col-sm-2" for="ru_driven_experience"><fmt:message key="prop.user.column.drivenExperience"/></label>
 					<div class="col-sm-5">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
 							<c:choose>
-								<c:when test="${user eq userObject.nickname}">
-									<input type="text" name="drivenExperience" class="form-control"
-										value="${userObject.drivenExperience}"
+								<c:when test="${su_nickname eq ru_object.nickname}">
+									<input type="text" name="ru_driven_experience" class="form-control"
+										value="${ru_object.drivenExperience}"
 										required data-bv-notempty-message="<fmt:message key="prop.user.column.drivenExperience.notempty"/>"
 										pattern="^\d+$" data-bv-regexp-message="<fmt:message key="prop.user.column.drivenExperience.regexp"/>"
 										placeholder="<fmt:message key="prop.user.column.drivenExperience.placeholder"/>"/>
 								</c:when>
 								<c:otherwise>
-									<input type="text" readonly name="drivenExperience" class="form-control" value="${userObject.drivenExperience}"/>
+									<input type="text" readonly name="ru_driven_experience" class="form-control" value="${ru_object.drivenExperience}"/>
 								</c:otherwise>
 							</c:choose>
 							
@@ -95,20 +95,20 @@
 				</div>
 				
 				<div class="form-group">
-					<label class="control-label col-sm-2" for="phone"><fmt:message key="prop.user.column.phone"/></label>
+					<label class="control-label col-sm-2" for="ru_phone"><fmt:message key="prop.user.column.phone"/></label>
 					<div class="col-sm-5">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
 							<c:choose>
-								<c:when test="${user eq userObject.nickname}">
-									<input type="text" name="phone" class="form-control" 
-										value="${userObject.phone}"
+								<c:when test="${su_nickname eq ru_object.nickname}">
+									<input type="text" name="ru_phone" class="form-control" 
+										value="${ru_object.phone}"
 										required data-bv-notempty-message="<fmt:message key="prop.user.column.phone.notempty"/>"
 										pattern="^(\+[0-9]+)?\s?(\([0-9]{2,}\))?\s?[0-9]{2,}-[0-9]{2}-[0-9]{2}$" data-bv-regexp-message="<fmt:message key="prop.user.column.phone.regexp"/>"
 										placeholder="<fmt:message key="prop.user.column.phone.placeholder"/>"/>
 								</c:when>
 								<c:otherwise>
-									<input type="text" readonly name="phone" class="form-control" value="${userObject.phone}"/>
+									<input type="text" readonly name="ru_phone" class="form-control" value="${ru_object.phone}"/>
 								</c:otherwise>
 							</c:choose>
 							
@@ -117,27 +117,27 @@
 				</div>
 				
 				<div class="form-group">
-					<label class="control-label col-sm-2" for="email"><fmt:message key="prop.user.column.email"/></label>
+					<label class="control-label col-sm-2" for="rc_email"><fmt:message key="prop.user.column.email"/></label>
 					<div class="col-sm-5">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
 							<c:choose>
-								<c:when test="${user eq userObject.nickname}">
-									<input type="text" name="email" class="form-control"
-										value="${userObject.email}"
+								<c:when test="${su_nickname eq ru_object.nickname}">
+									<input type="text" name="rc_email" class="form-control"
+										value="${ru_object.email}"
 										required data-bv-notempty-message="<fmt:message key="prop.user.column.email.notempty"/>"
 										pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" data-bv-regexp-message="<fmt:message key="prop.user.column.email.regexp"/>" 
 										placeholder="<fmt:message key="prop.user.column.email.placeholder"/>"/>
 								</c:when>
 								<c:otherwise>
-									<input type="text" readonly name="email" class="form-control" value="${userObject.email}"/>
+									<input type="text" readonly name="rc_email" class="form-control" value="${ru_object.email}"/>
 								</c:otherwise>
 							</c:choose>
 						</div>
 					</div>
 				</div>
 				
-				<c:if test="${user eq userObject.nickname}">
+				<c:if test="${su_nickname eq ru_object.nickname}">
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 							<button class="btn btn-primary"><fmt:message key="prop.common.button.save"/></button>
@@ -147,7 +147,7 @@
 			</form>
 		</div>
 				
-		<c:if test="${not (admin && user eq userObject.nickname)}">
+		<c:if test="${not (sr_is_admin && su_nickname eq ru_object.nickname)}">
 			<div class="tab-pane" id="booking-tab">
 				<table class="table table-striped table-hover table-bordered searchTable" id="dealTable"> 
 					<thead>
@@ -160,10 +160,10 @@
 						</tr> 
 					</thead>
 					<tbody id="searchTable">
-						<c:forEach var="deal" items="${listDeal}">
+						<c:forEach var="deal" items="${rd_list}">
 							<tr>
 								<td>
-									<a href="/motordepot/page?action=view_modify_deal&id=${deal.id}">
+									<a href="/motordepot/page?action=view_modify_deal&rd_id=${deal.id}">
 										<c:choose>
 											<c:when test="${deal.state eq 'CREATED'}">
 												<i><fmt:message key="prop.deal.header.placeholder.customer.created"/></i>
@@ -180,13 +180,19 @@
 											<c:when test="${deal.state eq 'DAMAGED'}">
 												<i><fmt:message key="prop.deal.header.placeholder.customer.damaged"/></i>
 											</c:when>
+											<c:when test="${deal.state eq 'ACTIVE'}">
+												<i><fmt:message key="prop.deal.header.placeholder.customer.active"/></i>
+											</c:when>
+											<c:when test="${deal.state eq 'FINISHED'}">
+												<i><fmt:message key="prop.deal.header.placeholder.customer.finished"/></i>
+											</c:when>
 											<c:when test="${deal.state eq 'COMPLETED_DAMAGE' || deal.state eq 'COMPLETED_SUCCESS'}">
 												<i><fmt:message key="prop.deal.header.placeholder.customer.completed"/></i>
 											</c:when>
 										</c:choose>									
 									</a>
 								</td>
-								<td><a href="/motordepot/page?action=view_car&id=${deal.car.id}">${deal.car.model}</a></td>
+								<td><a href="/motordepot/page?action=view_car&rc_id=${deal.car.id}">${deal.car.model}</a></td>
 								<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${deal.dateFrom}"/></td>
 								<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${deal.dateTo}"/></td>
 								<td>${deal.cost} $</td>

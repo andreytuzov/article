@@ -33,7 +33,7 @@ public class ViewCar implements ICommand {
 		}
 		try {
 			Car car = carService.findOne(Integer.valueOf(id));
-			request.setAttribute("car", car);
+			request.setAttribute(RequestParameter.CAR_OBJECT, car);
 			String page = PageResourceManager.getPagePath("page.name.car.view");
 			request.getRequestDispatcher(page).forward(request, response);
 		} catch (ServiceException e) {

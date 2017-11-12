@@ -8,7 +8,7 @@
 
 	<div class="page-header">
 		<h3><fmt:message key="prop.car.header.list"/></h3> 
-		<c:if test="${empty user}">
+		<c:if test="${empty su_nickname}">
 			<i><fmt:message key="prop.car.header.list.placeholder"/></i>
 		</c:if>
 	</div>
@@ -27,11 +27,11 @@
 				<th><fmt:message key="prop.car.column.prise"/></th>
 				<th><fmt:message key="prop.car.column.description"/></th>
 				<c:choose>
-					<c:when test="${admin}">
+					<c:when test="${sr_is_admin}">
 						<th><fmt:message key="prop.car.column.edit"/></th>
 						<th><fmt:message key="prop.car.column.delete"/></th>
 					</c:when>
-					<c:when test="${not empty user}">
+					<c:when test="${not empty su_nickname}">
 						<th><fmt:message key="prop.car.column.order"/></th>
 					</c:when>
 				</c:choose>
@@ -40,18 +40,18 @@
 		<tbody id="searchTable">
 			<c:forEach var="car" items="${rc_list}">
 				<tr>
-					<td><a href="/motordepot/page?action=view_car&id=${car.id}">${car.model}</a></td>
+					<td><a href="/motordepot/page?action=view_car&rc_id=${car.id}">${car.model}</a></td>
 					<td>${car.year}</td>
 					<td>${car.volume}</td>
 					<td>${car.prise} $</td>
 					<td><mytags:trim text="${car.description}"/></td>
 					<c:choose>
-						<c:when test="${admin}">
-							<td><a href="/motordepot/page?action=view_modify_car&id=${car.id}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+						<c:when test="${sr_is_admin}">
+							<td><a href="/motordepot/page?action=view_modify_car&rc_id=${car.id}"><span class="glyphicon glyphicon-pencil"></span></a></td>
 							<td><a onclick="deleteCar(${car.id})" href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
 						</c:when>
-						<c:when test="${not empty user}">
-							<td><a href="/motordepot/page?action=view_modify_deal&carId=${car.id}"><span class="glyphicon glyphicon-edit"></span></a></td>
+						<c:when test="${not empty su_nickname}">
+							<td><a href="/motordepot/page?action=view_modify_deal&rc_id=${car.id}"><span class="glyphicon glyphicon-edit"></span></a></td>
 						</c:when>
 					</c:choose>
 				</tr>

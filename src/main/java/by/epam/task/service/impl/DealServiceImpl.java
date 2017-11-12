@@ -117,7 +117,7 @@ public class DealServiceImpl implements DealService {
 			float cost =  car.getPrise() * (dateTo.getTime() - dateFrom.getTime()) / 3600000;
 			Deal deal = new Deal(id, cost, dateFrom, dateTo, comment, null, 
 					new User(user.getId()), new Car(carId), null, DealState.CREATED, passportNumber);
-			if (!isNew) {
+			if (isNew) {
 				id = dealDAO.insert(deal);
 			} else {
 				dealDAO.update(deal);

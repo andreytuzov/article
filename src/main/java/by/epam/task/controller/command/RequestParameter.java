@@ -23,9 +23,9 @@ public class RequestParameter {
 	/** Описание автомобиля */
 	public static final String CAR_DESCRIPTION = "rc_description";
 	/** Список автомобилей */
-	public static final String CAR_LIST = "rс_list";
+	public static final String CAR_LIST = "rc_list";
 	/** Объект автомобиль */
-	public static final String CAR_OBJECT = "rс_object";
+	public static final String CAR_OBJECT = "rc_object";
 
 	// Поля таблицы users
 	/** Ник пользователя */
@@ -86,4 +86,6 @@ public class RequestParameter {
 	// Поля таблицы deal_states
 	/** Первичный ключ */
 	public static final String DEAL_STATE_NAME = "rds_name";	
+	
+	public static final String ACTION = "action";
 }

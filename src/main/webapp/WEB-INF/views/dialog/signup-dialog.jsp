@@ -22,7 +22,7 @@
 						<div class="form-group">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>	
-								<input type="text" autocomplete="false" name="nickname" class="form-control"  
+								<input type="text" autocomplete="false" name="ru_nickname" class="form-control"  
 									placeholder="<fmt:message key="prop.user.column.nickname.placeholder"/>"
 									required data-bv-notempty-message="<fmt:message key="prop.user.column.nickname.notempty"/>"
 									minLength="5" maxLength="25" data-bv-stringlength-message="<fmt:message key="prop.user.column.nickname.stringlength"/>"/>
@@ -31,7 +31,7 @@
 						<div class="form-group">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-								<input type="password" autocomplete="false" name="password" class="form-control" 
+								<input type="password" autocomplete="false" name="ru_password" class="form-control" 
 									placeholder="<fmt:message key="prop.user.column.password.placeholder"/>"
 									required data-bv-notempty-message="<fmt:message key="prop.user.column.password.notempty"/>"
 									minLength="5" maxLength="25" data-bv-stringlength-message="<fmt:message key="prop.user.column.password.stringlength"/>"/>
@@ -41,7 +41,7 @@
 						<div class="form-group">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-								<input type="text" name="name" class="form-control" 
+								<input type="text" name="ru_name" class="form-control" 
 									required data-bv-notempty-message="<fmt:message key="prop.user.column.name.notempty"/>"
 									placeholder="<fmt:message key="prop.user.column.name.placeholder"/>"/>
 							</div>
@@ -49,7 +49,7 @@
 						<div class="form-group">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-								<input type="text" name="lastname" class="form-control"
+								<input type="text" name="ru_lastname" class="form-control"
 									required data-bv-notempty-message="<fmt:message key="prop.user.column.lastname.notempty"/>" 
 									placeholder="<fmt:message key="prop.user.column.lastname.placeholder"/>"/>
 							</div>
@@ -57,7 +57,7 @@
 						<div class="form-group">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-road"></i></span>
-								<input type="text" name="drivenExperience" class="form-control"
+								<input type="text" name="ru_driven_experience" class="form-control"
 									required data-bv-notempty-message="<fmt:message key="prop.user.column.drivenExperience.notempty"/>"
 									pattern="^\d+$" data-bv-regexp-message="<fmt:message key="prop.user.column.drivenExperience.regexp"/>"
 									placeholder="<fmt:message key="prop.user.column.drivenExperience.placeholder"/>"/>
@@ -66,7 +66,7 @@
 						<div class="form-group">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-								<input type="text" name="phone" class="form-control" 
+								<input type="text" name="ru_phone" class="form-control" 
 									required data-bv-notempty-message="<fmt:message key="prop.user.column.phone.notempty"/>"
 									pattern="^(\+[0-9]+)?\s?([0-9]{2,})?\s?(\d-?){4,}\d$" data-bv-regexp-message="<fmt:message key="prop.user.column.phone.regexp"/>"
 									placeholder="<fmt:message key="prop.user.column.phone.placeholder"/>"/>
@@ -75,7 +75,7 @@
 						<div class="form-group">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-								<input type="text" name="email" class="form-control"
+								<input type="text" name="ru_email" class="form-control"
 									required data-bv-notempty-message="<fmt:message key="prop.user.column.email.notempty"/>"
 									pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$" data-bv-regexp-message="<fmt:message key="prop.user.column.email.regexp"/>" 
 									placeholder="<fmt:message key="prop.user.column.email.placeholder"/>"/>

@@ -65,7 +65,7 @@ $(document).ready(function() {
 				.success(function(data) { 
 					$(".alert").attr("class", "alert alert-success").show();
 					$(".alert > span").html(messages["script.car.success.add"] 
-						+ " <a href='/motordepot/page?action=view_car&id=" + data + "'>" 
+						+ " <a href='/motordepot/page?action=view_car&rc_id=" + data + "'>" 
 						+ messages["script.car.other.view"] + "</a>");
 				}, "json")
 				.error(function() {
@@ -83,7 +83,7 @@ $(document).ready(function() {
 			$.post($form.attr("action"), $form.serialize())
 				.success(function(data) {
 					alert(messages["script.deal.success.modify"]); 
-					location.href = "/motordepot/page?action=view_modify_deal&id=" + data;
+					location.href = "/motordepot/page?action=view_modify_deal&rd_id=" + data;
 				})
 				.error(function() {
 					showErrorAlert(messages["script.deal.error.modify"]);
@@ -198,7 +198,7 @@ function confirmDeal(dealID) {
 	$.ajax({
 		type: "post",
 		url: "/motordepot/page?action=confirm_deal",
-		data: {id : dealID},
+		data: {rd_id : dealID},
 		success: function() {
 			location.reload();
 		},
@@ -212,7 +212,7 @@ function completeDeal(dealID) {
 	$.ajax({
 		type: "post",
 		url: "/motordepot/page?action=complete_deal",
-		data: {id : dealID},
+		data: {rd_id : dealID},
 		success: function() {
 			location.reload();
 		},
@@ -227,7 +227,7 @@ function payDeal(dealID) {
 	$.ajax({
 		type: "post",
 		url: "/motordepot/page?action=pay_deal",
-		data: {id : dealID},
+		data: {rd_id : dealID},
 		success: function() {
 			location.reload();
 		},
@@ -254,7 +254,7 @@ function deleteDeal(dealId) {
 		$.ajax({
 			type: "post",
 			url: "/motordepot/page?action=delete_deal",
-			data: {id : dealId},
+			data: {rd_id : dealId},
 			success: function() {
 				alert(messages["script.deal.succes.delete"]);
 				location.href="/motordepot/page?action=view_car_list";
@@ -272,7 +272,7 @@ function deleteCar(carId) {
 		$.ajax({
 			type: "post",
 			url: "/motordepot/page?action=delete_car",
-			data: {id : carId},
+			data: {rc_id : carId},
 			success: function() {
 				alert(messages["script.deal.success.delete"]);
 				location.href="/motordepot/page?action=view_car_list";

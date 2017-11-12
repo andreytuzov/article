@@ -28,7 +28,7 @@ public class ViewModifyCar implements ICommand {
 		// Getting info
 		String id = request.getParameter(RequestParameter.CAR_ID);
 		// Data validation
-		if (!isValidInt(id)) {
+		if (!isValidRequestParameter(id)) {
 			throw new CommandException("Incorrect request data");
 		}
 		try {
@@ -45,5 +45,17 @@ public class ViewModifyCar implements ICommand {
 		} 
 		
 	}
-	
+
+	/**
+	 * Проверка параметров запроса
+	 * 
+	 * @param id идентификатор автомобиля
+	 * @return результат валидации
+	 */
+	private boolean isValidRequestParameter(String id) {
+		if (id != null && !isValidInt(id)) {
+			return false;
+		}
+		return true;
+	}
 }

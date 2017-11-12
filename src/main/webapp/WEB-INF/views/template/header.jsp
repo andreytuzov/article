@@ -10,22 +10,22 @@
 		</div>
 		<ul class="nav navbar-nav">
 			<li><a href="/motordepot/page?action=view_car_list"><fmt:message key="prop.header.button.carlist"/></a></li>
-			<c:if test="${admin}">
-				<li><a href="/motordepot/page?action=view_deal_list&dealState=CREATED"><span class="glyphicon glyphicon-list-alt"></span> <fmt:message key="prop.header.button.deallist"/></a></li>
+			<c:if test="${sr_is_admin}">
+				<li><a href="/motordepot/page?action=view_deal_list&rds_name=CREATED"><span class="glyphicon glyphicon-list-alt"></span> <fmt:message key="prop.header.button.deallist"/></a></li>
 				<li><a href="/motordepot/page?action=view_user_list"><span class="glyphicon glyphicon-user"></span> <fmt:message key="prop.header.button.userlist"/></a></li>
 			</c:if>
 		</ul>
-		<c:if test="${admin}">
+		<c:if test="${sr_is_admin}">
 			<a class="btn btn-danger navbar-btn" href="/motordepot/page?action=view_modify_car"><fmt:message key="prop.header.button.addcar"/></a>
 		</c:if>
 		<ul class="nav navbar-nav navbar-right">
 			<c:choose>
-				<c:when test="${empty user}">
+				<c:when test="${empty su_nickname}">
 					<li><a href="#" data-toggle="modal" data-target="#signupModal" data-backdrop="static" data-keyboard="false"><span class="glyphicon glyphicon-user"></span> <fmt:message key="prop.header.authentication.signup"/></a></li>
 					<li><a href="#" data-toggle="modal" data-target="#loginModal" data-backdrop="static" data-keyboard="false"><span class="glyphicon glyphicon-log-in"></span> <fmt:message key="prop.header.authentication.login"/></a></li>
 				</c:when>
 				<c:otherwise>
-					<li><a href="/motordepot/page?action=view_modify_user_room&nickname=${user}"><span class="glyphicon glyphicon-home"></span> ${user}</a></li>
+					<li><a href="/motordepot/page?action=view_modify_user_room&ru_nickname=${su_nickname}"><span class="glyphicon glyphicon-home"></span> ${su_nickname}</a></li>
 					<li><a href="/motordepot/page?action=log_out"><span class="glyphicon glyphicon-log-out"></span> <fmt:message key="prop.header.authentication.logout"/></a></li>
 				</c:otherwise>
 			</c:choose>

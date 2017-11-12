@@ -246,7 +246,6 @@ public class DealDAOImpl implements DealDAO {
 			SimpleDateFormat format = new SimpleDateFormat(DATETIME_FORMAT);
 			statement.setString(DealSQL.INDEX_DEAL_DATE_FROM, format.format(deal.getDateFrom().getTime()));
 			statement.setString(DealSQL.INDEX_DEAL_DATE_TO, format.format(deal.getDateTo().getTime()));
-			
 			statement.executeUpdate();
 			// Getting id of new item
 			resultSet = statement.getGeneratedKeys();

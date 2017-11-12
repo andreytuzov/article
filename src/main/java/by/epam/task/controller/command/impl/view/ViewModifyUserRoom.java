@@ -31,6 +31,7 @@ public class ViewModifyUserRoom implements ICommand {
 		String nickname = request.getParameter(RequestParameter.USER_NICKNAME);
 		String accessNickname = (String) request.getSession().getAttribute(SessionParameter.USER_NICKNAME);
 		Boolean isAdmin = (Boolean) request.getSession().getAttribute(SessionParameter.ROLE_IS_ADMIN);
+		System.out.println(nickname + ", " + accessNickname + ", " + isAdmin);
 		if (isAdmin == null) {
 			isAdmin = false;
 		}

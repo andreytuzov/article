@@ -13,5 +13,7 @@ public class SessionParameter {
 	public static final String ROLE_NAME = "sr_name";
 	/** Флаг администратора */
 	public static final String ROLE_IS_ADMIN = "sr_is_admin";
+	/** */
+	public static final String LANGUAGE = "language";
 		
 }
